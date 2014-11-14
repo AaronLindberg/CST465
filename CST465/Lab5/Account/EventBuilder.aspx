@@ -1,8 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPage.master" Inherits="EventBuilder" Codebehind="EventBuilder.aspx.cs" %>
-
+<asp:Content ContentPlaceHolderID="heading" runat="server">
+    <h1>Event Builder</h1>
+</asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderId="body" runat="server">
     <div id="divEventBuilder">
-    <h2 id="h2EventBuilder">Event Builder</h2>
     <asp:Label ID="lblEventName" AssociatedControlID="uxEventName" Text="Event Name" runat="server"></asp:Label>
     <asp:TextBox ID="uxEventName" TextMode="SingleLine" runat="server"></asp:TextBox>
     <div id="divAttributes">

@@ -7,11 +7,15 @@
     <link rel="stylesheet" href="StyleSheet.css" />
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
-    <title></title>
 </head>
 <body>
     <div id="divMaster">
         <form id="formMaster" runat="server">
+            <asp:ContentPlaceHolder id="heading" runat="server">
+            
+            </asp:ContentPlaceHolder>
+            <asp:SiteMapDataSource ID="mySiteMap" runat="server" StartingNodeUrl="~/Default.aspx" ShowStartingNode="False" />
+            <asp:Menu DataSourceID="mySiteMap" Orientation="Horizontal" runat="server"></asp:Menu>
             <asp:ContentPlaceHolder id="body" runat="server">
             
             </asp:ContentPlaceHolder>

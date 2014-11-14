@@ -1,17 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Lab5.Login" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" MasterPageFile="~/MasterPage.master" Inherits="Lab5.Login" %>
+<asp:Content ContentPlaceHolderID="head" runat="server">
+    <title>Login</title>
+</asp:Content>
+<asp:Content ContentPlaceHolderID="heading" runat="server">
+    <h1>Login</h1>
+</asp:Content>
+<asp:Content ContentPlaceHolderID="body" runat="server">
     <div>
-        <h1>Login</h1>
-        <asp:Login ID="uxLogin" MembershipProvider="SqlMembership" CreateUserText="Register" CreateUserUrl="~/Register.aspx" runat="server"></asp:Login>
+        <asp:Login ID="uxLogin" MembershipProvider="SqlMembership" CreateUserText="Register" CreateUserUrl="~/Account/Register.aspx" runat="server"></asp:Login>
     </div>
-    </form>
-</body>
-</html>
+</asp:Content>
