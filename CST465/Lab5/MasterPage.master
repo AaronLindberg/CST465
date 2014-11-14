@@ -1,0 +1,21 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="MasterPage" Codebehind="MasterPage.master.cs" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="stylesheet" href="StyleSheet.css" />
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <title></title>
+</head>
+<body>
+    <div id="divMaster">
+        <form id="formMaster" runat="server">
+            <asp:ContentPlaceHolder id="body" runat="server">
+            
+            </asp:ContentPlaceHolder>
+        </form>
+    </div>
+</body>
+</html>

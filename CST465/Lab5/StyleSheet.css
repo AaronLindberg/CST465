@@ -1,0 +1,90 @@
+﻿body
+{
+    background-color:blue;
+}
+div.aspNetHidden
+{
+    background-color:transparent;
+}
+#divDate
+{
+    height:auto;
+    padding:5px;
+    vertical-align:top;
+}
+div.dateComp
+{
+    float:left;
+    margin:2px;
+    display:inline-block;
+}
+div.submission
+{
+    clear:left;
+}
+#divEventBuilder
+{
+    width:35%;
+    float:right;
+}
+#calanderHeading
+{
+    width:200px;
+    text-align:center;
+    background-color:yellow;
+}
+div.attributeComp
+{
+    float:left;
+}
+#divCalander
+{
+    clear:left;
+    background-color:blue;
+}
+#divCalanderCurrentDay
+{
+    background-color:white;
+}
+div.day
+{
+    text-align:left;
+    float:left;
+    width:13%;
+    height:15%;
+    padding:2px;
+    margin:2px
+}
+#body_uxAddEvent
+{
+    float:right;
+}
+div.week
+{
+    background-color:transparent;
+    clear:left;
+}
+label
+{
+    color:blue;
+}
+
+h2
+{
+    color:blue;
+    text-align:center;
+}
+h3.weekDayHeading
+{
+    text-align:center;
+    color:blue;
+}
+div
+{
+    padding:5px;
+    background-color:yellow;
+}
+#divMaster
+{
+    background-color:transparent;
+}
