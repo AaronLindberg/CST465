@@ -4,7 +4,7 @@
         <siteMapNode url="~/About.aspx" title="About" description="About My Calendar Project" />
         <siteMapNode url="~/Login.aspx" title="Login" description="User Login Page" />
         <siteMapNode url="~/Account/Default.aspx" title="My Calendar"  description="User Calendar Page" />
-        <siteMapNode url="~/Account/Register.aspx" title="Register"  description="Register New User Page" />
+        <siteMapNode url="~/Register.aspx" title="Register"  description="Register New User Page" />
         <siteMapNode url="~/Account/EventBuilder.aspx" title="Event Creator"  description="User Event Creator Page" />
         <siteMapNode url="~/Account/Logout.aspx" title="Logout"  description="User Logout Page" />
     </siteMapNode>

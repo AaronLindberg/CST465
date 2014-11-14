@@ -11,7 +11,11 @@ namespace Lab5
     {
         protected void Page_Init(Object sender, EventArgs e)
         {
-            FormsAuthentication.SignOut();
+            if (User.Identity.IsAuthenticated)
+            {
+                FormsAuthentication.SignOut();
+                Response.Redirect(Request.Url.ToString());
+            }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
