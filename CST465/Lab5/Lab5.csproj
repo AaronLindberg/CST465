@@ -57,7 +57,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
     <Content Include="Account\Default.aspx" />
     <Content Include="Account\Logout.aspx" />
     <Content Include="MasterPage.master" />
@@ -72,20 +71,12 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Account\EventBuilder.aspx" />
-    <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="StyleSheet.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Account\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -113,9 +104,6 @@
     </Compile>
     <Compile Include="Account\EventBuilder.aspx.designer.cs">
       <DependentUpon>EventBuilder.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
