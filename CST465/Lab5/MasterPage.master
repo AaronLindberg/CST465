@@ -15,7 +15,10 @@
             
             </asp:ContentPlaceHolder>
             <asp:SiteMapDataSource ID="mySiteMap" runat="server" StartingNodeUrl="~/Default.aspx" ShowStartingNode="False" />
-            <asp:Menu DataSourceID="mySiteMap" Orientation="Horizontal" runat="server"></asp:Menu>
+            <div>
+                <asp:Menu DataSourceID="mySiteMap" Orientation="Horizontal" runat="server"></asp:Menu>
+                <asp:LoginStatus  runat="server" />
+            </div>
             <asp:ContentPlaceHolder id="body" runat="server">
             
             </asp:ContentPlaceHolder>
