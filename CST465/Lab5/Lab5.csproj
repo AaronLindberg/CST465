@@ -59,8 +59,10 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Account\Default.aspx" />
+    <Content Include="Account\EditProfile.aspx" />
     <Content Include="Account\Logout.aspx" />
     <Content Include="Admin\ManageUsers.aspx" />
+    <Content Include="App_Data\CreateProfileTables.sql" />
     <Content Include="MasterPage.master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -92,6 +94,13 @@
     </Compile>
     <Compile Include="Account\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\EditProfile.aspx.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\EditProfile.aspx.designer.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\Logout.aspx.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
@@ -145,7 +154,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
