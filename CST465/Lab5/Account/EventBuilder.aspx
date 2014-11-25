@@ -6,7 +6,9 @@
     <div id="divEventBuilder">
     <asp:Label ID="lblEventName" AssociatedControlID="uxEventName" Text="Event Name" runat="server"></asp:Label>
     <asp:TextBox ID="uxEventName" TextMode="SingleLine" runat="server"></asp:TextBox>
-    <div id="divAttributes">
+        <asp:Label ID="lblScheduleDate" AssociatedControlID="uxScheduleDate" Text="Schedule Date" runat="server"></asp:Label>
+    <asp:TextBox ID="uxScheduleDate" TextMode="DateTime" runat="server"></asp:TextBox>
+    <div>
         <h2>Attributes</h2>
         <asp:Literal ID="literalAttributes" runat="server"></asp:Literal>
         <div class="attributeComp">
