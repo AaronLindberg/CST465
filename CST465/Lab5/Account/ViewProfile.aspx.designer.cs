@@ -13,6 +13,15 @@ namespace Lab5.Account {
     public partial class ViewProfile {
         
         /// <summary>
+        /// literalUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal literalUsername;
+        
+        /// <summary>
         /// literalFirstname control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace Lab5.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal literalLastname;
+        
+        /// <summary>
+        /// literalEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal literalEmail;
         
         /// <summary>
         /// uxEditProfile control.

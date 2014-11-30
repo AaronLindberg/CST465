@@ -14,7 +14,9 @@ namespace Lab5.App_Code
         Object m_ID = null;
         public String Firstname { get; set; }
         public String Lastname { get; set; }
+        public String Username { get; set; }
         public String Email { get; set; }
+        
         public void loadLoggedInUser()
         {
             m_ID = Membership.GetUser().ProviderUserKey;
@@ -30,6 +32,34 @@ namespace Lab5.App_Code
                 {
                     Firstname = (string)reader.GetValue(1);
                     Lastname = (string)reader.GetValue(2);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+                connection.Close();
+            }
+            loadUserNameEmail();
+        }
+        private void loadUserNameEmail()
+        {
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("SELECT aspnet_Users.UserName, aspnet_Membership.Email FROM aspnet_Membership INNER JOIN aspnet_Users ON aspnet_Membership.UserId = aspnet_Users.UserId WHERE aspnet_Users.UserId = @UserId;", connection);
+            SqlDataReader reader = null;
+            try
+            {
+                command.Parameters.AddWithValue("UserId", m_ID);
+                connection.Open();
+                reader = command.ExecuteReader();
+                if (reader.HasRows && reader.Read())
+                {
+                    Username = (string)reader.GetValue(0);
+                    Email = (string)reader.GetValue(1);
                 }
             }
             catch (Exception ex)
@@ -67,6 +97,113 @@ namespace Lab5.App_Code
             {
                 connection.Close();
             }
+            UpdateEmail();
+            UpdateUserName();
+            
+        }
+        private void UpdateUserName()
+        {
+            if (!UserNameExsists())
+            {
+                m_ID = Membership.GetUser().ProviderUserKey;
+                SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+                SqlCommand command = new SqlCommand("UPDATE aspnet_Users SET UserName = @UserName, LoweredUserName = @LoweredUserName WHERE UserId = @UserId;", connection);
+                try
+                {
+                    command.Parameters.AddWithValue("UserId", m_ID);
+                    command.Parameters.AddWithValue("UserName", Username);
+                    command.Parameters.AddWithValue("LoweredUserName", Username.ToLower());
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                UpdateUserName();
+            }
+        }
+        public bool UserNameExsists()
+        {
+            bool ret = true;
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("SELECT COUNT(aspnet_Users.LoweredUserName) FROM aspnet_Users WHERE aspnet_Users.LoweredUserName = @UserName;", connection);
+            SqlDataReader reader = null;
+            try
+            {
+                command.Parameters.AddWithValue("UserName", Username.ToLower());
+                connection.Open();
+                int count = (int)command.ExecuteScalar();
+                ret = count >= 1;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+                connection.Close();
+            }
+            return ret;
+        }
+        public void UpdateEmail()
+        {
+            if (!EmailExsists())
+            {
+                m_ID = Membership.GetUser().ProviderUserKey;
+                SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+                SqlCommand command = new SqlCommand("UPDATE aspnet_Membership SET Email = @Email, LoweredEmail = @LoweredEmail WHERE UserId = @UserId;", connection);
+                try
+                {
+                    command.Parameters.AddWithValue("UserId", m_ID);
+                    command.Parameters.AddWithValue("Email", Email);
+                    command.Parameters.AddWithValue("LoweredEmail", Email.ToLower());
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                UpdateUserName();
+            }
+        }
+        public bool EmailExsists()
+        {
+            bool ret = true;
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("SELECT COUNT(LoweredEmail) FROM aspnet_Membership WHERE LoweredEmail = @Email;", connection);
+            SqlDataReader reader = null;
+            try
+            {
+                command.Parameters.AddWithValue("Email", Email.ToLower());
+                connection.Open();
+                int count = (int)command.ExecuteScalar();
+                ret = count >= 1;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+                connection.Close();
+            }
+            return ret;
         }
     }
 }

@@ -9,11 +9,17 @@
     <div>
         <fieldset>
             <legend>User Information</legend>
+            <b>Username:</b>
+            <asp:Literal ID="literalUsername" runat="server"></asp:Literal>
+            <br />
             <b>First Name:</b>
             <asp:Literal ID="literalFirstname" runat="server"></asp:Literal>
             <br />
             <b>Last Name:</b>
             <asp:Literal ID="literalLastname" runat="server"></asp:Literal>
+            <br />
+            <b>E-mail:</b>
+            <asp:Literal ID="literalEmail" runat="server"></asp:Literal>
             <br />
             <asp:Button ID="uxEditProfile" Text="Edit Profile Information" OnClick="uxEditProfile_Click" runat="server" />
         </fieldset>

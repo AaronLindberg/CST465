@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="EditProfile.aspx.cs" Inherits="Lab5.Account.EditProfile" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="True" CodeBehind="EditProfile.aspx.cs" Inherits="Lab5.Account.EditProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Edit Profile</title>
 </asp:Content>
@@ -9,11 +9,17 @@
     <div>
         <fieldset>
             <legend>User Information</legend>
+            <asp:Label ID="lblUserName" AssociatedControlID="uxUsername" Text="Username" runat="server"></asp:Label>
+            <asp:TextBox ID="uxUsername" runat="server"></asp:TextBox>
+            <br />
             <asp:Label AssociatedControlID="uxFirstName" Text="First Name" runat="server"></asp:Label>
             <asp:TextBox ID="uxFirstName" runat="server"></asp:TextBox>
             <br />
             <asp:Label AssociatedControlID="uxLastName" Text="Last Name" runat="server"></asp:Label>
             <asp:TextBox ID="uxLastName" runat="server"></asp:TextBox>
+            <br />
+            <asp:Label ID="lblEmail" AssociatedControlID="uxEmail" Text="Email" runat="server"></asp:Label>
+            <asp:TextBox ID="uxEmail" runat="server"></asp:TextBox>
             <br />
             <asp:Button ID="uxSubmit" Text="Submit Changes" OnClick="uxSubmit_Click" runat="server" />
         </fieldset>

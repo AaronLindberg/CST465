@@ -21,6 +21,8 @@ namespace Lab5.Account
                 profile.loadLoggedInUser();
                 uxFirstName.Text = profile.Firstname;
                 uxLastName.Text = profile.Lastname;
+                uxUsername.Text = profile.Username;
+                uxEmail.Text = profile.Email;
             }
         }
 
@@ -28,7 +30,14 @@ namespace Lab5.Account
         {
             profile.Firstname = uxFirstName.Text;
             profile.Lastname = uxLastName.Text;
+            profile.Username = uxUsername.Text;
+            profile.Email = uxEmail.Text;
+            bool ReAuthenticate = !profile.UserNameExsists();
             profile.UpdateProfile();
+            if (ReAuthenticate)
+            {
+                FormsAuthentication.SignOut();
+            }
             Response.Redirect("~/Account/ViewProfile.aspx");
         }
     }

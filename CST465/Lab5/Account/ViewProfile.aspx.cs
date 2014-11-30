@@ -17,6 +17,8 @@ namespace Lab5.Account
                 profile.loadLoggedInUser();
                 literalFirstname.Text = profile.Firstname;
                 literalLastname.Text = profile.Lastname;
+                literalEmail.Text = profile.Email;
+                literalUsername.Text = profile.Username;
             }
         }
 
