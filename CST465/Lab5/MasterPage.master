@@ -16,8 +16,15 @@
             </asp:ContentPlaceHolder>
             <asp:SiteMapDataSource ID="mySiteMap" runat="server" StartingNodeUrl="~/Default.aspx" ShowStartingNode="False" />
             <div>
-                <asp:Menu DataSourceID="mySiteMap" Orientation="Horizontal" runat="server"></asp:Menu>
-                <asp:LoginStatus  runat="server" />
+                <asp:LoginStatus ID="uxLoginStatus" CssClass="loginStatus" runat="server" />
+                <asp:Menu DataSourceID="mySiteMap" MaximumDynamicDisplayLevels="2" orientation="Horizontal" runat="server" CssClass="mainMenu">
+                    <StaticMenuItemStyle HorizontalPadding="0.5em" ItemSpacing="" CssClass="menuItem" />
+                    <StaticHoverStyle CssClass="menuItemHover" />
+                    <LevelMenuItemStyles>
+                        <asp:MenuItemStyle CssClass="level1" />
+                        <asp:MenuItemStyle CssClass="level2" />
+                    </LevelMenuItemStyles>
+                </asp:Menu>
             </div>
             <asp:ContentPlaceHolder id="body" runat="server">
             

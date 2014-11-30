@@ -8,7 +8,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
     <div>
         <fieldset>
-            <legend>User Info</legend>
+            <legend>User Information</legend>
             <asp:Label AssociatedControlID="uxFirstName" Text="First Name" runat="server"></asp:Label>
             <asp:TextBox ID="uxFirstName" runat="server"></asp:TextBox>
             <br />

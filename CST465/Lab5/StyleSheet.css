@@ -1,4 +1,59 @@
-﻿h1{
+﻿.mainMenu
+{
+    background-color:yellow;
+    border-radius: 7px;
+    border-bottom: 5px groove goldenrod;
+    border-right: 3px groove gold;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+}
+.level1
+{
+    color:blue;
+    background-color:blue;
+    border-radius: 7px;
+    border-bottom: 5px groove darkblue;
+    border-right: 2px groove blueviolet;
+}
+.menuItem
+{
+    font:800 1em Crimson Text;
+    background-color:yellow;
+    margin:.5em;
+}
+.menuItemHover
+{
+    font:800 1em Crimson Text;
+    color:yellow;
+    background-color:purple;
+    margin:.5em;
+}
+.loginStatus
+{
+    font:bold 1.2em Chrimson Text;
+    float: right;
+    color:yellow;
+    padding:5px;
+    background-color:blue;
+    border-radius:7px;
+    border-bottom: 6px groove goldenrod;
+    border-right: 3px groove goldenrod;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+}
+.level2
+{
+    color:yellow;
+    padding:5px;
+    background-color:blue;
+    border-radius:7px;
+    border-bottom: 6px groove darkblue;
+    border-right: 3px groove navy;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+
+h1{
     color:yellow;
 }
 body
@@ -85,9 +140,14 @@ h3.weekDayHeading
 div
 {
     padding:5px;
+    border-radius:5px;
     background-color:yellow;
 }
 #divMaster
 {
     background-color:transparent;
+}
+b
+{
+    color:blue;
 }

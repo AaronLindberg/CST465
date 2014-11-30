@@ -8,62 +8,28 @@ using System.Web.Security;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
-
+using Lab5.App_Code;
 namespace Lab5.Account
 {
     public partial class EditProfile : System.Web.UI.Page
     {
+        ProfileInformation profile = new ProfileInformation();
         protected void Page_Load(object sender, EventArgs e)
         {
-            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
-            SqlCommand command = new SqlCommand("SELECT UserId, FirstName, LastName FROM UserProfile Where UserId = @UserId;", connection);
-            try
+            if (!IsPostBack)
             {
-                command.Parameters.AddWithValue("UserId", Membership.GetUser().ProviderUserKey);
-
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows && reader.Read())
-                {
-                    uxFirstName.Text = (string)reader.GetValue(1);
-                    uxLastName.Text = (string)reader.GetValue(2);
-                }
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            {
-                connection.Close();
+                profile.loadLoggedInUser();
+                uxFirstName.Text = profile.Firstname;
+                uxLastName.Text = profile.Lastname;
             }
         }
 
         protected void uxSubmit_Click(object sender, EventArgs e)
         {
-            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
-            SqlCommand command = new SqlCommand("UserProfile_InsertUpdate", connection);
-            try
-            {
-                command.Parameters.AddWithValue("UserId", Membership.GetUser().ProviderUserKey);
-                command.Parameters.AddWithValue("FirstName", uxFirstName.Text);
-                command.Parameters.AddWithValue("LastName", uxLastName.Text);
-
-                command.CommandType = CommandType.StoredProcedure;
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                
-            }
-            finally
-            {
-                connection.Close();
-            }
-            
+            profile.Firstname = uxFirstName.Text;
+            profile.Lastname = uxLastName.Text;
+            profile.UpdateProfile();
+            Response.Redirect("~/Account/ViewProfile.aspx");
         }
     }
 }

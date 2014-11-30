@@ -2,12 +2,14 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="~/Default.aspx" title="Home" description="Main Calendar Page">
         <siteMapNode url="~/About.aspx" title="About" description="About My Calendar Project" />
-        <siteMapNode url="~/Login.aspx" title="Login" description="User Login Page" />
-        <siteMapNode url="~/Account/Default.aspx" title="My Calendar"  description="User Calendar Page" />
         <siteMapNode url="~/Register.aspx" title="Register"  description="Register New User Page" />
-        <siteMapNode url="~/Account/EventBuilder.aspx" title="Event Creator"  description="User Event Creator Page" />
-      <siteMapNode url="~/Account/EditProfile.aspx" title="Edit"  description="Edit User Profile" />
-        <siteMapNode url="~/Account/Logout.aspx" title="Logout"  description="User Logout Page" />
+        <siteMapNode url="~/Account/Default.aspx" title="My Calendar"  description="User Calendar Page" >
+            <siteMapNode url="~/Account/EventBuilder.aspx" title="Event Creator"  description="User Event Creator Page" />
+        </siteMapNode>
+        <siteMapNode url="~/Account/ViewProfile.aspx" title="My Profile"  description="View My User Profile">
+            <siteMapNode url="~/Account/EditProfile.aspx" title="Edit"  description="Edit User Profile"/>
+            <siteMapNode url="~/Account/Logout.aspx" title="Logout"  description="User Logout Page" />
+        </siteMapNode>
         <siteMapNode url="~/Admin/ManageUsers.aspx" title="Manage Users"  description="User Management Page" />
     </siteMapNode>
 </siteMap>

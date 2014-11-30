@@ -61,6 +61,7 @@
     <Content Include="Account\Default.aspx" />
     <Content Include="Account\EditProfile.aspx" />
     <Content Include="Account\Logout.aspx" />
+    <Content Include="Account\ViewProfile.aspx" />
     <Content Include="Admin\ManageUsers.aspx" />
     <Content Include="App_Data\CreateProfileTables.sql" />
     <Content Include="MasterPage.master" />
@@ -109,6 +110,13 @@
     <Compile Include="Account\Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Account\ViewProfile.aspx.cs">
+      <DependentUpon>ViewProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ViewProfile.aspx.designer.cs">
+      <DependentUpon>ViewProfile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ManageUsers.aspx.cs">
       <DependentUpon>ManageUsers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -116,8 +124,9 @@
     <Compile Include="Admin\ManageUsers.aspx.designer.cs">
       <DependentUpon>ManageUsers.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CalanderAttribute.cs" />
-    <Compile Include="CalanderEvent.cs" />
+    <Compile Include="App_Code\CalanderAttribute.cs" />
+    <Compile Include="App_Code\CalanderEvent.cs" />
+    <Compile Include="App_Code\ProfileInformation.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

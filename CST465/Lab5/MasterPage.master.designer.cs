@@ -48,6 +48,15 @@ public partial class MasterPage {
     protected global::System.Web.UI.WebControls.SiteMapDataSource mySiteMap;
     
     /// <summary>
+    /// uxLoginStatus control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.LoginStatus uxLoginStatus;
+    
+    /// <summary>
     /// body control.
     /// </summary>
     /// <remarks>
