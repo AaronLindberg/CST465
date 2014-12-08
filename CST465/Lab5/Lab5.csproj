@@ -63,7 +63,9 @@
     <Content Include="Account\Logout.aspx" />
     <Content Include="Account\ViewProfile.aspx" />
     <Content Include="Admin\ManageUsers.aspx" />
-    <Content Include="App_Data\CreateProfileTables.sql" />
+    <Content Include="App_Data\load.gif" />
+    <Content Include="JS\Calendar.js" />
+    <Content Include="JS\jquery-2.1.1.min.js" />
     <Content Include="MasterPage.master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -126,8 +128,9 @@
     <Compile Include="Admin\ManageUsers.aspx.designer.cs">
       <DependentUpon>ManageUsers.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_Code\CalanderAttribute.cs" />
-    <Compile Include="App_Code\CalanderEvent.cs" />
+    <Compile Include="App_Code\CalendarAttribute.cs" />
+    <Compile Include="App_Code\CalendarEvent.cs" />
+    <Compile Include="App_Code\Calendar.cs" />
     <Compile Include="App_Code\ProfileInformation.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -166,7 +169,6 @@
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

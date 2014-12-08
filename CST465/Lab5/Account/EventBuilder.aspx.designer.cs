@@ -12,6 +12,15 @@
 public partial class EventBuilder {
     
     /// <summary>
+    /// uxEventBuilderUpdatePanel control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.UpdatePanel uxEventBuilderUpdatePanel;
+    
+    /// <summary>
     /// lblEventName control.
     /// </summary>
     /// <remarks>
@@ -46,6 +55,24 @@ public partial class EventBuilder {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.TextBox uxScheduleDate;
+    
+    /// <summary>
+    /// lblEventDescription control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Label lblEventDescription;
+    
+    /// <summary>
+    /// uxEventDescription control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.TextBox uxEventDescription;
     
     /// <summary>
     /// literalAttributes control.

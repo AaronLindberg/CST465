@@ -30,6 +30,15 @@ public partial class MasterPage {
     protected global::System.Web.UI.HtmlControls.HtmlForm formMaster;
     
     /// <summary>
+    /// uxScriptManager control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.ScriptManager uxScriptManager;
+    
+    /// <summary>
     /// heading control.
     /// </summary>
     /// <remarks>
@@ -46,6 +55,15 @@ public partial class MasterPage {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.SiteMapDataSource mySiteMap;
+    
+    /// <summary>
+    /// uxLoginView control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.LoginView uxLoginView;
     
     /// <summary>
     /// uxLoginStatus control.

@@ -12,112 +12,58 @@
 public partial class _Default {
     
     /// <summary>
-    /// lblMonth control.
+    /// uxViewingDateUpdatePanel control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblMonth;
+    protected global::System.Web.UI.UpdatePanel uxViewingDateUpdatePanel;
     
     /// <summary>
-    /// uxMonthRequiredFieldValidator control.
+    /// uxScriptManagerProxy control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.RequiredFieldValidator uxMonthRequiredFieldValidator;
+    protected global::System.Web.UI.ScriptManagerProxy uxScriptManagerProxy;
     
     /// <summary>
-    /// uxMonth control.
+    /// uxViewingDate control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList uxMonth;
+    protected global::System.Web.UI.WebControls.TextBox uxViewingDate;
     
     /// <summary>
-    /// lblDay control.
+    /// uxViewingDate_RequiredFieldValidator control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblDay;
+    protected global::System.Web.UI.WebControls.RequiredFieldValidator uxViewingDate_RequiredFieldValidator;
     
     /// <summary>
-    /// uxDayRequiredFieldValidator control.
+    /// uxViewingDate_CustomValidator control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.RequiredFieldValidator uxDayRequiredFieldValidator;
+    protected global::System.Web.UI.WebControls.CustomValidator uxViewingDate_CustomValidator;
     
     /// <summary>
-    /// uxDayRangeValidator control.
+    /// uxViewingDate_ValidationSummary control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.RangeValidator uxDayRangeValidator;
-    
-    /// <summary>
-    /// uxDay control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox uxDay;
-    
-    /// <summary>
-    /// lblYear control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblYear;
-    
-    /// <summary>
-    /// uxYearRequiredFieldValidator control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.RequiredFieldValidator uxYearRequiredFieldValidator;
-    
-    /// <summary>
-    /// uxYearRangeValidator control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.RangeValidator uxYearRangeValidator;
-    
-    /// <summary>
-    /// uxYearRegexValidator control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.RegularExpressionValidator uxYearRegexValidator;
-    
-    /// <summary>
-    /// uxYear control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox uxYear;
+    protected global::System.Web.UI.WebControls.ValidationSummary uxViewingDate_ValidationSummary;
     
     /// <summary>
     /// uxAddEvent control.
@@ -138,20 +84,47 @@ public partial class _Default {
     protected global::System.Web.UI.WebControls.Button uxViewDate;
     
     /// <summary>
-    /// dateValidationSummary control.
+    /// uxCalendarHeading control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.ValidationSummary dateValidationSummary;
+    protected global::System.Web.UI.WebControls.Literal uxCalendarHeading;
     
     /// <summary>
-    /// literalCalander control.
+    /// uxWeekDayNameRep control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Literal literalCalander;
+    protected global::System.Web.UI.WebControls.Repeater uxWeekDayNameRep;
+    
+    /// <summary>
+    /// uxWeekRepeater control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Repeater uxWeekRepeater;
+    
+    /// <summary>
+    /// uxCalendarUpdatePanel control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.UpdatePanel uxCalendarUpdatePanel;
+    
+    /// <summary>
+    /// UpdateProgress1 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.UpdateProgress UpdateProgress1;
 }

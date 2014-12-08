@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 namespace Lab5.App_Code
 {
+    [Serializable]
     public class ProfileInformation
     {
         Object IdKey { get { return m_ID; } }

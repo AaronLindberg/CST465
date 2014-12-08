@@ -1,21 +1,55 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="MasterPage" Codebehind="MasterPage.master.cs" %>
-
+﻿<%@ Master Language="C#" ClientIDMode="AutoID" AutoEventWireup="true" Inherits="MasterPage" Codebehind="MasterPage.master.cs" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    
     <link rel="stylesheet" href="StyleSheet.css" />
     <asp:ContentPlaceHolder id="head" runat="server">
+    
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <div id="divMaster">
         <form id="formMaster" runat="server">
+            <asp:ScriptManager ID="uxScriptManager" runat="server">
+                <Scripts>
+                    <asp:ScriptReference Path="~/JS/jquery-2.1.1.min.js" />
+                    <asp:ScriptReference Path="~/JS/DateControl.js" />
+                    <asp:ScriptReference Path="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" />
+                    <asp:ScriptReference Path="//code.jquery.com/ui/1.10.4/jquery-ui.js" />
+                </Scripts>
+            </asp:ScriptManager>
             <asp:ContentPlaceHolder id="heading" runat="server">
             
             </asp:ContentPlaceHolder>
             <asp:SiteMapDataSource ID="mySiteMap" runat="server" StartingNodeUrl="~/Default.aspx" ShowStartingNode="False" />
             <div>
+                <div class="loginView">
+                    <asp:LoginView ID="uxLoginView" runat="server">
+                        <AnonymousTemplate>
+                            Register or Login for a better experience.
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <fieldset>
+                                <legend>Logged in User</legend>
+                                User Name: <asp:LoginName runat="server" />
+                            </fieldset>
+                        </LoggedInTemplate>
+                        <RoleGroups>
+                            <asp:RoleGroup Roles="Admins">
+                                <ContentTemplate>
+                                    <fieldset>
+                                        <legend>Logged in User</legend>
+                                        User Name: <asp:LoginName ID="LoginName1" runat="server" />
+                                        <br />
+                                        You are an Administrator.
+                                    </fieldset>
+                                </ContentTemplate>
+                            </asp:RoleGroup>
+                        </RoleGroups>
+                    </asp:LoginView>
+                </div>
                 <asp:LoginStatus ID="uxLoginStatus" CssClass="loginStatus" runat="server" />
                 <asp:Menu DataSourceID="mySiteMap" MaximumDynamicDisplayLevels="2" orientation="Horizontal" runat="server" CssClass="mainMenu">
                     <StaticMenuItemStyle HorizontalPadding="0.5em" ItemSpacing="" CssClass="menuItem" />
