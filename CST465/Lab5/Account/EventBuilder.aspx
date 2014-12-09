@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPage.master" Inherits="EventBuilder" Codebehind="EventBuilder.aspx.cs" %>
+﻿<%@ Page Language="C#" AutoEventWireup="True" MasterPageFile="~/MasterPage.master" Inherits="EventBuilder" Codebehind="EventBuilder.aspx.cs" %>
 <asp:Content ContentPlaceHolderID="heading" runat="server">
     <h1>Event Builder</h1>
 </asp:Content>
@@ -18,7 +18,37 @@
             <asp:TextBox ID="uxEventDescription" TextMode="MultiLine" runat="server"></asp:TextBox>
             <br />
             <div>
-                <h2>Attributes</h2>
+                <fieldset class="attributeFieldset">
+            <legend>Attributes</legend>
+            <asp:GridView ID="uxAttributeGrid" CssClass="attributeGrid" AutoGenerateColumns="false" runat="server">
+                <Columns>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <div class="attributeGrid_Head">Attribute Name</div>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <div class="attributeGrid"><%# Eval("Name") %></div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <div class="attributeGridHead">Attribute Type</div>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <div class="attributeGrid"><%# Eval("Type") %></div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <div class="attributeGridHead">Attribute Value</div>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <div class="attributeGrid"><%# Eval("Value") %></div>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+            </fieldset>
                 <asp:Literal ID="literalAttributes" runat="server"></asp:Literal>
                 <div class="attributeComp">
                     <asp:Label ID="lblAttributeId" Text="Attribute Alias" AssociatedControlID="uxAttributeId" runat="server"></asp:Label>

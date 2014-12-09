@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,7 +19,7 @@ public enum AttributeType
 }
 public interface ICalendarAttribute
 {
-    AttributeType getType();
+    AttributeType Type { get; }
     bool validate (String input);
     String Name { get; set; }
     bool IsLoadedFromDb{get;}
@@ -37,9 +38,50 @@ public class StringCalendarAttribute:ICalendarAttribute
     private int _EventId = -1;
     public int EventId { get { return _EventId; } set { _EventId = value; } }
     private String _mData;
+    public static ArrayList getEventStringAttributes(int EventId)
+    {
+        ArrayList retArray = new ArrayList();
+        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+        SqlCommand command = new SqlCommand("SELECT StringID, EventMemoryFK, StringAttributeName, StringValue FROM StringAttribute WHERE EventMemoryFK = @ID;", connection);
+        SqlDataReader reader = null;
+        try
+        {
+            command.Parameters.AddWithValue("ID", EventId);
+
+            connection.Open();
+            reader = command.ExecuteReader();
+            while (reader.HasRows && reader.Read())
+            {
+                retArray.Add(new StringCalendarAttribute()
+                {
+                    _mId = (int)reader[0],
+                    _EventId = (int)reader[1],
+                    _Name = (String)reader[2],
+                    _mData = (String)reader[3]
+                });
+            }
+            connection.Close();
+            connection.Dispose();
+            connection = null;
+        }
+        catch (Exception e)
+        {
+
+        }
+        finally
+        {
+            if (connection != null)
+            {
+                connection.Close();
+                connection.Dispose();
+                connection = null;
+            }
+
+        }
+        return retArray;
+    }
     public StringCalendarAttribute()
     {
-        _LoadedFromDb = false;
     }
     public StringCalendarAttribute(int Id, int EventFk, String data, string name)
     {
@@ -48,10 +90,7 @@ public class StringCalendarAttribute:ICalendarAttribute
         _mData = data;
         _Name = name;
     }
-    public AttributeType getType()
-    {
-        return AttributeType.String;
-    }
+    public AttributeType Type{ get { return AttributeType.String; }}
 
     public bool validate(string input)
     { 
@@ -140,10 +179,7 @@ public class IntegerCalendarAttribute:ICalendarAttribute
         }
     }
 
-    public AttributeType getType()
-    {
-        return AttributeType.Integer;
-    }
+    public AttributeType Type { get { return AttributeType.Integer; } }
 
 
     public bool validate(String input)

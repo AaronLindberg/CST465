@@ -21,12 +21,15 @@ public class Week
 public class WeekDay
 {
     public int Day { get; set; }
+    public String HiddenDay { get; set; }
+    public String HiddenEvents { get; set; }
     public String className { get; set; }
     public ArrayList EventMemories{get; set;}
 }
 
 public partial class _Default : System.Web.UI.Page
 {
+            
     DateTime LastValidDate = new DateTime();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -37,11 +40,17 @@ public partial class _Default : System.Web.UI.Page
         }
         else
         {
+            //ScriptManager.RegisterStartupScript(this.uxViewingDateUpdatePanel, this.uxViewingDateUpdatePanel.GetType(), "CalendarLoad", "$(document).ready(function () {$(\".day\").bind(\"click\", dayClicked);$(\"Input[type=checkbox]\").bind(\"click\", ToggleEventView);$(\".CalendarCurrentDay\").removeClass(\".day\");})", true);
             DateTime.TryParseExact(uxViewingDate.Text, "M/d/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AssumeLocal,out LastValidDate);
         }
     }
 
     public override void RenderControl(HtmlTextWriter writer)
+    {
+        BuildCalendar();
+        base.RenderControl(writer);
+    }
+    void BuildCalendar()
     {
         uxCalendarHeading.Text = LastValidDate.ToString("MMMM yyyy");
         ArrayList weekDayNames = new ArrayList();
@@ -54,29 +63,30 @@ public partial class _Default : System.Web.UI.Page
         weekDayNames.Add(new WeekDayName() { Name = "Saturday" });
         uxWeekDayNameRep.DataSource = weekDayNames;
         uxWeekDayNameRep.DataBind();
-        
+
         int dayCount = 1;
         String className = "dayFiller";
         bool StartDayCount = false;
         bool StopDayCount = true;
-        DateTime d = new DateTime(LastValidDate.Year, LastValidDate.Month, 1, 0,0,0,0);
+        DateTime d = new DateTime(LastValidDate.Year, LastValidDate.Month, 1, 0, 0, 0, 0);
         DateTime di = new DateTime(LastValidDate.Year, LastValidDate.Month, 1, 0, 0, 0, 0);
         Lab5.App_Code.Calendar calendar = new Lab5.App_Code.Calendar();
         calendar.loadUserEvents(LastValidDate.Year, LastValidDate.Month, Membership.GetUser().ProviderUserKey);
         ArrayList Weeks = new ArrayList();
-
+        String HiddenDay = "hidden=\"hidden\"";
         for (int i = 0; i < 5; ++i)
         {
             Week week = new Week() { WeekDays = new ArrayList() };
             foreach (WeekDayName w in weekDayNames)
             {
-                
+
                 if (!StartDayCount)
                 {
                     if (d.DayOfWeek.ToString() == w.Name)
                     {
                         StartDayCount = true;
                         className = "day";
+                        HiddenDay = "";
                     }
                 }
                 else
@@ -89,12 +99,20 @@ public partial class _Default : System.Web.UI.Page
                         StopDayCount = month == di.Month;
                         if (!StopDayCount)
                         {
+                            HiddenDay = "hidden=\"hidden\"";
                             className = "dayFiller";
                         }
                     }
                 }
-                WeekDay wd = new WeekDay() { Day = dayCount, className = className, EventMemories=new ArrayList() };
-                if(StartDayCount && StopDayCount)
+                WeekDay wd = new WeekDay()
+                {
+                    Day = dayCount,
+                    className = className,
+                    HiddenDay = HiddenDay,
+                    HiddenEvents = "",
+                    EventMemories = new ArrayList()
+                };
+                if (StartDayCount && StopDayCount)
                 {
                     if (calendar.Events.ContainsKey(di))
                     {
@@ -105,7 +123,11 @@ public partial class _Default : System.Web.UI.Page
                     }
                     if (dayCount == LastValidDate.Day)
                     {
-                        wd.className = "CalendarCurrentDay";
+                        wd.className = "day CalendarCurrentDay";
+                    }
+                    else
+                    {
+                        wd.HiddenEvents = uxShowAllEvents.Checked? "" :  "hidden=\"hidden\"";
                     }
                 }
                 week.WeekDays.Add(wd);
@@ -115,9 +137,7 @@ public partial class _Default : System.Web.UI.Page
         uxWeekRepeater.DataSource = Weeks;
         uxWeekRepeater.DataBind();
         
-        base.RenderControl(writer);
     }
-    
     protected void uxAddEvent_Click(object sender, EventArgs e)
     {
         Response.Redirect(@"~/Account/EventBuilder.aspx");
@@ -167,6 +187,6 @@ public partial class _Default : System.Web.UI.Page
 
     protected void uxViewDate_Click(object sender, EventArgs e)
     {
-
+        DateTime.TryParseExact(uxViewingDate.Text, "M/d/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None,out LastValidDate);
     }
 }

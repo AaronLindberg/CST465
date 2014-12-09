@@ -12,27 +12,36 @@ namespace Lab5.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            foreach (MembershipUser user in Membership.GetAllUsers())
+            if(uxRoleLoginView.FindControl("uxUsers") != null && uxRoleLoginView.FindControl("uxRoles") != null)
             {
-                uxUsers.Items.Add(new ListItem(user.UserName));
-            }
-            foreach (string role in Roles.GetAllRoles())
-            {
-                uxRoles.Items.Add(new ListItem(role));
+                foreach (MembershipUser user in Membership.GetAllUsers())
+                {
+                    (uxRoleLoginView.FindControl("uxUsers") as DropDownList).Items.Add(new ListItem(user.UserName));
+                }
+                foreach (string role in Roles.GetAllRoles())
+                {
+                    (uxRoleLoginView.FindControl("uxRoles") as DropDownList).Items.Add(new ListItem(role));
+                }
             }
         }
 
         protected void uxAddUserToRole_Click(object sender, EventArgs e)
         {
-            if (!Roles.IsUserInRole(uxUsers.SelectedItem.Text, uxRoles.SelectedItem.Text))
+            if (uxRoleLoginView.FindControl("uxUsers") != null && uxRoleLoginView.FindControl("uxRoles") != null)
             {
-                Roles.AddUserToRole(uxUsers.SelectedItem.Text, "Admins");
+                if (!Roles.IsUserInRole((uxRoleLoginView.FindControl("uxUsers") as DropDownList).SelectedItem.Text, (uxRoleLoginView.FindControl("uxRoles") as DropDownList).SelectedItem.Text))
+                {
+                    Roles.AddUserToRole((uxRoleLoginView.FindControl("uxUsers") as DropDownList).SelectedItem.Text, "Admins");
+                }
             }
         }
 
         protected void uxCreateRole_Click(object sender, EventArgs e)
         {
-            Roles.CreateRole(uxRoleName.Text);
+            if (uxRoleLoginView.FindControl("uxRoleName") != null )
+            {
+                Roles.CreateRole((uxRoleLoginView.FindControl("uxRoleName") as TextBox).Text);
+            }
         }
     }
 }

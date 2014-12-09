@@ -38,16 +38,16 @@ public partial class EventBuilder : System.Web.UI.Page
                 i = null;
             break;
         }
-        if (i.validate(uxData.Text))
-        {
-            NewEvent.Attributes.Add(i);
-        }
-        if (i != null)
+        if (i != null && i.validate(uxData.Text))
         {
             i.Value = uxData.Text;
             i.Name = uxAttributeId.Text;
             NewEvent.Attributes.Add(i);
+            uxData.Text = "";
+            uxAttributeId.Text = "";
         }
+        uxAttributeGrid.DataSource = NewEvent.Attributes;
+        uxAttributeGrid.DataBind();
         ViewState["newEvent"] = NewEvent;
     }
     bool validate()

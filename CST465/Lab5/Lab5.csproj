@@ -60,11 +60,12 @@
     <Content Include="About.aspx" />
     <Content Include="Account\Default.aspx" />
     <Content Include="Account\EditProfile.aspx" />
+    <Content Include="Account\EventViewer.aspx" />
     <Content Include="Account\Logout.aspx" />
     <Content Include="Account\ViewProfile.aspx" />
     <Content Include="Admin\ManageUsers.aspx" />
     <Content Include="App_Data\load.gif" />
-    <Content Include="JS\Calendar.js" />
+    <CodeAnalysisDictionary Include="JS\Calendar.js" />
     <Content Include="JS\jquery-2.1.1.min.js" />
     <Content Include="MasterPage.master" />
     <None Include="Web.Debug.config">
@@ -107,6 +108,16 @@
     <Compile Include="Account\EditProfile.aspx.designer.cs">
       <DependentUpon>EditProfile.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Account\EventBuilder.aspx.designer.cs">
+      <DependentUpon>EventBuilder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\EventViewer.aspx.cs">
+      <DependentUpon>EventViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\EventViewer.aspx.designer.cs">
+      <DependentUpon>EventViewer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\Logout.aspx.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -142,9 +153,6 @@
     <Compile Include="Account\EventBuilder.aspx.cs">
       <DependentUpon>EventBuilder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Account\EventBuilder.aspx.designer.cs">
-      <DependentUpon>EventBuilder.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

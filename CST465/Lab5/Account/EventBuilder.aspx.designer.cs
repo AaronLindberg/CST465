@@ -75,6 +75,15 @@ public partial class EventBuilder {
     protected global::System.Web.UI.WebControls.TextBox uxEventDescription;
     
     /// <summary>
+    /// uxAttributeGrid control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.GridView uxAttributeGrid;
+    
+    /// <summary>
     /// literalAttributes control.
     /// </summary>
     /// <remarks>

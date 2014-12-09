@@ -21,6 +21,15 @@ public partial class _Default {
     protected global::System.Web.UI.UpdatePanel uxViewingDateUpdatePanel;
     
     /// <summary>
+    /// UpdateProgress1 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.UpdateProgress UpdateProgress1;
+    
+    /// <summary>
     /// uxScriptManagerProxy control.
     /// </summary>
     /// <remarks>
@@ -57,13 +66,22 @@ public partial class _Default {
     protected global::System.Web.UI.WebControls.CustomValidator uxViewingDate_CustomValidator;
     
     /// <summary>
-    /// uxViewingDate_ValidationSummary control.
+    /// uxViewDate control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.ValidationSummary uxViewingDate_ValidationSummary;
+    protected global::System.Web.UI.WebControls.Button uxViewDate;
+    
+    /// <summary>
+    /// uxShowAllEvents control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.CheckBox uxShowAllEvents;
     
     /// <summary>
     /// uxAddEvent control.
@@ -75,13 +93,13 @@ public partial class _Default {
     protected global::System.Web.UI.WebControls.Button uxAddEvent;
     
     /// <summary>
-    /// uxViewDate control.
+    /// uxViewingDate_ValidationSummary control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Button uxViewDate;
+    protected global::System.Web.UI.WebControls.ValidationSummary uxViewingDate_ValidationSummary;
     
     /// <summary>
     /// uxCalendarHeading control.
@@ -109,22 +127,4 @@ public partial class _Default {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.Repeater uxWeekRepeater;
-    
-    /// <summary>
-    /// uxCalendarUpdatePanel control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.UpdatePanel uxCalendarUpdatePanel;
-    
-    /// <summary>
-    /// UpdateProgress1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.UpdateProgress UpdateProgress1;
 }
