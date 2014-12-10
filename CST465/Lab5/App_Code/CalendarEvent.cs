@@ -101,7 +101,7 @@ public class CalendarEvent
         }
     }
 
-    public void InsertUpdate()
+    public void Insert()
     {
         SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
         SqlCommand command = new SqlCommand("INSERT INTO EventMemory (UserFK, EventName, EventDescription, Scheduled) VALUES (@UserId, @EventName, @EventDescription, @DateScheduled)", connection);

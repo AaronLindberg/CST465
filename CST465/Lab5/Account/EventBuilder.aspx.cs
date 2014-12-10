@@ -61,6 +61,6 @@ public partial class EventBuilder : System.Web.UI.Page
         NewEvent.ScheduleDate = DateTime.ParseExact(uxScheduleDate.Text, "M/d/yyyy H:m:s", System.Globalization.CultureInfo.InvariantCulture);
         NewEvent.UserId = Membership.GetUser().ProviderUserKey;
         NewEvent.Description = uxEventDescription.Text;
-        NewEvent.InsertUpdate();
+        NewEvent.Insert();
     }
 }

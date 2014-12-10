@@ -1,10 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="MasterPage.master" Inherits="Default" Codebehind="~/Default.aspx.cs" %>
-<asp:Content ID="Content1" ContentPlaceHolderId="head" runat="server">
-    <title>My Planner Calander view</title>
-</asp:Content>  
-<asp:Content ContentPlaceHolderID="heading" runat="server">
-    <h1>My Calendar</h1>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Lab5.Default" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="BodyContent" ContentPlaceHolderId="body" runat="server">
-    
+<asp:Content ID="Content2" ContentPlaceHolderID="heading" runat="server">
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
 </asp:Content>

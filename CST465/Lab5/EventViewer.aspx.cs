@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Lab5.App_Code;
@@ -12,11 +13,11 @@ namespace Lab5.Account
         CalendarEvent CalendarEvent = new CalendarEvent();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString.Count >= 1)
+            int cEventId;
+            if (Request.QueryString.Count >= 1 && int.TryParse(Request.QueryString[0], out cEventId))
             {
-                int cEventId;
+                uxCommentDataSource.SelectParameters["EventId"].DefaultValue = Request.QueryString[0];
 
-                int.TryParse(Request.QueryString[0], out cEventId);
                 CalendarEvent.ID = cEventId;
                 CalendarEvent.loadEvent();
                 uxEventName.Text = CalendarEvent.Name;
@@ -30,6 +31,16 @@ namespace Lab5.Account
             {
                 Response.Redirect("~/Default.aspx");
             }
+        }
+
+        protected void uxSubmitComment_Click(object sender, EventArgs e)
+        {
+            uxCommentDataSource.InsertParameters["UserId"].DefaultValue = Membership.GetUser().ProviderUserKey.ToString();
+            uxCommentDataSource.InsertParameters["EventId"].DefaultValue = Request.QueryString[0];
+            TextBox comment = uxCommentLoginView.FindControl("uxInsertComment") as TextBox;
+            uxCommentDataSource.InsertParameters["Comment"].DefaultValue = comment.Text;
+            uxCommentDataSource.InsertParameters["TimeStamp"].DefaultValue = DateTime.Now.ToString("s");
+            uxCommentDataSource.Insert();
         }
     }
 }

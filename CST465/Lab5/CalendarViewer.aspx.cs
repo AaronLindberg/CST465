@@ -27,7 +27,7 @@ public class WeekDay
     public ArrayList EventMemories{get; set;}
 }
 
-public partial class _Default : System.Web.UI.Page
+public partial class CalendarViewer : System.Web.UI.Page
 {
             
     DateTime LastValidDate = new DateTime();
@@ -71,7 +71,7 @@ public partial class _Default : System.Web.UI.Page
         DateTime d = new DateTime(LastValidDate.Year, LastValidDate.Month, 1, 0, 0, 0, 0);
         DateTime di = new DateTime(LastValidDate.Year, LastValidDate.Month, 1, 0, 0, 0, 0);
         Lab5.App_Code.Calendar calendar = new Lab5.App_Code.Calendar();
-        calendar.loadUserEvents(LastValidDate.Year, LastValidDate.Month, Membership.GetUser().ProviderUserKey);
+        calendar.loadAllEvents(LastValidDate.Year, LastValidDate.Month);
         ArrayList Weeks = new ArrayList();
         String HiddenDay = "hidden=\"hidden\"";
         for (int i = 0; i < 5; ++i)
@@ -181,8 +181,6 @@ public partial class _Default : System.Web.UI.Page
         {
             uxViewingDate_CustomValidator.ErrorMessage = @"The date is required to be in the form MM/DD/YYYY."; 
         }
-        
-
     }
 
     protected void uxViewDate_Click(object sender, EventArgs e)

@@ -256,6 +256,10 @@ div.calendarEvent
     margin:10px;
     float:left;
 }
+div.homeImage
+{
+    float:left;
+}
 .showAllEvents
 {
     float:right;

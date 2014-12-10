@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" ClientIDMode="AutoID" AutoEventWireup="true" Inherits="MasterPage" Codebehind="MasterPage.master.cs" %>
+﻿<%@ Master Language="C#" ClientIDMode="AutoID" AutoEventWireup="True" Inherits="MasterPage" Codebehind="MasterPage.master.cs" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -15,7 +15,6 @@
             <asp:ScriptManager ID="uxScriptManager" runat="server">
                 <Scripts>
                     <asp:ScriptReference Path="~/JS/jquery-2.1.1.min.js" />
-                    <asp:ScriptReference Path="~/JS/DateControl.js" />
                     <asp:ScriptReference Path="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" />
                     <asp:ScriptReference Path="//code.jquery.com/ui/1.10.4/jquery-ui.js" />
                 </Scripts>
@@ -49,6 +48,11 @@
                             </asp:RoleGroup>
                         </RoleGroups>
                     </asp:LoginView>
+                </div>
+                <div class="homeImage">
+                    <a href="Default.aspx">
+                        <asp:Image ID="Image1" ImageUrl="~/Home.png" CssClass="homeImage" runat="server" />
+                    </a>
                 </div>
                 <asp:LoginStatus ID="uxLoginStatus" CssClass="loginStatus" runat="server" />
                 <asp:Menu DataSourceID="mySiteMap" MaximumDynamicDisplayLevels="2" orientation="Horizontal" runat="server" CssClass="mainMenu">

@@ -58,9 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="Account\Default.aspx" />
+    <Content Include="CalendarViewer.aspx" />
     <Content Include="Account\EditProfile.aspx" />
-    <Content Include="Account\EventViewer.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="EventViewer.aspx" />
     <Content Include="Account\Logout.aspx" />
     <Content Include="Account\ViewProfile.aspx" />
     <Content Include="Admin\ManageUsers.aspx" />
@@ -80,7 +81,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.aspx" />
     <Content Include="Account\EventBuilder.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="StyleSheet.css" />
@@ -94,12 +94,9 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Account\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="CalendarViewer.aspx.cs">
+      <DependentUpon>CalendarViewer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Account\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\EditProfile.aspx.cs">
       <DependentUpon>EditProfile.aspx</DependentUpon>
@@ -111,11 +108,21 @@
     <Compile Include="Account\EventBuilder.aspx.designer.cs">
       <DependentUpon>EventBuilder.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Account\EventViewer.aspx.cs">
+    <Compile Include="CalendarViewer.aspx.designer.cs">
+      <DependentUpon>CalendarViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EventViewer.aspx.cs">
       <DependentUpon>EventViewer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Account\EventViewer.aspx.designer.cs">
+    <Compile Include="EventViewer.aspx.designer.cs">
       <DependentUpon>EventViewer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\Logout.aspx.cs">
@@ -143,13 +150,6 @@
     <Compile Include="App_Code\CalendarEvent.cs" />
     <Compile Include="App_Code\Calendar.cs" />
     <Compile Include="App_Code\ProfileInformation.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Account\EventBuilder.aspx.cs">
       <DependentUpon>EventBuilder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

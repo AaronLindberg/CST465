@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="True" MasterPageFile="~/MasterPage.master" Inherits="_Default" Codebehind="~/Account/Default.aspx.cs" %>
+﻿<%@ Page Language="C#" AutoEventWireup="True" MasterPageFile="~/MasterPage.master" Inherits="CalendarViewer" Codebehind="~/CalendarViewer.aspx.cs" %>
 <asp:Content ID="Content1" ContentPlaceHolderId="head" runat="server">
     <title>My Planner Calander view</title>
 </asp:Content>  
