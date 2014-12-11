@@ -22,7 +22,7 @@ namespace Lab5.Account
                 CalendarEvent.loadEvent();
                 uxEventName.Text = CalendarEvent.Name;
                 uxUsername.Text = CalendarEvent.OwnerUserName;
-                uxDateScheduled.Text = CalendarEvent.ScheduleDate.ToString("MM/dd/yyyy");
+                uxDateScheduled.Text = CalendarEvent.ScheduleDate.ToString("M/d/yyyy h:m:s tt");
                 uxEventDescription.Text = CalendarEvent.Description;
                 AttributeGrid.DataSource = CalendarEvent.Attributes;
                 AttributeGrid.DataBind();

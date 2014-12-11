@@ -78,6 +78,11 @@ legend
     border-top: 1px solid black;
     border-left: 1px solid black;
 }
+div.validationSummary
+{
+    float:left;
+    clear:left;
+}
 .dateValidation
 {
     color:red;
@@ -111,8 +116,7 @@ div.submission
 }
 #divEventBuilder
 {
-    width:59%;
-    float:right;
+    float:left;
 }
 #calanderHeading
 {
@@ -314,9 +318,10 @@ div.homeImage
       font-family:High Tower Text;
       font-size: 1.4em; 
 }
-attributeFieldset
+.attributeFieldset
 {
-    float:right;
+    float:left;
+    clear:left;
 }
 .borderlessGrid
 {

@@ -43,7 +43,6 @@
             <asp:ScriptManagerProxy ID="uxScriptManagerProxy" runat="server" >
                 <Scripts>
                     <asp:ScriptReference Path="~/JS/Calendar.js" />
-                    
                 </Scripts>
             </asp:ScriptManagerProxy>
             <div id="divDate">

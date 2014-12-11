@@ -94,6 +94,9 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Account\EventBuilder.aspx.designer.cs">
+      <DependentUpon>EventBuilder.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CalendarViewer.aspx.cs">
       <DependentUpon>CalendarViewer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -104,9 +107,6 @@
     </Compile>
     <Compile Include="Account\EditProfile.aspx.designer.cs">
       <DependentUpon>EditProfile.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Account\EventBuilder.aspx.designer.cs">
-      <DependentUpon>EventBuilder.aspx</DependentUpon>
     </Compile>
     <Compile Include="CalendarViewer.aspx.designer.cs">
       <DependentUpon>CalendarViewer.aspx</DependentUpon>

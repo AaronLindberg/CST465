@@ -1,7 +1,3 @@
-C:\Users\Aaron Lindberg\Documents\GitHub\CST465\CST465\Lab5\bin\Lab5.dll
-C:\Users\Aaron Lindberg\Documents\GitHub\CST465\CST465\Lab5\bin\Lab5.pdb
-C:\Users\Aaron Lindberg\Documents\GitHub\CST465\CST465\Lab5\obj\Debug\Lab5.dll
-C:\Users\Aaron Lindberg\Documents\GitHub\CST465\CST465\Lab5\obj\Debug\Lab5.pdb
 D:\GitHub\CST465\CST465\Lab5\bin\Lab5.dll
 D:\GitHub\CST465\CST465\Lab5\bin\Lab5.pdb
 D:\GitHub\CST465\CST465\Lab5\obj\Debug\Lab5.dll

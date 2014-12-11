@@ -57,6 +57,55 @@ public class CalendarEvent
         _UserId = UserID;
         _Desc = description;
     }
+    public static CalendarEvent FindEvent(String EventName, DateTime Scheduled, Object UserId)
+    {
+        CalendarEvent cEvent = null;
+
+        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+        SqlCommand command = new SqlCommand("SELECT EventMemoryId, UserFK, EventName, EventDescription, Scheduled, UserName FROM EventMemory JOIN aspnet_Users ON UserId = UserFK WHERE EventName = @EventName AND UserId = @UserId AND Scheduled = @Scheduled;", connection);
+        SqlDataReader reader = null;
+        try
+        {
+            command.Parameters.AddWithValue("EventName", EventName);
+            command.Parameters.AddWithValue("Scheduled", Scheduled);
+            command.Parameters.AddWithValue("UserId", UserId);
+
+            connection.Open();
+            reader = command.ExecuteReader();
+            if (reader.HasRows && reader.Read())
+            {
+                cEvent = new CalendarEvent();
+                cEvent._EventId = (int)reader[0];
+                cEvent._UserId = reader[1];
+                cEvent._Name = (String)reader[2];
+                cEvent._Desc = (String)reader[3];
+                cEvent._ScheduleDate = (DateTime)reader[4];
+                cEvent._OwnerUserName = (String)reader[5];
+            }
+            connection.Close();
+            connection.Dispose();
+            connection = null;
+
+            cEvent.Attributes = new ArrayList();
+            cEvent.Attributes.AddRange(StringCalendarAttribute.getEventStringAttributes(cEvent._EventId));
+
+        }
+        catch (Exception e)
+        {
+
+        }
+        finally
+        {
+            if (connection != null)
+            {
+                connection.Close();
+                connection.Dispose();
+                connection = null;
+            }
+
+        }
+        return cEvent;
+    }
     public void loadEvent()
     {
         SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
@@ -83,7 +132,7 @@ public class CalendarEvent
             
             Attributes = new ArrayList();
             Attributes.AddRange(StringCalendarAttribute.getEventStringAttributes(_EventId));
-            
+            Attributes.AddRange(IntegerCalendarAttribute.getEventIntegerAttributes(_EventId));
         }
         catch (Exception e)
         {

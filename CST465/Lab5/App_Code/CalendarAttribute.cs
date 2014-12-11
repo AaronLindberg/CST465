@@ -20,9 +20,8 @@ public enum AttributeType
 public interface ICalendarAttribute
 {
     AttributeType Type { get; }
-    bool validate (String input);
+    Boolean validate(String input, out String errorMessage);
     String Name { get; set; }
-    bool IsLoadedFromDb{get;}
     String Value {get;set; }
     String ToString();
     void Schedule(CalendarEvent ce);
@@ -31,7 +30,7 @@ public interface ICalendarAttribute
 [Serializable]
 public class StringCalendarAttribute:ICalendarAttribute
 {
-    private bool _LoadedFromDb = true;
+    const int MAX_LENGTH = 2048;
     private int _mId = -1;
     private String _Name;
     public String Name { get { return _Name; } set { _Name = value.Trim(); } }
@@ -92,16 +91,22 @@ public class StringCalendarAttribute:ICalendarAttribute
     }
     public AttributeType Type{ get { return AttributeType.String; }}
 
-    public bool validate(string input)
-    { 
-        return input.Trim().Length > 0;
-    }
-
-    public bool IsLoadedFromDb
+    public Boolean validate(String input, out String errorMessage)
     {
-        get { return _LoadedFromDb; }
+        bool ret = true;
+        errorMessage = "";
+        if (input.Trim().Length <= 0)
+        {
+            errorMessage = "String Attribute must contain a string.";
+            ret = false;
+        }
+        else if (input.Trim().Length > MAX_LENGTH)
+        {
+            errorMessage = "String Attribute must not contain more than {0} displayable characters.";
+            ret = false;
+        }
+        return ret;
     }
-
     public string Value
     {
         get
@@ -145,19 +150,61 @@ public class StringCalendarAttribute:ICalendarAttribute
         }
     }
 }
+
 [Serializable]
 public class IntegerCalendarAttribute:ICalendarAttribute
 {
-    private bool _LoadedFromDb = true;
+
     private int _mId = -1;
     private String _Name;
     public String Name { get { return _Name; } set { _Name = value; } }
     private int _EventId = -1;
     public int EventId { get { return _EventId; } set { _EventId = value; } }
     private int _mData;
+    public static ArrayList getEventIntegerAttributes(int EventId)
+    {
+        ArrayList retArray = new ArrayList();
+        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+        SqlCommand command = new SqlCommand("SELECT IntegerID, EventMemoryFK, IntegerAttributeName, IntegerValue FROM IntegerAttribute WHERE EventMemoryFK = @ID;", connection);
+        SqlDataReader reader = null;
+        try
+        {
+            command.Parameters.AddWithValue("ID", EventId);
+
+            connection.Open();
+            reader = command.ExecuteReader();
+            while (reader.HasRows && reader.Read())
+            {
+                retArray.Add(new IntegerCalendarAttribute()
+                {
+                    _mId = (int)reader[0],
+                    _EventId = (int)reader[1],
+                    _Name = (String)reader[2],
+                    _mData = (int)reader[3]
+                });
+            }
+            connection.Close();
+            connection.Dispose();
+            connection = null;
+        }
+        catch (Exception e)
+        {
+
+        }
+        finally
+        {
+            if (connection != null)
+            {
+                connection.Close();
+                connection.Dispose();
+                connection = null;
+            }
+
+        }
+        return retArray;
+    }
     public IntegerCalendarAttribute()
     {
-        _LoadedFromDb = false;
     }
     public IntegerCalendarAttribute( int Id, int EventFk, int data, string name)
     {
@@ -182,9 +229,10 @@ public class IntegerCalendarAttribute:ICalendarAttribute
     public AttributeType Type { get { return AttributeType.Integer; } }
 
 
-    public bool validate(String input)
+    public bool validate(String input, out string Message)
     {
-        int tmp = -1;
+        Message = "Must be a whole base 10 number.";
+        int tmp;
         return (input.Length > 0)?int.TryParse(input, out tmp):false;
     }
 
@@ -217,11 +265,6 @@ public class IntegerCalendarAttribute:ICalendarAttribute
         {
             connection.Close();
         }
-    }
-
-    public bool IsLoadedFromDb
-    {
-        get { return _LoadedFromDb; }
     }
 }
 

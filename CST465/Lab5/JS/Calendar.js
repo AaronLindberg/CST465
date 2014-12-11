@@ -37,3 +37,4 @@ function dayClicked(event) {
         $(event.target).find(".EventVisibility").show();
     }
 }
+

@@ -30,6 +30,24 @@ public partial class EventBuilder {
     protected global::System.Web.UI.WebControls.Label lblEventName;
     
     /// <summary>
+    /// RequiredFieldValidator1 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+    
+    /// <summary>
+    /// CustomEventNameValidator control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.CustomValidator CustomEventNameValidator;
+    
+    /// <summary>
     /// uxEventName control.
     /// </summary>
     /// <remarks>
@@ -84,15 +102,6 @@ public partial class EventBuilder {
     protected global::System.Web.UI.WebControls.GridView uxAttributeGrid;
     
     /// <summary>
-    /// literalAttributes control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Literal literalAttributes;
-    
-    /// <summary>
     /// lblAttributeId control.
     /// </summary>
     /// <remarks>
@@ -138,6 +147,15 @@ public partial class EventBuilder {
     protected global::System.Web.UI.WebControls.Label lblData;
     
     /// <summary>
+    /// uxData_CustomValidator control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.CustomValidator uxData_CustomValidator;
+    
+    /// <summary>
     /// uxData control.
     /// </summary>
     /// <remarks>
@@ -145,6 +163,15 @@ public partial class EventBuilder {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.TextBox uxData;
+    
+    /// <summary>
+    /// AttributeValidationSummary control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.ValidationSummary AttributeValidationSummary;
     
     /// <summary>
     /// uxAddAttribute control.

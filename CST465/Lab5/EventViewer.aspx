@@ -19,6 +19,7 @@
             <asp:Literal ID="uxDateScheduled" runat="server"></asp:Literal>
             <br />
             <b>Description: </b><asp:Literal ID="uxEventDescription" runat="server"></asp:Literal>
+            <br>
             <fieldset class="attributeFieldset">
             <legend>Attributes</legend>
             <asp:GridView ID="AttributeGrid" CssClass="attributeGrid" AutoGenerateColumns="false" runat="server">
