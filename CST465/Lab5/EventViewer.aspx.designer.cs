@@ -67,6 +67,24 @@ namespace Lab5.Account {
         protected global::System.Web.UI.WebControls.SqlDataSource uxCommentDataSource;
         
         /// <summary>
+        /// lblViewComments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblViewComments;
+        
+        /// <summary>
+        /// uxViewComments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox uxViewComments;
+        
+        /// <summary>
         /// uxCommentLoginView control.
         /// </summary>
         /// <remarks>

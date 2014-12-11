@@ -7,6 +7,6 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="body" runat="server">
     <div>
-        <asp:Login ID="uxLogin" MembershipProvider="SqlMembership" CreateUserText="Register" CreateUserUrl="~/Account/Register.aspx" runat="server"></asp:Login>
+        <asp:Login ID="uxLogin" MembershipProvider="SqlMembership" CreateUserText="Register" CreateUserUrl="~/Register.aspx" runat="server"></asp:Login>
     </div>
 </asp:Content>

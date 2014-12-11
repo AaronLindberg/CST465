@@ -50,7 +50,7 @@
                     </asp:LoginView>
                 </div>
                 <div class="homeImage">
-                    <a href="Default.aspx">
+                    <a href="EventViewer.aspx">
                         <asp:Image ID="Image1" ImageUrl="~/Home.png" CssClass="homeImage" runat="server" />
                     </a>
                 </div>

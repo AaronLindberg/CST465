@@ -318,3 +318,45 @@ attributeFieldset
 {
     float:right;
 }
+.borderlessGrid
+{
+    border:none 0px transparent;
+}
+
+.commenter
+{
+    text-align:center;
+    color:gold;
+    min-height:3em;
+    background-color:purple;
+    border-bottom: groove .4em magenta;
+    border-right: groove .2em grey;
+    border-top:groove .1em magenta;
+    border-left:groove .1em magenta;
+    border-radius:5px;
+    border-top-left-radius:10px;
+}
+h2.comment 
+{
+    text-align:center;
+}
+.comment
+{
+    text-align:left;
+    color:gold;
+    min-height:3em;
+    background-color:purple;
+    border-bottom: groove .4em magenta;
+    border-right: groove .2em grey;
+    border-top:groove .1em magenta;
+    border-left:groove .1em magenta;
+    border-radius:5px;
+    border-bottom-right-radius:10px;
+}
+.viewComment
+{
+    float:right;
+    color:gold;
+    font-family:High Tower Text;
+    font-size: .7em; 
+}

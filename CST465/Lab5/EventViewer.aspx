@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="True" CodeBehind="EventViewer.aspx.cs" Inherits="Lab5.Account.EventViewer" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Event Viewer</title>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="heading" runat="server">
     <h1>Event Viewer</h1>
@@ -63,50 +65,70 @@
                 <asp:QueryStringParameter Name="EventId" QueryStringField="EventId"/>
             </SelectParameters>
         </asp:SqlDataSource>
-        
+        <asp:ScriptManagerProxy runat="server">
+            <Scripts>
+                <asp:ScriptReference Path="~/JS/jquery-2.1.1.min.js" />
+            </Scripts>
+        </asp:ScriptManagerProxy>
+        <script>
+            $(function () {
+                $("#<%= uxViewComments.ClientID %>").on('click', function () {
+                    if ($("#<%= uxViewComments.ClientID %>").is(':checked')) {
+                        $("#commentsContainer").show();
+                        console.log("show comments");
+                    } else {
+                        $("#commentsContainer").hide();
+                        console.log("hide comments");
+                    }
+                });
+            })
+        </script>
         <fieldset>
-            <legend>Comments</legend>
-            <asp:GridView DataSourceID="uxCommentDataSource" AutoGenerateColumns="false" runat="server" >
-                <Columns>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            User
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <div>
-                                <%# Eval("UserName") %>
-                                <br />
-                                <%# Eval("TimeStamp") %>
-                            </div>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            Comment
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <div>
-                                <%# Eval("Comment") %>
-                            </div>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
-            <asp:LoginView ID="uxCommentLoginView" runat="server">
-                <AnonymousTemplate>
-                    <div>Please Login to comment</div>
-                </AnonymousTemplate>
-                <LoggedInTemplate>
-                    <div>
-                        <asp:LoginName ID="LoginName1" runat="server"/>
-                        <br />
-                        <asp:Label Text="Comment" AssociatedControlID="uxInsertComment" runat="server"></asp:Label>
-                        <asp:TextBox ID="uxInsertComment" TextMode="MultiLine" runat="server"></asp:TextBox>
-                        <asp:Button ID="uxSubmitComment" Text="Submit Comment" OnClick="uxSubmitComment_Click" runat="server" />
-                    </div>
-                </LoggedInTemplate>
-            </asp:LoginView>
+            <legend>Comments<br /><asp:Label ID="lblViewComments" AssociatedControlID="uxViewComments" Text="View Comments" CssClass="viewComment" runat="server"></asp:Label><asp:CheckBox ID="uxViewComments" Checked="true" runat="server"/></legend>
+            <span id="commentsContainer">
+                <asp:GridView DataSourceID="uxCommentDataSource" CssClass="borderlessGrid" AutoGenerateColumns="false" runat="server" >
+                    <Columns>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                               <h2 class="commenter">User</h2>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <div class="commenter">
+                                    <%# Eval("UserName") %>
+                                    <br />
+                                    <%# Eval("TimeStamp") %>
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <h2 class="comment">Comment</h2>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <div class="comment">
+                                    <%# Eval("Comment") %>
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+                <asp:LoginView ID="uxCommentLoginView" runat="server">
+                    <AnonymousTemplate>
+                        <div>Please Login to comment</div>
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        <div>
+                            <asp:LoginName ID="LoginName1" runat="server"/>
+                            <br />
+                            <asp:Label Text="Comment" AssociatedControlID="uxInsertComment" runat="server"></asp:Label>
+                            <br />
+                            <asp:TextBox ID="uxInsertComment" TextMode="MultiLine" runat="server"></asp:TextBox>
+                            <br />
+                            <asp:Button ID="uxSubmitComment" Text="Submit Comment" OnClick="uxSubmitComment_Click" runat="server" />
+                        </div>
+                    </LoggedInTemplate>
+                </asp:LoginView>
+            </span>
         </fieldset>
-        
     </div>
 </asp:Content>
