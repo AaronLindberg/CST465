@@ -117,6 +117,5 @@ public partial class EventBuilder : System.Web.UI.Page
         string errmsg;
         args.IsValid = i.validate(args.Value,out errmsg );
         (source as CustomValidator).ErrorMessage = errmsg;
-        //args.IsValid = Int32.TryParse(foo, out i);
     }
 }
