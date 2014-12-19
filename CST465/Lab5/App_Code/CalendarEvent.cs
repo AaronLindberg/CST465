@@ -133,6 +133,8 @@ public class CalendarEvent
             Attributes = new ArrayList();
             Attributes.AddRange(StringCalendarAttribute.getEventStringAttributes(_EventId));
             Attributes.AddRange(IntegerCalendarAttribute.getEventIntegerAttributes(_EventId));
+            Attributes.AddRange(DecimalCalendarAttribute.getEventDecimalAttributes(_EventId));
+            Attributes.AddRange(DateTimeCalendarAttribute.getEventDateTimeAttributes(_EventId));
         }
         catch (Exception e)
         {

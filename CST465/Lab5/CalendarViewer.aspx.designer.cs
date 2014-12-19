@@ -21,15 +21,6 @@ public partial class CalendarViewer {
     protected global::System.Web.UI.UpdatePanel uxViewingDateUpdatePanel;
     
     /// <summary>
-    /// UpdateProgress1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.UpdateProgress UpdateProgress1;
-    
-    /// <summary>
     /// uxScriptManagerProxy control.
     /// </summary>
     /// <remarks>
@@ -100,6 +91,15 @@ public partial class CalendarViewer {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.WebControls.ValidationSummary uxViewingDate_ValidationSummary;
+    
+    /// <summary>
+    /// UpdateProgress1 control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.UpdateProgress UpdateProgress1;
     
     /// <summary>
     /// uxCalendarHeading control.

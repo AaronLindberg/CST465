@@ -32,14 +32,6 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderId="body" runat="server">
     <asp:UpdatePanel ID="uxViewingDateUpdatePanel" RenderMode="Block" runat="server" >
             <ContentTemplate>
-            
-            <asp:UpdateProgress ID="UpdateProgress1" runat="server">
-                <ProgressTemplate>
-                    <div class="loadingContainer">
-                        <asp:Image ID="Image1" CssClass="loadingImage" ImageUrl="https://lh6.googleusercontent.com/-SMD3BmmLm7A/U1qmn10oLTI/AAAAAAAAIv4/pDtIYjNZJyU/w1400-h960/hummingbird-animated.gif" runat="server" />
-                    </div>
-                </ProgressTemplate>
-            </asp:UpdateProgress>
             <asp:ScriptManagerProxy ID="uxScriptManagerProxy" runat="server" >
                 <Scripts>
                     <asp:ScriptReference Path="~/JS/Calendar.js" />
@@ -61,7 +53,16 @@
                 <br />
             </div>
             <span id="CalendarContainer" hidden="hidden">
-                <h2 id='calanderHeading'><asp:Literal ID="uxCalendarHeading" runat="server"></asp:Literal></h2>
+                <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+                    <ProgressTemplate>
+                        <div class="loadingContainer">
+                            <asp:Image ID="Image1" CssClass="loadingImage" ImageUrl="~/Calendar-optimized.gif" runat="server" />
+                        </div>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+                <center>
+                    <h2 id='calanderHeading'><asp:Literal ID="uxCalendarHeading" runat="server"></asp:Literal></h2>
+                </center>
                 <asp:Repeater ID='uxWeekDayNameRep' runat="server">
                     <HeaderTemplate>
                         <div class="week">

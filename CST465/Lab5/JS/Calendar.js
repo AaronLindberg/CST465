@@ -27,13 +27,11 @@ function dayClicked(event) {
     var v = $(event.target).attr('data-day');
     if (v != undefined) {
         var current = $(".CalendarCurrentDay");
-        $(current).addClass("day");
         $(current).toggleClass("CalendarCurrentDay");
         if (!$('span.showAllEvents').find($("input[type=checkbox]")).prop('checked')) {
             $(current).find(".EventVisibility").hide();
         }
         $(event.target).toggleClass("CalendarCurrentDay");
-        $(event.target).removeClass("day");
         $(event.target).find(".EventVisibility").show();
     }
 }

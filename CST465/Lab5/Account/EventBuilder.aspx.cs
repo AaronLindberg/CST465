@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Threading;
 
 public partial class EventBuilder : System.Web.UI.Page
 {
@@ -24,25 +25,36 @@ public partial class EventBuilder : System.Web.UI.Page
             ViewState["newEvent"] = NewEvent;
         }
     }
-
+    ICalendarAttribute DecodeAttributeType()
+    {
+        ICalendarAttribute i;
+        switch (uxDataType.SelectedValue)
+        {
+            case "String"://String 
+                i = new StringCalendarAttribute();
+                break;
+            case "Integer":
+                i = new IntegerCalendarAttribute();
+                break;
+            case "Decimal":
+                i = new DecimalCalendarAttribute();
+                break;
+            case "DateTime":
+                i = new DateTimeCalendarAttribute();
+                break;
+            default:
+                i = null;
+                break;
+        }
+        return i;
+    }
     protected void uxAddAttribute_Click(object sender, EventArgs e)
     {
         if (Page.IsValid)
         {
-            ICalendarAttribute i;
+            ICalendarAttribute i = DecodeAttributeType();
             String ErrorMessage;
-            switch (uxDataType.SelectedIndex)
-            {
-                case 0://String 
-                    i = new StringCalendarAttribute();
-                    break;
-                case 1:
-                    i = new IntegerCalendarAttribute();
-                    break;
-                default:
-                    i = null;
-                    break;
-            }
+            
             if (i != null && i.validate(uxData.Text, out ErrorMessage))
             {
                 i.Value = uxData.Text;
@@ -101,16 +113,7 @@ public partial class EventBuilder : System.Web.UI.Page
 
     protected void uxData_CustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
     {
-        ICalendarAttribute i = null;
-        switch (uxDataType.SelectedValue)
-        {
-            case "String":
-                i = new StringCalendarAttribute();
-                break;
-            case "Integer":
-                i = new IntegerCalendarAttribute();
-                break;
-        }
+        ICalendarAttribute i = DecodeAttributeType();
         string errmsg;
         args.IsValid = i.validate(args.Value,out errmsg );
         (source as CustomValidator).ErrorMessage = errmsg;

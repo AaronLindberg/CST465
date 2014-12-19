@@ -185,6 +185,8 @@ public partial class CalendarViewer : System.Web.UI.Page
 
     protected void uxViewDate_Click(object sender, EventArgs e)
     {
+
+        Thread.Sleep(10000);
         DateTime.TryParseExact(uxViewingDate.Text, "M/d/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None,out LastValidDate);
     }
 }

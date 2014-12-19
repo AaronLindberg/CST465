@@ -76,6 +76,13 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="Register.aspx" />
+    <Content Include="SQL\Tables\DateTimeAttribute.sql" />
+    <Content Include="SQL\Tables\DecimalAttribute.sql" />
+    <Content Include="SQL\Tables\EventComment.sql" />
+    <Content Include="SQL\Tables\EventMemory.sql" />
+    <Content Include="SQL\Tables\IntegerAttribute.sql" />
+    <Content Include="SQL\Tables\StringAttribute.sql" />
+    <Content Include="SQL\Tables\UserProfile.sql" />
     <Content Include="Web.sitemap">
       <SubType>Designer</SubType>
     </Content>
@@ -176,6 +183,9 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SQL\Stored Procs\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
