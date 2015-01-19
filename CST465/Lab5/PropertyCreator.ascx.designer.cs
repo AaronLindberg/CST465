@@ -7,99 +7,90 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lab5.Account {
+namespace Lab5 {
     
     
-    public partial class EventViewer {
+    public partial class PropertyCreator {
         
         /// <summary>
-        /// uxEventName control.
+        /// uxPropertyName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal uxEventName;
+        protected global::System.Web.UI.WebControls.TextBox uxPropertyName;
         
         /// <summary>
-        /// uxUsername control.
+        /// PropertyNameCustomValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal uxUsername;
+        protected global::System.Web.UI.WebControls.CustomValidator PropertyNameCustomValidator;
         
         /// <summary>
-        /// uxDateScheduled control.
+        /// AttributesUpdatePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal uxDateScheduled;
+        protected global::System.Web.UI.UpdatePanel AttributesUpdatePanel;
         
         /// <summary>
-        /// uxEventDescription control.
+        /// uxAttribute control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal uxEventDescription;
+        protected global::System.Web.UI.WebControls.GridView uxAttribute;
         
         /// <summary>
-        /// AttributeFieldset control.
+        /// uxNewAttrName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel AttributeFieldset;
+        protected global::System.Web.UI.WebControls.TextBox uxNewAttrName;
         
         /// <summary>
-        /// AttributeGrid control.
+        /// uxNewAttrType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView AttributeGrid;
+        protected global::System.Web.UI.WebControls.DropDownList uxNewAttrType;
         
         /// <summary>
-        /// uxCommentDataSource control.
+        /// uxNewAttrData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource uxCommentDataSource;
+        protected global::System.Web.UI.WebControls.TextBox uxNewAttrData;
         
         /// <summary>
-        /// lblViewComments control.
+        /// uxAddAttribute control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblViewComments;
+        protected global::System.Web.UI.WebControls.Button uxAddAttribute;
         
         /// <summary>
-        /// uxViewComments control.
+        /// uxCreateProperty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox uxViewComments;
-        
-        /// <summary>
-        /// uxCommentLoginView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LoginView uxCommentLoginView;
+        protected global::System.Web.UI.WebControls.Button uxCreateProperty;
     }
 }

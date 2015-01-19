@@ -83,6 +83,10 @@ legend
     float:left;
     clear:left;
 }
+.validation
+{
+    color:red;
+}
 .dateValidation
 {
     color:red;
@@ -116,7 +120,14 @@ div.submission
 }
 #divEventBuilder
 {
+    width:60em;
     float:left;
+}
+.eventBuilderMultiline
+{
+    width:65em;
+    height:10em;
+    max-width:65em;
 }
 #calanderHeading
 {
@@ -265,8 +276,16 @@ h3.weekDayHeading
     text-align:center;
     color:blue;
 }
+.eventDesc
+{   
+    color:blue;
+    font:400 1em High Tower Text;
+    white-space:pre-wrap;
+    width:100%;
+}
 div
 {
+
     padding:0.5em;
     border-radius:0.5em;
     background-color:yellow;
@@ -324,7 +343,6 @@ div.homeImage
     border-right: groove 0px transparent;
     border-bottom: groove 0px transparent;
     border-collapse:collapse; 
-    font-family:Calibri; 
     color: blue;
 }
 
@@ -341,7 +359,7 @@ div.homeImage
 }
 .attributeGrid td {
       border: solid 0px transparent;
-      background-color:orange;
+      background-color:transparent;
       padding : 0.13em;
       font-size:1.1em;
 }
@@ -349,9 +367,54 @@ div.homeImage
       border-radius:3px; 
       margin:6px;
       padding : 0.13em;
-      background-color:navy;
+      background-color:transparent;
       font-family:High Tower Text;
       font-size: 1.4em; 
+}
+table 
+{
+    background-color: gold;
+    padding:5px; 
+    border-radius:1em;
+    border-top: solid 0px transparent;
+    border-left: solid 0px transparent;
+    border-right: groove 0px transparent;
+    border-bottom: groove 0px transparent;
+    border-collapse:collapse; 
+    font-family:High Tower Text;
+    font-size: 1em;  
+    color: blue;
+}
+td div
+{
+    background-color:blue;
+    color:gold;
+    border-bottom:0.2em groove dodgerblue;
+    border-right:0.1em groove cornflowerblue;
+    margin:0.6em;
+    margin-top:0.1em;
+    margin-bottom:0.1em;
+    font:300 1em High Tower Text; 
+}
+td {
+      border: solid 0px transparent;
+      background-color:transparent;
+      border-radius:0.23em;
+}
+th  {
+      border-radius:3px; 
+      padding : 0.13em;
+      background-color:transparent;
+}
+th div
+{
+    background-color:cornflowerblue;
+    color:navy;
+    border-bottom:0.2em groove blue;
+    border-right:0.1em groove dodgerblue;
+    margin:0.4em;
+    padding:0.2em;
+    font:900 1.4em High Tower Text; 
 }
 .attributeFieldset
 {

@@ -18,39 +18,41 @@
             <b>Schedule Date:</b>
             <asp:Literal ID="uxDateScheduled" runat="server"></asp:Literal>
             <br />
-            <b>Description: </b><asp:Literal ID="uxEventDescription" runat="server"></asp:Literal>
-            <br>
-            <fieldset class="attributeFieldset">
-            <legend>Attributes</legend>
-            <asp:GridView ID="AttributeGrid" CssClass="attributeGrid" AutoGenerateColumns="false" runat="server">
-                <Columns>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <div class="attributeGrid_Head">Attribute Name</div>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <div class="attributeGrid"><%# Eval("Name") %></div>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <div class="attributeGridHead">Attribute Type</div>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <div class="attributeGrid"><%# Eval("Type") %></div>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            <div class="attributeGridHead">Attribute Value</div>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <div class="attributeGrid"><%# Eval("Value") %></div>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
-            </fieldset>
+            <b>Description: </b><p class="eventDesc"><asp:Literal ID="uxEventDescription" runat="server"></asp:Literal></p>
+            <br />
+            <asp:Panel ID="AttributeFieldset" runat="server">
+                <fieldset class="attributeFieldset">
+                    <legend>Attributes</legend>
+                    <asp:GridView ID="AttributeGrid" CssClass="attributeGrid" AutoGenerateColumns="false" runat="server">
+                        <Columns>
+                            <asp:TemplateField>
+                                <HeaderTemplate>
+                                    <div class="attributeGrid_Head">Attribute Name</div>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <div class="attributeGrid"><%# Eval("Name") %></div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <HeaderTemplate>
+                                    <div class="attributeGridHead">Attribute Type</div>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <div class="attributeGrid"><%# Eval("Type") %></div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <HeaderTemplate>
+                                    <div class="attributeGridHead">Attribute Value</div>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <div class="attributeGrid"><%# Eval("Value") %></div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </fieldset>
+            </asp:Panel>
         </fieldset>
         <asp:SqlDataSource ID="uxCommentDataSource" ConnectionString="<%$ ConnectionStrings:SqlSecurityDB%>" 
             SelectCommand="SELECT UserName, TimeStamp, Comment FROM EventComment JOIN aspnet_Users ON UserFK = UserId WHERE EventFK = @EventId;" 
@@ -119,9 +121,9 @@
                     </AnonymousTemplate>
                     <LoggedInTemplate>
                         <div>
-                            <asp:LoginName ID="LoginName1" runat="server"/>
-                            <br />
-                            <asp:Label Text="Comment" AssociatedControlID="uxInsertComment" runat="server"></asp:Label>
+                            
+                            <asp:Label Text="Leave a Comment, " AssociatedControlID="uxInsertComment" runat="server"></asp:Label>
+                            <b><asp:LoginName runat="server"/></b>
                             <br />
                             <asp:TextBox ID="uxInsertComment" TextMode="MultiLine" runat="server"></asp:TextBox>
                             <br />

@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="True" MasterPageFile="~/MasterPage.master" Inherits="EventBuilder" Codebehind="EventBuilder.aspx.cs" %>
 <asp:Content ContentPlaceHolderID="head" runat="server">
     <title>Event Builder</title>
+    <style type="text/css">
+        #<%=uxEventBuilderUpdatePanel.ClientID%> {
+            background-color:transparent;
+        }
+        #<%=uxEventDescription.ClientID%> {
+            margin-left:3.2em;
+        }
+    </style>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="heading" runat="server">
     <h1>Event Builder</h1>
@@ -253,20 +261,20 @@
 </asp:Content>
     
 <asp:Content ID="BodyContent" ContentPlaceHolderId="body" runat="server">
-    <asp:UpdatePanel ID="uxEventBuilderUpdatePanel" runat="server">
+    <asp:UpdatePanel ID="uxEventBuilderUpdatePanel"  runat="server">
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="uxAddAttribute" />
         </Triggers>
         <ContentTemplate>
-                <asp:UpdateProgress ID="UpdateProgress1" runat="server">
-                    <ProgressTemplate>
-                        <div class="loadingEventBuildingContainer">
-                            <center>
-                                <asp:Image ID="Image1" CssClass="loadingEventBuilderImage" ImageUrl="~/Calendar-optimized.gif" runat="server" />
-                            </center>
-                        </div>
-                    </ProgressTemplate>
-                </asp:UpdateProgress>
+            <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+                <ProgressTemplate>
+                    <div class="loadingEventBuildingContainer">
+                        <center>
+                            <asp:Image ID="Image1" CssClass="loadingEventBuilderImage" ImageUrl="~/Calendar-optimized.gif" runat="server" />
+                        </center>
+                    </div>
+                </ProgressTemplate>
+            </asp:UpdateProgress>
             <asp:ScriptManagerProxy runat="server">
                 <Scripts>
                     <asp:ScriptReference Path="~/JS/jquery-2.1.1.min.js" />
@@ -292,7 +300,7 @@
                 <br />
                 <asp:Label ID="lblEventDescription" AssociatedControlID="uxEventDescription" Text="Description" runat="server"></asp:Label>
                 <br />
-                <asp:TextBox ID="uxEventDescription" TextMode="MultiLine" runat="server"></asp:TextBox>
+                <asp:TextBox ID="uxEventDescription" CssClass="eventBuilderMultiline" TextMode="MultiLine" runat="server"></asp:TextBox>
                 <br />
                 <div class="validationSummary">
                     <asp:ValidationSummary ValidationGroup="EventScheduling" CssClass="dateValidation" ShowValidationErrors="true" ValidateRequestMode="Enabled" DisplayMode="BulletList" ShowSummary="true" EnableClientScript="true" runat="server" />
@@ -344,7 +352,6 @@
                                 <asp:ListItem Text="Integer" Value="Integer"></asp:ListItem>
                                 <asp:ListItem Text="Decimal" Value="Decimal"></asp:ListItem>
                                 <asp:ListItem Text="DateTime" Value="DateTime"></asp:ListItem>
-
                             </asp:DropdownList>
                         </div>
                         <div class="attributeComp">
@@ -354,7 +361,7 @@
                                 Text="*" EnableClientScript="true" ErrorMessage="Error Message" runat="server"></asp:CustomValidator>
                         
                             <br />
-                            <asp:TextBox ID="uxData" CausesValidation="true" TextMode="MultiLine" ValidationGroup="AttributeData" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="uxData" CssClass="eventBuilderMultiline" CausesValidation="true" TextMode="MultiLine" ValidationGroup="AttributeData" runat="server"></asp:TextBox>
                         </div>
                         <div class="validationSummary">
                             <asp:ValidationSummary ID="AttributeValidationSummary" EnableClientScript="true" HeaderText="The following are required to add the attribute:" ShowSummary="true" ShowModelStateErrors="true" ShowValidationErrors="true" ValidationGroup="AttributeData" CssClass="dateValidation" DisplayMode="BulletList" runat="server" />

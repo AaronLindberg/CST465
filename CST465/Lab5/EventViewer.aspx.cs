@@ -11,6 +11,7 @@ namespace Lab5.Account
     public partial class EventViewer : System.Web.UI.Page
     {
         CalendarEvent CalendarEvent = new CalendarEvent();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             int cEventId;
@@ -26,6 +27,10 @@ namespace Lab5.Account
                 uxEventDescription.Text = CalendarEvent.Description;
                 AttributeGrid.DataSource = CalendarEvent.Attributes;
                 AttributeGrid.DataBind();
+                if (CalendarEvent.Attributes.Count <= 0)
+                {
+                    AttributeFieldset.Visible = false;
+                }
             }
             else
             {
