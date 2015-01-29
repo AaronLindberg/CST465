@@ -67,6 +67,7 @@
     <Content Include="Admin\ManageUsers.aspx" />
     <Content Include="App_Data\load.gif" />
     <CodeAnalysisDictionary Include="JS\Calendar.js" />
+    <Content Include="JS\AttributeValidation.js" />
     <Content Include="JS\jquery-2.1.1.min.js" />
     <Content Include="MasterPage.master" />
     <None Include="Web.Debug.config">
@@ -77,11 +78,21 @@
     </None>
     <Content Include="PropertyCreator.ascx" />
     <Content Include="Register.aspx" />
+    <Content Include="SQL\Stored Procs\DateTimeAttribute_InsertUpdate.sql" />
+    <Content Include="SQL\Stored Procs\DecimalAttribute_InsertUpdate.sql" />
+    <Content Include="SQL\Stored Procs\EventMemory_InsertUpdate.sql" />
+    <Content Include="SQL\Stored Procs\IntegerAttribute_InsertUpdate.sql" />
+    <Content Include="SQL\Stored Procs\Property_Exsits.sql" />
+    <Content Include="SQL\Stored Procs\Property_InsertUpdate.sql" />
+    <Content Include="SQL\Stored Procs\StringAttribute_InsertUpdate.sql" />
+    <Content Include="SQL\Stored Procs\UserProfile_InsertUpdate.sql" />
     <Content Include="SQL\Tables\DateTimeAttribute.sql" />
     <Content Include="SQL\Tables\DecimalAttribute.sql" />
     <Content Include="SQL\Tables\EventComment.sql" />
     <Content Include="SQL\Tables\EventMemory.sql" />
     <Content Include="SQL\Tables\IntegerAttribute.sql" />
+    <Content Include="SQL\Tables\Property.sql" />
+    <Content Include="SQL\Tables\PropertyStringAttribute.sql" />
     <Content Include="SQL\Tables\StringAttribute.sql" />
     <Content Include="SQL\Tables\UserProfile.sql" />
     <Content Include="Testing.aspx" />
@@ -202,9 +213,7 @@
       <DependentUpon>Testing.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SQL\Stored Procs\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

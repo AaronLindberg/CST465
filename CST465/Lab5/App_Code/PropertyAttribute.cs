@@ -116,8 +116,8 @@ namespace Lab5.App_Code
         private int _mId = -1;
         private String _Name;
         public String Name { get { return _Name; } set { _Name = value.Trim(); } }
-        private int _EventId = -1;
-        public int EventId { get { return _EventId; } set { _EventId = value; } }
+        private Object _EventId = null;
+        public int EventId { get { return (_EventId == null)?-1:(int)_EventId; } set { _EventId = value; } }
         private int _PropertyId = -1;
         public int PropertyId { get { return _PropertyId; } set { _PropertyId = value; } }
         private String _mData;
@@ -132,6 +132,114 @@ namespace Lab5.App_Code
         public void load(int Id)
         {
 
+        }
+        public AttributeType Type { get { return AttributeType.String; } }
+
+        public Boolean validate(String input, out String errorMessage)
+        {
+            bool ret = true;
+            errorMessage = "";
+            if (input.Trim().Length <= 0)
+            {
+                errorMessage = "String Attribute must contain a string.";
+                ret = false;
+            }
+            else if (input.Trim().Length > MAX_LENGTH)
+            {
+                errorMessage = "String Attribute must not contain more than {0} displayable characters.";
+                ret = false;
+            }
+            return ret;
+        }
+        public string Value
+        {
+            get
+            {
+                return _mData;
+            }
+            set
+            {
+                _mData = value.Trim();
+            }
+        }
+
+        public void Schedule(CalendarEvent ce)
+        {
+            _EventId = ce.ID;
+            UpdateDb();
+        }
+        public void UpdateDb()
+        {
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("Property_StringAttribute_InsertUpdate", connection);
+            try
+            {
+                command.Parameters.AddWithValue("AttributeId", _mId);
+                command.Parameters.AddWithValue("EventFk", _EventId);
+                command.Parameters.AddWithValue("AttributeName", _Name);
+                command.Parameters.AddWithValue("AttributeValue", _mData);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+        public void Create(CalendarProperty p)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    [Serializable]
+    public class IntegerPropertyAttribute : IPropertyAttribute
+    {
+        const int MAX_LENGTH = 2048;
+        private int _mId = -1;
+        private String _Name;
+        public String Name { get { return _Name; } set { _Name = value.Trim(); } }
+        private int _EventId = -1;
+        public int EventId { get { return _EventId; } set { _EventId = value; } }
+        private int _PropertyId = -1;
+        public int PropertyId { get { return _PropertyId; } set { _PropertyId = value; } }
+        private String _mData;
+
+        public IntegerPropertyAttribute()
+        {
+        }
+        public void load(int Id)
+        {
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("Property_StringAttribute_InsertUpdate", connection);
+            try
+            {
+                command.Parameters.AddWithValue("AttributeId", _mId);
+                command.Parameters.AddWithValue("EventFk", _EventId);
+                command.Parameters.AddWithValue("AttributeName", _Name);
+                command.Parameters.AddWithValue("AttributeValue", _mData);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
         public AttributeType Type { get { return AttributeType.String; } }
 

@@ -19,6 +19,7 @@
                     <asp:ScriptReference Path="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" />
                     <asp:ScriptReference Path="//code.jquery.com/ui/1.10.4/jquery-ui.js" />
                     <asp:ScriptReference Path="~/JS/Calendar.js" />
+                    <asp:ScriptReference Path="~/JS/AttributeValidation.js" />
                 </Scripts>
             </asp:ScriptManager>
             <asp:ContentPlaceHolder id="heading" runat="server">

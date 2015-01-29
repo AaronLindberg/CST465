@@ -13,7 +13,6 @@ namespace Lab5
         {
             if (IsPostBack)
             {
-                //uxTest.
             }
         }
     }

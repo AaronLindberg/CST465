@@ -121,7 +121,6 @@
                     </AnonymousTemplate>
                     <LoggedInTemplate>
                         <div>
-                            
                             <asp:Label Text="Leave a Comment, " AssociatedControlID="uxInsertComment" runat="server"></asp:Label>
                             <b><asp:LoginName runat="server"/></b>
                             <br />

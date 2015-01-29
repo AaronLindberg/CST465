@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -35,48 +36,27 @@ namespace Lab5
                 Property.Name = uxPropertyName.Text;
                 ViewState["NewProperty"] = _property;
             }
+            if (Request["__EVENTTARGET"] != null)
+            {
+                switch (Request["__EVENTTARGET"])
+                {
+                    case "GridViewRowDelete":
+                        if (Request["__EVENTARGUMENT"] != null)
+                        {
+                            int index = -1;
+                            if (int.TryParse(Request["__EVENTARGUMENT"], out index))
+                            {
+                                this.GridViewRowDelete(index);
+                            }
+                        }
+                        break;
+                }
+            }
         }
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
-
-            string scriptKey = "intoPopupMessage:" + this.UniqueID;
-
-            if (!Page.ClientScript.IsStartupScriptRegistered(scriptKey) && !Page.IsPostBack)
-            {
-                string scriptBlock = @"<script language=""JavaScript"">
-               <!--
-                    function attributeDataValidation (source, args)
-                    {
-                        var tmp = $(""#%%DATA_TYPE%%"")[0].selectedIndex;
-                        switch(tmp)
-                        {
-                            case 0:
-                                console.log('String Validation.');
-                                stringAttributeValidation(source, args);
-                                break;
-                            case 1:
-                                console.log('Integer Validation.');
-                                integerAttributeValidation(source, args);
-                                break;
-                            case 2:
-                                console.log('Decimal Validation.');
-                                decimalAttributeValidation(source, args);
-                                break;
-                            case 3:
-                                console.log('DateTime Validation.');
-                                eventDateValidation(source, args);
-                            default:
-                                console.log('unable to validate data.');
-                                break;
-                        }
-                    }
-                // -->
-               </script>
-                    ";
-                scriptBlock.Replace("%%DATA_TYPE%%", uxNewAttrData.ClientID);
-                Page.ClientScript.RegisterClientScriptBlock(GetType(),scriptKey, scriptBlock);
-            }
+            
         }
         private void uxCreateProperty_Click(object sender, EventArgs e)
         {
@@ -102,7 +82,6 @@ namespace Lab5
             }
             return ret;
         }
-
         protected void uxAddAttribute_Click(object sender, EventArgs e)
         {
             IPropertyAttribute tmp = null;
@@ -112,6 +91,27 @@ namespace Lab5
                 ViewState["NewProperty"] = _property;
                 uxAttribute.DataSource = _property.Attributes;
                 uxAttribute.DataBind();
+            }
+        }
+        protected void uxRemoveAttribute(int index)
+        {
+            _property.Attributes.RemoveAt(index);
+            ViewState["NewProperty"] = _property;
+        }
+        protected void GridViewRowDelete(int rowIndex)
+        {
+            this.uxAttribute.EditIndex = -1;
+
+            if (this._property.Attributes.Count > 0 && rowIndex < this._property.Attributes.Count && rowIndex >= 0)
+            {
+                object p = this._property.Attributes[rowIndex];
+                if (p != null)
+                {
+                    this._property.Attributes.RemoveAt(rowIndex);
+                    ViewState["NewProperty"] = _property;
+                    uxAttribute.DataSource = _property.Attributes;
+                    uxAttribute.DataBind();
+                }
             }
         }
     }
