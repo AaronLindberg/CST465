@@ -37,13 +37,13 @@ namespace Lab5.App_Code
     public class StringCalendarAttribute : ICalendarAttribute
     {
         const int MAX_LENGTH = 2048;
-        private int _mId = -1;
+        private long _mId = -1;
         private String _Name;
         public String Name { get { return _Name; } set { _Name = value.Trim(); } }
-        private int _EventId = -1;
-        public int EventId { get { return _EventId; } set { _EventId = value; } }
+        private long _EventId = -1;
+        public long EventId { get { return _EventId; } set { _EventId = value; } }
         private String _mData;
-        public static ArrayList getEventStringAttributes(int EventId)
+        public static ArrayList getEventStringAttributes(long EventId)
         {
             ArrayList retArray = new ArrayList();
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
@@ -59,8 +59,8 @@ namespace Lab5.App_Code
                 {
                     retArray.Add(new StringCalendarAttribute()
                     {
-                        _mId = (int)reader[0],
-                        _EventId = (int)reader[1],
+                        _mId = (long)reader[0],
+                        _EventId = (long)reader[1],
                         _Name = (String)reader[2],
                         _mData = (String)reader[3]
                     });
@@ -161,13 +161,13 @@ namespace Lab5.App_Code
     public class IntegerCalendarAttribute : ICalendarAttribute
     {
 
-        private int _mId = -1;
+        private long _mId = -1;
         private String _Name;
         public String Name { get { return _Name; } set { _Name = value; } }
-        private int _EventId = -1;
-        public int EventId { get { return _EventId; } set { _EventId = value; } }
-        private int _mData;
-        public static ArrayList getEventIntegerAttributes(int EventId)
+        private long _EventId = -1;
+        public long EventId { get { return _EventId; } set { _EventId = value; } }
+        private long _mData;
+        public static ArrayList getEventIntegerAttributes(long EventId)
         {
             ArrayList retArray = new ArrayList();
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
@@ -212,14 +212,14 @@ namespace Lab5.App_Code
         public IntegerCalendarAttribute()
         {
         }
-        public IntegerCalendarAttribute(int Id, int EventFk, int data, string name)
+        public IntegerCalendarAttribute(long Id, long EventFk, int data, string name)
         {
             _mId = Id;
             _EventId = EventFk;
             _mData = data;
             _Name = name;
         }
-        public int mData { get { return _mData; } set { _mData = value; } }
+        public long mData { get { return _mData; } set { _mData = value; } }
         public String Value
         {
             get
@@ -228,7 +228,7 @@ namespace Lab5.App_Code
             }
             set
             {
-                int.TryParse(value, out _mData);
+                long.TryParse(value, out _mData);
             }
         }
 
@@ -278,13 +278,13 @@ namespace Lab5.App_Code
     public class DecimalCalendarAttribute : ICalendarAttribute
     {
 
-        private int _mId = -1;
+        private long _mId = -1;
         private String _Name;
         public String Name { get { return _Name; } set { _Name = value; } }
-        private int _EventId = -1;
-        public int EventId { get { return _EventId; } set { _EventId = value; } }
+        private long _EventId = -1;
+        public long EventId { get { return _EventId; } set { _EventId = value; } }
         private double _mData;
-        public static ArrayList getEventDecimalAttributes(int EventId)
+        public static ArrayList getEventDecimalAttributes(long EventId)
         {
             ArrayList retArray = new ArrayList();
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
@@ -300,8 +300,8 @@ namespace Lab5.App_Code
                 {
                     retArray.Add(new DecimalCalendarAttribute()
                     {
-                        _mId = (int)reader[0],
-                        _EventId = (int)reader[1],
+                        _mId = (long)reader[0],
+                        _EventId = (long)reader[1],
                         _Name = (String)reader[2],
                         _mData = (double)reader[3]
                     });
@@ -329,7 +329,7 @@ namespace Lab5.App_Code
         public DecimalCalendarAttribute()
         {
         }
-        public DecimalCalendarAttribute(int Id, int EventFk, double data, string name)
+        public DecimalCalendarAttribute(long Id, long EventFk, double data, string name)
         {
             _mId = Id;
             _EventId = EventFk;
@@ -402,17 +402,17 @@ namespace Lab5.App_Code
     public class DateTimeCalendarAttribute : ICalendarAttribute
     {
 
-        private int _mId = -1;
+        private long _mId = -1;
         private String _Name;
         public String Name { get { return _Name; } set { _Name = value; } }
-        private int _EventId = -1;
-        public int EventId { get { return _EventId; } set { _EventId = value; } }
+        private long _EventId = -1;
+        public long EventId { get { return _EventId; } set { _EventId = value; } }
         private DateTime _mData;
 
         public DateTimeCalendarAttribute()
         {
         }
-        public DateTimeCalendarAttribute(int Id, int EventFk, DateTime data, string name)
+        public DateTimeCalendarAttribute(long Id, long EventFk, DateTime data, string name)
         {
             _mId = Id;
             _EventId = EventFk;
@@ -473,7 +473,7 @@ namespace Lab5.App_Code
             }
         }
 
-        public static ArrayList getEventDateTimeAttributes(int EventId)
+        public static ArrayList getEventDateTimeAttributes(long EventId)
         {
             ArrayList retArray = new ArrayList();
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);

@@ -430,7 +430,7 @@ th div
 {
     text-align:center;
     color:gold;
-    min-height:3em;
+    min-height:1em;
     background-color:purple;
     border-bottom: groove .4em magenta;
     border-right: groove .2em grey;
@@ -447,7 +447,7 @@ h2.comment
 {
     text-align:left;
     color:gold;
-    min-height:3em;
+    min-height:1em;
     background-color:purple;
     border-bottom: groove .4em magenta;
     border-right: groove .2em grey;

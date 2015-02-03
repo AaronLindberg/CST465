@@ -74,21 +74,27 @@ namespace Lab5.App_Code
         }
         public void CreateProperty()
         {
-            if (_attributes.Count > 0)
+            if (_attributes.Count > 0 && Membership.GetUser() != null)
             {
                 SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
-                SqlCommand command = new SqlCommand("INSERT INTO [Property](Name, Creator) VALUES (@Name, @Creator);", connection);
+                SqlCommand command = new SqlCommand("Property_InsertUpdate", connection);
                 try
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("Id", _id);
                     command.Parameters.AddWithValue("Name", _name);
                     command.Parameters.AddWithValue("Creator", Membership.GetUser().ProviderUserKey);
 
                     connection.Open();
-                    command.ExecuteScalar();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.HasRows && reader.Read())
+                    {
+                        _id = (long)((int)reader.GetValue(0));
+                    }
                 }
                 catch (Exception ex)
                 {
-
+                    throw new Exception("Unable to Access the Database to Create Property");
                 }
                 finally
                 {

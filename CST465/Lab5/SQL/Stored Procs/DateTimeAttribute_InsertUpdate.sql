@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [aaronlindberg].DateTimeAttribute_InsertUpdate
 (
-	@AttributeId int,
-	@EventFk int,
+	@AttributeId bigint,
+	@EventFk bigint,
 	@AttributeName varchar(64),
 	@AttributeValue datetime
 )

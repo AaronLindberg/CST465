@@ -112,14 +112,14 @@ namespace Lab5.App_Code
     [Serializable]
     public class StringPropertyAttribute : IPropertyAttribute
     {
-        const int MAX_LENGTH = 2048;
-        private int _mId = -1;
+        const long MAX_LENGTH = 2048;
+        private long _mId = -1;
         private String _Name;
         public String Name { get { return _Name; } set { _Name = value.Trim(); } }
         private Object _EventId = null;
-        public int EventId { get { return (_EventId == null)?-1:(int)_EventId; } set { _EventId = value; } }
-        private int _PropertyId = -1;
-        public int PropertyId { get { return _PropertyId; } set { _PropertyId = value; } }
+        public long EventId { get { return (_EventId == null) ? -1 : (int)_EventId; } set { _EventId = value; } }
+        private long _PropertyId = -1;
+        public long PropertyId { get { return _PropertyId; } set { _PropertyId = value; } }
         private String _mData;
        
         public StringPropertyAttribute()
@@ -171,13 +171,14 @@ namespace Lab5.App_Code
         public void UpdateDb()
         {
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
-            SqlCommand command = new SqlCommand("Property_StringAttribute_InsertUpdate", connection);
+            SqlCommand command = new SqlCommand("PropertyStringAttribute_InsertUpdate", connection);
             try
             {
-                command.Parameters.AddWithValue("AttributeId", _mId);
                 command.Parameters.AddWithValue("EventFk", _EventId);
-                command.Parameters.AddWithValue("AttributeName", _Name);
-                command.Parameters.AddWithValue("AttributeValue", _mData);
+                command.Parameters.AddWithValue("Id", _mId);
+                command.Parameters.AddWithValue("PropertyId", _PropertyId);
+                command.Parameters.AddWithValue("AttributeName", Name);
+                command.Parameters.AddWithValue("DefaultValue", Value);
 
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -186,7 +187,7 @@ namespace Lab5.App_Code
             }
             catch (Exception ex)
             {
-
+                throw new Exception("Unable to access database to update string property attribute");
             }
             finally
             {
@@ -197,20 +198,42 @@ namespace Lab5.App_Code
 
         public void Create(CalendarProperty p)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("PropertyStringAttribute_CreateUpdate", connection);
+            try
+            {
+                command.Parameters.AddWithValue("Id", _mId);
+                command.Parameters.AddWithValue("PropertyId", _PropertyId = p.ID);
+                command.Parameters.AddWithValue("AttributeName", Name);
+                command.Parameters.AddWithValue("DefaultValue", Value);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to create String property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
     [Serializable]
     public class IntegerPropertyAttribute : IPropertyAttribute
     {
         const int MAX_LENGTH = 2048;
-        private int _mId = -1;
+        private long _mId = -1;
         private String _Name;
         public String Name { get { return _Name; } set { _Name = value.Trim(); } }
-        private int _EventId = -1;
-        public int EventId { get { return _EventId; } set { _EventId = value; } }
-        private int _PropertyId = -1;
-        public int PropertyId { get { return _PropertyId; } set { _PropertyId = value; } }
+        private long _EventId = -1;
+        public long EventId { get { return _EventId; } set { _EventId = value; } }
+        private long _PropertyId = -1;
+        public long PropertyId { get { return _PropertyId; } set { _PropertyId = value; } }
         private String _mData;
 
         public IntegerPropertyAttribute()
@@ -279,13 +302,14 @@ namespace Lab5.App_Code
         public void UpdateDb()
         {
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
-            SqlCommand command = new SqlCommand("Property_StringAttribute_InsertUpdate", connection);
+            SqlCommand command = new SqlCommand("PropertyStringAttribute_InsertUpdate", connection);
             try
             {
-                command.Parameters.AddWithValue("AttributeId", _mId);
                 command.Parameters.AddWithValue("EventFk", _EventId);
-                command.Parameters.AddWithValue("AttributeName", _Name);
-                command.Parameters.AddWithValue("AttributeValue", _mData);
+                command.Parameters.AddWithValue("Id", _mId);
+                command.Parameters.AddWithValue("PropertyId", _PropertyId);
+                command.Parameters.AddWithValue("AttributeName", Name);
+                command.Parameters.AddWithValue("DefaultValue", Value);
 
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -294,7 +318,7 @@ namespace Lab5.App_Code
             }
             catch (Exception ex)
             {
-
+                throw new Exception("Unable to access database to update integer property attribute");
             }
             finally
             {
@@ -305,7 +329,29 @@ namespace Lab5.App_Code
 
         public void Create(CalendarProperty p)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("PropertyStringAttribute_CreateUpdate", connection);
+            try
+            {
+                command.Parameters.AddWithValue("Id", _mId);
+                command.Parameters.AddWithValue("PropertyId", _PropertyId = p.ID);
+                command.Parameters.AddWithValue("AttributeName", Name);
+                command.Parameters.AddWithValue("DefaultValue", Value);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to create integer property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }

@@ -18,8 +18,8 @@ using Lab5.App_Code;
 public class CalendarEvent
 {
     public ArrayList Attributes { get; set; }
-    int _EventId = -1;
-    public int ID
+    long _EventId = -1;
+    public long ID
     {
         get { return _EventId; }
         set { _EventId = value; }
@@ -76,7 +76,7 @@ public class CalendarEvent
             if (reader.HasRows && reader.Read())
             {
                 cEvent = new CalendarEvent();
-                cEvent._EventId = (int)reader[0];
+                cEvent._EventId = (long)reader[0];
                 cEvent._UserId = reader[1];
                 cEvent._Name = (String)reader[2];
                 cEvent._Desc = (String)reader[3];

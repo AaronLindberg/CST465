@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [aaronlindberg].EventMemory_InsertUpdate
 (
-	@EventId int,
+	@EventId bigint,
 	@UserId uniqueidentifier,
 	@EventName varchar(50),
 	@EventDescription varchar(2048),

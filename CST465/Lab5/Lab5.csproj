@@ -60,6 +60,7 @@
     <Content Include="About.aspx" />
     <Content Include="CalendarViewer.aspx" />
     <Content Include="Account\EditProfile.aspx" />
+    <Content Include="PropertyAssociator.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="EventViewer.aspx" />
     <Content Include="Account\Logout.aspx" />
@@ -78,12 +79,15 @@
     </None>
     <Content Include="PropertyCreator.ascx" />
     <Content Include="Register.aspx" />
+    <Content Include="SQL\Stored Procs\Property_SelectByCreator.sql" />
     <Content Include="SQL\Stored Procs\DateTimeAttribute_InsertUpdate.sql" />
     <Content Include="SQL\Stored Procs\DecimalAttribute_InsertUpdate.sql" />
     <Content Include="SQL\Stored Procs\EventMemory_InsertUpdate.sql" />
     <Content Include="SQL\Stored Procs\IntegerAttribute_InsertUpdate.sql" />
     <Content Include="SQL\Stored Procs\Property_Exsits.sql" />
     <Content Include="SQL\Stored Procs\Property_InsertUpdate.sql" />
+    <Content Include="SQL\Stored Procs\Property_StringAttribute_CreateUpdate.sql" />
+    <Content Include="SQL\Stored Procs\Property_StringAttribute_InsertUpdate.sql" />
     <Content Include="SQL\Stored Procs\StringAttribute_InsertUpdate.sql" />
     <Content Include="SQL\Stored Procs\UserProfile_InsertUpdate.sql" />
     <Content Include="SQL\Tables\DateTimeAttribute.sql" />
@@ -132,6 +136,13 @@
     </Compile>
     <Compile Include="CalendarViewer.aspx.designer.cs">
       <DependentUpon>CalendarViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyAssociator.ascx.cs">
+      <DependentUpon>PropertyAssociator.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PropertyAssociator.ascx.designer.cs">
+      <DependentUpon>PropertyAssociator.ascx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

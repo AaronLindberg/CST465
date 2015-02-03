@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="~/PropertyCreator.ascx.cs" Inherits="Lab5.PropertyCreator" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="~/PropertyAssociator.ascx.cs" Inherits="Lab5.PropertyAssociator" %>
 <script runat="server">
     private void PropertyCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
     {
@@ -12,13 +12,6 @@
        
         var type = $(source).closest('tr').find('select')[0].selectedIndex;
         console.log(type);
-        TypeValidation(type, source, args);
-        return args.IsValid;
-    }
-
-    function attributeDataValidation (source, args)
-    {
-        var tmp = $("#<%= uxNewAttrType.ClientID%>")[0].selectedIndex;
         TypeValidation(type, source, args);
         return args.IsValid;
     }
@@ -56,9 +49,14 @@
 </script>
 <div>
     <fieldset>
-        <legend>Property Creator</legend>
+        <legend>Property Associator</legend>
         <asp:Label Text="Property Name" AssociatedControlID="uxPropertyName" runat="server"></asp:Label>
-        <asp:TextBox Text="" ID="uxPropertyName" ValidationGroup="PropertyName" runat="server"></asp:TextBox>
+        <asp:SqlDataSource ID="dsPropertyNames" ConnectionString="<%$ ConnectionStrings:SqlSecurityDB %>" SelectCommand="Property_SelectByCreator" SelectCommandType="StoredProcedure" runat="server">
+            <SelectParameters>
+                <asp:Parameter Name="Creator" DbType="Guid" DefaultValue="" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+        <asp:DropDownList ID="uxPropertyName" DataSourceID="dsPropertyNames" AutoPostBack="true" runat="server"></asp:DropDownList>
 
         <asp:CustomValidator ID="PropertyNameCustomValidator" CssClass="validation" Display="Static" ControlToValidate="uxPropertyName" OnServerValidate="PropertyCustomValidator_ServerValidate" Text="*" ValidationGroup="PropertyName" runat="server"></asp:CustomValidator>
         <asp:RequiredFieldValidator CssClass="validation" ControlToValidate="uxPropertyName" EnableClientScript="true" Text="*" ErrorMessage="Property Name is required for creating a new property." runat="server"></asp:RequiredFieldValidator>
@@ -66,7 +64,8 @@
         <asp:UpdatePanel ID="AttributesUpdatePanel" runat="server">
             <ContentTemplate>
                 <asp:HiddenField ID="hidden_RowIndex" runat="server" Value="0" />
-                <asp:GridView ID="uxAttribute" AutoGenerateColumns="false" EnablePersistedSelection="true" EnableViewState="true" OnRowEditing="uxAttribute_RowEditing" OnRowCancelingEdit="uxAttribute_RowCancelingEdit" OnRowDeleting="uxAttribute_RowDeleting" OnRowUpdating="uxAttribute_RowUpdating" DataKeyNames="Name,Type,Value" runat="server">
+                
+                <asp:GridView ID="uxProperty" AutoGenerateColumns="false" EnablePersistedSelection="true" EnableViewState="true" OnRowEditing="uxAttribute_RowEditing" OnRowCancelingEdit="uxAttribute_RowCancelingEdit" OnRowDeleting="uxAttribute_RowDeleting" OnRowUpdating="uxAttribute_RowUpdating" DataKeyNames="Name,Type,Value" runat="server">
                     <Columns>
                         <asp:TemplateField>
                             <HeaderTemplate>
@@ -125,24 +124,6 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-
-                <asp:Label AssociatedControlID="uxNewAttrName" Text="Attribute Name" runat="server"></asp:Label>
-                <asp:TextBox ID="uxNewAttrName" ValidationGroup="AddNewPropAttribute" runat="server"></asp:TextBox>
-                <asp:RequiredFieldValidator Text="*" ControlToValidate="uxNewAttrName" ValidationGroup="AddNewPropAttribute" EnableClientScript="true" runat="server">
-                </asp:RequiredFieldValidator>
-                <asp:Label AssociatedControlID="uxNewAttrType" Text="Attribute Type" runat="server"></asp:Label>
-                <asp:DropDownList ID="uxNewAttrType" ValidationGroup="AddNewPropAttribute" runat="server">
-                    <asp:ListItem Text="String"     Value="String"></asp:ListItem>
-                    <asp:ListItem Text="Integer"    Value="Integer"></asp:ListItem>
-                    <asp:ListItem Text="Decimal"    Value="Decimal"></asp:ListItem>
-                    <asp:ListItem Text="DateTime"   Value="DateTime"></asp:ListItem>
-                </asp:DropDownList>
-                <asp:Label AssociatedControlID="uxNewAttrData" Text="Attribute Data" runat="server"></asp:Label>
-                <asp:TextBox ID="uxNewAttrData" TextMode="MultiLine" ValidationGroup="AddNewPropAttribute" runat="server"></asp:TextBox>
-                <asp:RequiredFieldValidator Text="*" ControlToValidate="uxNewAttrData" EnableClientScript="true" ValidationGroup="AddNewPropAttribute" runat="server"></asp:RequiredFieldValidator>
-                <asp:CustomValidator ControlToValidate="uxNewAttrData" ClientValidationFunction="attributeDataValidation" ValidateEmptyText="true" EnableClientScript="true" Text="*" ValidationGroup="AddNewPropAttribute" runat ="server"></asp:CustomValidator>
-                <asp:Button ID="uxAddAttribute" Text="Add Attribute" ValidationGroup="AddNewPropAttribute" OnClick="uxAddAttribute_Click" CausesValidation="true" runat="server"/>
-                
             </ContentTemplate>
             
         </asp:UpdatePanel>

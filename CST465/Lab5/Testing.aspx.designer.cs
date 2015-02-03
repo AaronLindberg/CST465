@@ -20,5 +20,14 @@ namespace Lab5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Lab5.PropertyCreator uxTest;
+        
+        /// <summary>
+        /// PropertyCreator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Lab5.PropertyAssociator PropertyCreator1;
     }
 }

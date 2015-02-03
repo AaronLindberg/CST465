@@ -1,8 +1,9 @@
 ﻿CREATE TABLE [dbo].[IntegerAttribute] (
-    [IntegerId]            INT          IDENTITY (1, 1) PRIMARY KEY,
-    [EventMemoryFk]        INT          NOT NULL,
+    [IntegerId]            BIGINT       IDENTITY (1, 1) NOT NULL,
+    [EventMemoryFk]        BIGINT       NOT NULL,
     [IntegerAttributeName] VARCHAR (50) NOT NULL,
-    [IntegerValue]         INT          NOT NULL,
+    [IntegerValue]         BIGINT       NOT NULL,
+    PRIMARY KEY CLUSTERED ([IntegerId] ASC),
     FOREIGN KEY ([EventMemoryFk]) REFERENCES [dbo].[EventMemory] ([EventMemoryId])
 );
 
