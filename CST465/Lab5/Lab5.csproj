@@ -60,11 +60,13 @@
     <Content Include="About.aspx" />
     <Content Include="CalendarViewer.aspx" />
     <Content Include="Account\EditProfile.aspx" />
+    <Content Include="Account\PropertyManager.aspx" />
+    <Content Include="PropertyViewer.ascx" />
     <Content Include="PropertyAssociator.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="EventViewer.aspx" />
     <Content Include="Account\Logout.aspx" />
-    <Content Include="App_Code\ViewProfile.aspx" />
+    <Content Include="Account\ViewProfile.aspx" />
     <Content Include="Admin\ManageUsers.aspx" />
     <Content Include="App_Data\load.gif" />
     <CodeAnalysisDictionary Include="JS\Calendar.js" />
@@ -88,6 +90,7 @@
     <Content Include="SQL\Stored Procs\Property_InsertUpdate.sql" />
     <Content Include="SQL\Stored Procs\Property_StringAttribute_CreateUpdate.sql" />
     <Content Include="SQL\Stored Procs\Property_StringAttribute_InsertUpdate.sql" />
+    <Content Include="SQL\Stored Procs\Property_StringAttribute_Select.sql" />
     <Content Include="SQL\Stored Procs\StringAttribute_InsertUpdate.sql" />
     <Content Include="SQL\Stored Procs\UserProfile_InsertUpdate.sql" />
     <Content Include="SQL\Tables\DateTimeAttribute.sql" />
@@ -137,6 +140,17 @@
     <Compile Include="CalendarViewer.aspx.designer.cs">
       <DependentUpon>CalendarViewer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Account\PropertyManager.aspx.cs">
+      <DependentUpon>PropertyManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\PropertyManager.aspx.designer.cs">
+      <DependentUpon>PropertyManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyViewer.ascx.cs">
+      <DependentUpon>PropertyViewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="PropertyAssociator.ascx.cs">
       <DependentUpon>PropertyAssociator.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -165,11 +179,11 @@
     <Compile Include="Account\Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_Code\ViewProfile.aspx.cs">
+    <Compile Include="Account\ViewProfile.aspx.cs">
       <DependentUpon>ViewProfile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="App_Code\ViewProfile.aspx.designer.cs">
+    <Compile Include="Account\ViewProfile.aspx.designer.cs">
       <DependentUpon>ViewProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ManageUsers.aspx.cs">
@@ -208,6 +222,9 @@
     </Compile>
     <Compile Include="PropertyCreator.ascx.designer.cs">
       <DependentUpon>PropertyCreator.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyViewer.ascx.designer.cs">
+      <DependentUpon>PropertyViewer.ascx</DependentUpon>
     </Compile>
     <Compile Include="Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>

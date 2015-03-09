@@ -17,7 +17,8 @@ public partial class EventBuilder : System.Web.UI.Page
         if (Page.IsPostBack)
         {
                 NewEvent = ViewState["newEvent"] as CalendarEvent;
-            
+                NewEvent.Properties = uxPropertyAssociator.AssociatedProperties;
+                ViewState["newEvent"] = NewEvent;
         }
         else
         {
@@ -78,7 +79,8 @@ public partial class EventBuilder : System.Web.UI.Page
             NewEvent.ScheduleDate = DateTime.ParseExact(uxScheduleDate.Text, "M/d/yyyy h:m:s tt", System.Globalization.CultureInfo.InvariantCulture);
             NewEvent.UserId = Membership.GetUser().ProviderUserKey;
             NewEvent.Description = uxEventDescription.Text;
-            NewEvent.Insert();
+            NewEvent.Properties = uxPropertyAssociator.AssociatedProperties;
+            NewEvent.InsertUpdate();
             Response.Redirect("~/CalendarViewer.aspx");
         }
     }

@@ -18,6 +18,7 @@ using Lab5.App_Code;
 public class CalendarEvent
 {
     public ArrayList Attributes { get; set; }
+    public ArrayList Properties { get; set; }
     long _EventId = -1;
     public long ID
     {
@@ -50,13 +51,14 @@ public class CalendarEvent
 	{
         Attributes = new ArrayList();
 	}
-    public CalendarEvent(int EventId, String EventName, String description, DateTime Scheduled, object UserID)
+    public CalendarEvent(long EventId, String EventName, String description, DateTime Scheduled, object UserID)
     {
         _EventId = EventId;
         _Name = EventName;
         _ScheduleDate = Scheduled;
         _UserId = UserID;
         _Desc = description;
+        
     }
     public static CalendarEvent FindEvent(String EventName, DateTime Scheduled, Object UserId)
     {
@@ -120,7 +122,7 @@ public class CalendarEvent
             reader = command.ExecuteReader();
             if (reader.HasRows && reader.Read())
             {
-                _EventId = (int)reader[0];
+                _EventId = (long)reader[0];
                 _UserId = reader[1];
                 _Name = (String)reader[2];
                 _Desc = (String)reader[3];
@@ -136,10 +138,12 @@ public class CalendarEvent
             Attributes.AddRange(IntegerCalendarAttribute.getEventIntegerAttributes(_EventId));
             Attributes.AddRange(DecimalCalendarAttribute.getEventDecimalAttributes(_EventId));
             Attributes.AddRange(DateTimeCalendarAttribute.getEventDateTimeAttributes(_EventId));
+            Properties = new ArrayList();
+            Properties.AddRange(CalendarProperty.GetEventProperties(_EventId));
         }
         catch (Exception e)
         {
-
+            throw e;
         }
         finally
         {
@@ -153,12 +157,14 @@ public class CalendarEvent
         }
     }
 
-    public void Insert()
+    public void InsertUpdate()
     {
         SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
-        SqlCommand command = new SqlCommand("INSERT INTO EventMemory (UserFK, EventName, EventDescription, Scheduled) VALUES (@UserId, @EventName, @EventDescription, @DateScheduled)", connection);
+        SqlCommand command = new SqlCommand("EventMemory_InsertUpdate", connection);
+        command.CommandType = CommandType.StoredProcedure;
         try
         {
+            command.Parameters.AddWithValue("EventId", (ID < 0)?DBNull.Value:(Object)ID);
             command.Parameters.AddWithValue("UserId", _UserId);
             command.Parameters.AddWithValue("DateScheduled", _ScheduleDate.ToString("yyyy-MM-ddTHH:mm:ss"));
             command.Parameters["DateScheduled"].DbType = DbType.DateTime;
@@ -168,27 +174,13 @@ public class CalendarEvent
             //command.CommandType = CommandType.StoredProcedure;
 
             connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
-            connection.Dispose();
-            connection = null;
-            command = null;
-            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
-            command = new SqlCommand("SELECT EventMemoryId FROM EventMemory WHERE UserFK = @UserId AND Scheduled = @Scheduled AND EventName = @EventName AND EventDescription = @EventDescription;", connection);
-            command.Parameters.AddWithValue("UserId", _UserId);
-            command.Parameters.AddWithValue("EventName", _Name);
-            command.Parameters.AddWithValue("EventDescription", _Desc);
-            command.Parameters.AddWithValue("Scheduled", _ScheduleDate.ToString("s"));
-            command.Parameters["Scheduled"].DbType = DbType.DateTime;
-            connection.Open();
-            _EventId = (int)command.ExecuteScalar();
-            connection.Close();
-            connection.Dispose();
-            connection = null;
-            foreach (ICalendarAttribute a in Attributes)
+            SqlDataReader r = command.ExecuteReader();
+            if (r.HasRows && r.Read())
             {
-                a.Schedule(this);
+                ID = (long)r.GetValue(0);
             }
+
+            
         }
         catch (Exception e)
         {
@@ -203,6 +195,14 @@ public class CalendarEvent
                 connection = null;
             }
 
+        }
+        foreach (ICalendarAttribute a in Attributes)
+        {
+            a.Schedule(this);
+        }
+        foreach (CalendarProperty p in Properties)
+        {
+            p.Schedule(this);
         }
     }
 }

@@ -67,6 +67,24 @@ namespace Lab5.Account {
         protected global::System.Web.UI.WebControls.GridView AttributeGrid;
         
         /// <summary>
+        /// PropertyFieldset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PropertyFieldset;
+        
+        /// <summary>
+        /// uxProperties control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Lab5.PropertyAssociator uxProperties;
+        
+        /// <summary>
         /// uxCommentDataSource control.
         /// </summary>
         /// <remarks>

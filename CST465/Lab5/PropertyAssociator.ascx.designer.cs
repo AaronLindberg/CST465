@@ -13,33 +13,6 @@ namespace Lab5 {
     public partial class PropertyAssociator {
         
         /// <summary>
-        /// dsPropertyNames control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource dsPropertyNames;
-        
-        /// <summary>
-        /// uxPropertyName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList uxPropertyName;
-        
-        /// <summary>
-        /// PropertyNameCustomValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator PropertyNameCustomValidator;
-        
-        /// <summary>
         /// AttributesUpdatePanel control.
         /// </summary>
         /// <remarks>
@@ -47,6 +20,24 @@ namespace Lab5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel AttributesUpdatePanel;
+        
+        /// <summary>
+        /// lstAssociatedProperties control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater lstAssociatedProperties;
+        
+        /// <summary>
+        /// newProp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl newProp;
         
         /// <summary>
         /// hidden_RowIndex control.
@@ -58,21 +49,30 @@ namespace Lab5 {
         protected global::System.Web.UI.WebControls.HiddenField hidden_RowIndex;
         
         /// <summary>
+        /// uxPropertyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList uxPropertyName;
+        
+        /// <summary>
         /// uxProperty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView uxProperty;
+        protected global::Lab5.PropertyViewer uxProperty;
         
         /// <summary>
-        /// uxCreateProperty control.
+        /// uxAssociateProperty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button uxCreateProperty;
+        protected global::System.Web.UI.WebControls.Button uxAssociateProperty;
     }
 }

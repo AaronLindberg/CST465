@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="True" MasterPageFile="~/MasterPage.master" Inherits="EventBuilder" Codebehind="EventBuilder.aspx.cs" %>
+<%@ Register TagPrefix="lab" TagName="PropertyAssociator" Src="~/PropertyAssociator.ascx" %>
 <asp:Content ContentPlaceHolderID="head" runat="server">
     <title>Event Builder</title>
     <style type="text/css">
@@ -161,6 +162,7 @@
                         </div>
                         <asp:Button ID="uxAddAttribute" Text="Add Attribute" ValidationGroup="AttributeData" CausesValidation="true" OnClick="uxAddAttribute_Click" CssClass="validationSummary" runat="server"  /> 
                     </fieldset>
+                    <lab:PropertyAssociator EnableViewState="true" ViewStateMode="Enabled" PropertyName="Facker" ID="uxPropertyAssociator" runat="server"></lab:PropertyAssociator>
                 </div>
                 <br />
                 <div class="submission">

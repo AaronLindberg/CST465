@@ -8,6 +8,6 @@
     <h1>Beware of Dragons</h1>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="body" runat="server">
-    <lab:PropertyCreator EnableViewState="true" ViewStateMode="Enabled" PropertyName="Facker" ID="uxTest" runat="server"></lab:PropertyCreator>
-    <lab:PropertyAssociator EnableViewState="true" ViewStateMode="Enabled" PropertyName="Facker" ID="PropertyCreator1" runat="server"></lab:PropertyAssociator>
+    <lab:PropertyCreator EnableViewState="true" ViewStateMode="Enabled" ID="uxTest" runat="server"></lab:PropertyCreator>
+    <lab:PropertyAssociator EnableViewState="true" ViewStateMode="Enabled" ID="PropertyCreator1" runat="server"></lab:PropertyAssociator>
 </asp:Content>

@@ -13,13 +13,16 @@ namespace Lab5.App_Code
     [Serializable]
     public class CalendarProperty
     {
-        long _id = -1;
-        public long ID { get { return _id; } set { _id = value; } }
+        //instance id, If null A new one is created when scheduled
+        long _InstanceId = -1;
+        public long InstanceId { get { return _InstanceId; } set { _InstanceId = value; } }
+        long _PropertyId = -1;
+        public long PropertyId { get { return _PropertyId; } set { _PropertyId = value; } }
         String _name = "";
         public String Name { get { return _name; } set { _name = value; } }
         ArrayList _attributes = new ArrayList();
         object _user = null;
-        Object User { get { return _user; } set { _user = value; } }
+        public Object User { get { return _user; } set { _user = value; } }
         public ArrayList Attributes { get { return _attributes; } set { _attributes = value; } }
         public bool validate(string input, out string errorMessage)
         {
@@ -72,7 +75,58 @@ namespace Lab5.App_Code
         {
             _attributes.Remove(attribute);
         }
-        public void CreateProperty()
+        //Acceptable type names
+        //
+        public static IPropertyAttribute GetNewAttr(String Type, String Name, String Value)
+        {
+            IPropertyAttribute ret = null;
+            switch (Type)
+            {
+                case "String":
+                    ret = new StringPropertyAttribute();
+                    break;
+                case "Integer":
+                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", Type));
+                break;
+                case "Decimal":
+                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", Type));
+                break;
+                case "DateTime":
+                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", Type));
+                break;
+                default:
+                    throw new Exception(String.Format("Invalid Type of \"{0}\" was supplied to CalendarProperty's GetNewAttr",Type));
+            }
+            if (ret != null)
+            {
+                ret.Name = Name;
+                ret.Value = Value;
+            }
+            return ret;
+        }
+        public static AttributeType GetType(string type)
+        {
+            AttributeType ret;
+            switch (type)
+            {
+                case "String":
+                    ret = AttributeType.String;
+                    break;
+                case "Integer":
+                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", type));
+                    break;
+                case "Decimal":
+                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", type));
+                    break;
+                case "DateTime":
+                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", type));
+                    break;
+                default:
+                    throw new Exception(String.Format("Invalid Type of \"{0}\" was supplied to CalendarProperty's GetNewAttr", type));
+            }
+            return ret;
+        }
+        public void CreateProperty()//create or update
         {
             if (_attributes.Count > 0 && Membership.GetUser() != null)
             {
@@ -81,7 +135,7 @@ namespace Lab5.App_Code
                 try
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("Id", _id);
+                    command.Parameters.AddWithValue("Id", _PropertyId);
                     command.Parameters.AddWithValue("Name", _name);
                     command.Parameters.AddWithValue("Creator", Membership.GetUser().ProviderUserKey);
 
@@ -89,7 +143,7 @@ namespace Lab5.App_Code
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.HasRows && reader.Read())
                     {
-                        _id = (long)((int)reader.GetValue(0));
+                        _PropertyId = (long)((int)reader.GetValue(0));
                     }
                 }
                 catch (Exception ex)
@@ -100,35 +154,210 @@ namespace Lab5.App_Code
                 {
                     connection.Close();
                 }
+                //need to remove attributes that no longer exist
+                
+                //?Yeah?
+                
+                //Do that ^^
+                //get old Attributes
+                //foreach exsisting attribute check if it still exsists
+                CalendarProperty old =  new CalendarProperty();
+                old.loadProperty(PropertyId);
+                foreach (IPropertyAttribute ipa in old.Attributes)
+                {
+                    Boolean stillExists = false;
+                    foreach (IPropertyAttribute current in Attributes)
+                    {
+                        if (ipa.Type == current.Type && ipa.ID == current.ID)
+                        {
+                            stillExists = true;
+                            break;
+                        }
+                    }
+                    if (!stillExists)
+                    {
+                        ipa.Delete();
+                    }
+                }
+
                 foreach (IPropertyAttribute a in _attributes)
                 {
                     a.Create(this);
                 }
             }
         }
-        static CalendarProperty loadProperty(int id)
-        {/*
+        public void Schedule(CalendarEvent e)
+        {
+
+            //check if id is null, create new if null
+            if (InstanceId == -1)
+            {
+                SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+                SqlCommand command = new SqlCommand("PropertyInstance_Create", connection);
+                try
+                {
+                    command.Parameters.AddWithValue("EventId", e.ID);
+                    command.Parameters.AddWithValue("PropertyId", PropertyId);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows && reader.Read())
+                    {
+                        InstanceId = (long)reader.GetValue(0);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Unable to access database to Schedule Property Instance");
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            
+            foreach (IPropertyAttribute a in _attributes)
+            {
+                a.Schedule(this);
+            }
+            //run schedule Property Insert Update Query
+            //throw new NotImplementedException("Calendar Property Scheduling Not Implimented");
+        }
+
+        public void loadProperty(long propertyId)
+        {
+            CalendarProperty p = null;
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
-            SqlCommand command = new SqlCommand("StringAttribute_InsertUpdate", connection);
+            SqlCommand command = new SqlCommand("Property_Select", connection);
             try
             {
-                command.Parameters.AddWithValue("AttributeId", _mId);
-                command.Parameters.AddWithValue("EventFk", _EventId);
-                command.Parameters.AddWithValue("AttributeName", _Name);
-                command.Parameters.AddWithValue("AttributeValue", _mData);
+                command.Parameters.AddWithValue("PropertyId", propertyId);
 
+                command.CommandType = CommandType.StoredProcedure;
+                
                 connection.Open();
-                command.ExecuteNonQuery();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows && reader.Read())
+                {
+                    //p = new CalendarProperty();
+                    PropertyId = (long)reader.GetValue(0);
+                    Name = reader.GetString(1);
+                    User = reader.GetValue(2);
+                }
             }
             catch (Exception ex)
             {
-
+                throw new Exception("Unable to access database to create String property attribute");
             }
             finally
             {
                 connection.Close();
-            }*/
-            return new CalendarProperty() { ID = id };
+            }
+            Attributes.Clear();
+            Attributes.AddRange(StringPropertyAttribute.getAttributes(propertyId));
+
+            //return p;
+        }
+        public static CalendarProperty loadPropertyInstance(long InstanceId)
+        {
+
+            CalendarProperty p = null;
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("PropertyInstance_Select", connection);
+            try
+            {
+                command.Parameters.AddWithValue("InstanceId", InstanceId);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows && reader.Read())
+                {
+                    p = new CalendarProperty() { 
+                        PropertyId = (long)reader.GetValue(0), 
+                        Name =  reader.GetString(1),
+                        User = reader.GetValue(2),
+                        InstanceId = InstanceId
+                        };
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to create String property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
+            p.Attributes.AddRange(StringPropertyAttribute.getAttributes(p.PropertyId, p.InstanceId));
+
+            return p;
+        }
+        public static ArrayList GetEventProperties(long EventId)
+        {
+            ArrayList Instances = new ArrayList();
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("PropertyInstance_SelectByEvent", connection);
+            try
+            {
+                command.Parameters.AddWithValue("EventId", EventId);
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.HasRows && reader.Read())
+                {
+                    Instances.Add((long)reader.GetValue(0));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to get all an event's properties.", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            ArrayList EventProperties = new ArrayList();
+            foreach (long instance in Instances)
+            {
+                EventProperties.Add(CalendarProperty.loadPropertyInstance(instance));
+            }
+            return EventProperties;
+        }
+        public static ArrayList LoadAvailablePropertiesByUser(Guid User)
+        {
+            ArrayList AvailableProperties = new ArrayList();
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("Property_SelectByCreator", connection);
+            try
+            {
+                object t;
+                command.Parameters.AddWithValue("Creator", User);
+                command.Parameters[0].IsNullable = true;
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                ArrayList arr = new ArrayList();
+                while (reader.HasRows && reader.Read())
+                {
+
+                    arr.Add(new CalendarProperty() { PropertyId = (long)reader.GetValue(0), Name = reader.GetString(1) });
+                }
+                AvailableProperties = arr;
+            }
+            catch (Exception ex)
+            {
+                //throw new Exception("Unable to access database to create integer property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return AvailableProperties;
         }
     }
 }

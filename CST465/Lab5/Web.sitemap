@@ -5,6 +5,7 @@
         <siteMapNode url="~/Register.aspx" title="Register"  description="Register New User Page" />
       <siteMapNode url="~/CalendarViewer.aspx" title="Calendar" description="Calendar viewer for viewing events on the calendar">
         <siteMapNode url="~/Account/EventBuilder.aspx" title="Event Creator"  description="User Event Creator Page" />
+        <siteMapNode url="~/Account/PropertyManager.aspx" title="Property Creator"  description="User Property Manager Page" />
       </siteMapNode>
         <siteMapNode url="~/Account/ViewProfile.aspx" title="My Profile"  description="View My User Profile">
             <siteMapNode url="~/Account/EditProfile.aspx" title="Edit"  description="Edit User Profile"/>

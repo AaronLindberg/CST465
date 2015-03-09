@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="True" CodeBehind="EventViewer.aspx.cs" Inherits="Lab5.Account.EventViewer" %>
+<%@ Register TagPrefix="uwc" TagName="PropertyAssociator" Src="PropertyAssociator.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Event Viewer</title>
     
@@ -51,6 +52,12 @@
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
+                </fieldset>
+            </asp:Panel>
+            <asp:Panel ID="PropertyFieldset" runat="server">
+                <fieldset>
+                    <legend>Properties</legend>
+                    <uwc:PropertyAssociator ID="uxProperties" AllowFieldEdit="false" Editable="false" EnableViewState="true" runat="server" />
                 </fieldset>
             </asp:Panel>
         </fieldset>
@@ -132,5 +139,6 @@
                 </asp:LoginView>
             </span>
         </fieldset>
+
     </div>
 </asp:Content>

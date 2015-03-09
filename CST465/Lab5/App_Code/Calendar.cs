@@ -36,7 +36,7 @@ namespace Lab5.App_Code
                 reader = command.ExecuteReader();
                 while (reader.HasRows && reader.Read())
                 {
-                    CalendarEvent e = new CalendarEvent((int)reader.GetValue(0), (String)reader.GetValue(2), (String)reader.GetValue(3), (DateTime)reader.GetValue(4), reader.GetValue(1));
+                    CalendarEvent e = new CalendarEvent((long)reader.GetValue(0), (String)reader.GetValue(2), (String)reader.GetValue(3), (DateTime)reader.GetValue(4), reader.GetValue(1));
                     DateTime d = (DateTime)reader.GetValue(4);
                     d = new DateTime(d.Year, d.Month, d.Day, 0, 0, 0, 0);
                     if (Events.ContainsKey(d))
@@ -51,7 +51,7 @@ namespace Lab5.App_Code
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             finally
             {

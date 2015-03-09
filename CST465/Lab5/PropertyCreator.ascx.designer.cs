@@ -13,6 +13,33 @@ namespace Lab5 {
     public partial class PropertyCreator {
         
         /// <summary>
+        /// AttributesUpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel AttributesUpdatePanel;
+        
+        /// <summary>
+        /// uxToggleEditCreate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button uxToggleEditCreate;
+        
+        /// <summary>
+        /// creatorPropertyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl creatorPropertyName;
+        
+        /// <summary>
         /// uxPropertyName control.
         /// </summary>
         /// <remarks>
@@ -22,6 +49,33 @@ namespace Lab5 {
         protected global::System.Web.UI.WebControls.TextBox uxPropertyName;
         
         /// <summary>
+        /// lblExistingPropertyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExistingPropertyName;
+        
+        /// <summary>
+        /// uxExistingPropertyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList uxExistingPropertyName;
+        
+        /// <summary>
+        /// uxChangeName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button uxChangeName;
+        
+        /// <summary>
         /// PropertyNameCustomValidator control.
         /// </summary>
         /// <remarks>
@@ -29,15 +83,6 @@ namespace Lab5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator PropertyNameCustomValidator;
-        
-        /// <summary>
-        /// AttributesUpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel AttributesUpdatePanel;
         
         /// <summary>
         /// hidden_RowIndex control.
@@ -101,5 +146,14 @@ namespace Lab5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button uxCreateProperty;
+        
+        /// <summary>
+        /// uxDeleteProperty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button uxDeleteProperty;
     }
 }

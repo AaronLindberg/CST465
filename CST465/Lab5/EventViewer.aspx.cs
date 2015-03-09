@@ -14,8 +14,8 @@ namespace Lab5.Account
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            int cEventId;
-            if (Request.QueryString.Count >= 1 && int.TryParse(Request.QueryString[0], out cEventId))
+            long cEventId;
+            if (Request.QueryString.Count >= 1 && long.TryParse(Request.QueryString[0], out cEventId))
             {
                 uxCommentDataSource.SelectParameters["EventId"].DefaultValue = Request.QueryString[0];
 
@@ -31,6 +31,7 @@ namespace Lab5.Account
                 {
                     AttributeFieldset.Visible = false;
                 }
+                uxProperties.AssociatedProperties = CalendarEvent.Properties;
             }
             else
             {
