@@ -89,10 +89,10 @@ namespace Lab5.App_Code
                     ret = new IntegerPropertyAttribute();     
                 break;
                 case "Decimal":
-                ret = new DecimalPropertyAttribute();
+                    ret = new DecimalPropertyAttribute();
                 break;
                 case "DateTime":
-                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", Type));
+                    ret = new DateTimePropertyAttribute();    
                 break;
                 default:
                     throw new Exception(String.Format("Invalid Type of \"{0}\" was supplied to CalendarProperty's GetNewAttr",Type));
@@ -119,7 +119,7 @@ namespace Lab5.App_Code
                     ret = AttributeType.Decimal;
                     break;
                 case "DateTime":
-                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", type));
+                    ret = AttributeType.DateTime;
                     break;
                 default:
                     throw new Exception(String.Format("Invalid Type of \"{0}\" was supplied to CalendarProperty's GetNewAttr", type));
@@ -261,6 +261,7 @@ namespace Lab5.App_Code
             Attributes.AddRange(StringPropertyAttribute.getAttributes(propertyId));
             Attributes.AddRange(IntegerPropertyAttribute.getAttributes(propertyId));
             Attributes.AddRange(DecimalPropertyAttribute.getAttributes(propertyId));
+            Attributes.AddRange(DateTimePropertyAttribute.getAttributes(propertyId));
             //return p;
         }
         public static CalendarProperty loadPropertyInstance(long InstanceId)
@@ -297,6 +298,8 @@ namespace Lab5.App_Code
             }
             p.Attributes.AddRange(StringPropertyAttribute.getAttributes(p.PropertyId, p.InstanceId));
             p.Attributes.AddRange(IntegerPropertyAttribute.getAttributes(p.PropertyId, p.InstanceId));
+            p.Attributes.AddRange(DecimalPropertyAttribute.getAttributes(p.PropertyId, p.InstanceId));
+            p.Attributes.AddRange(DateTimePropertyAttribute.getAttributes(p.PropertyId, p.InstanceId));
             return p;
         }
         public static ArrayList GetEventProperties(long EventId)

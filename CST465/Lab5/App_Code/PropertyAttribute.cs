@@ -450,7 +450,7 @@ namespace Lab5.App_Code
                 SqlDataReader r = command.ExecuteReader();
                 while (r.HasRows && r.Read())
                 {
-                    arr.Add(new StringPropertyAttribute() { PropertyId = PropertyId, AttributeId = (long)r.GetValue(0), InstanceId = PropertyInstance, Name = r.GetString(1), Value = r.GetString(2), ID = (long)r.GetSqlValue(3) });
+                    arr.Add(new DecimalPropertyAttribute() { PropertyId = PropertyId, AttributeId = (long)r.GetValue(0), InstanceId = PropertyInstance, Name = r.GetString(1), Value = r.GetString(2), ID = (long)r.GetSqlValue(3) });
                 }
             }
             catch (Exception ex)
@@ -465,9 +465,9 @@ namespace Lab5.App_Code
         }
         public Boolean validate(String input, out String errorMessage)
         {
-            int i = 0;
-            errorMessage = String.Format(" the value \"{0}\" is not a base 10 Decimal.", input);
-            return int.TryParse(input, out i);
+            double i = 0;
+            errorMessage = String.Format(" the value \"{0}\" is not a Decimal number.", input);
+            return double.TryParse(input, out i);
         }
 
         public void Schedule(CalendarProperty cp)
@@ -580,6 +580,189 @@ namespace Lab5.App_Code
                 catch (Exception ex)
                 {
                     throw new Exception("Unable to delete an Decimal attribute for a property.", ex);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+    }
+    [Serializable]
+    public class DateTimePropertyAttribute : IPropertyAttribute
+    {
+        private object _mId = null;//valueID
+        public Object ID { get { return _mId; } set { _mId = value; } }
+        public long AttributeId { get { return (_mId == null) ? -1 : (long)_mId; } set { _mId = value; } }
+        private String _Name;
+        public String Name { get { return _Name; } set { _Name = value.Trim(); } }
+        private Object _InstanceId = null;
+        public long InstanceId { get { return (_InstanceId == null) ? -1 : (long)_InstanceId; } set { _InstanceId = value; } }
+        private long _PropertyId = -1;
+        public long PropertyId { get { return _PropertyId; } set { _PropertyId = value; } }
+        public string Value
+        {
+            get
+            {
+                return _mData.ToString();
+            }
+            set
+            {
+                _mData = _mData = DateTime.ParseExact(value, "M/d/yyyy h:m:s tt", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None);
+            }
+        }
+        private DateTime _mData;
+        public AttributeType Type { get { return AttributeType.DateTime; } }
+        public DateTimePropertyAttribute()
+        {
+        }
+        public static ArrayList LoadPropertyInstances(long PropertyInstance, long PropertyId)
+        {
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("Property_DateTimeAttribute_Select", connection);
+            ArrayList arr = new ArrayList();
+            try
+            {
+
+                command.Parameters.AddWithValue("PropertyInstance", PropertyInstance);
+                command.Parameters.AddWithValue("PropertyId", PropertyId);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                SqlDataReader r = command.ExecuteReader();
+                while (r.HasRows && r.Read())
+                {
+                    arr.Add(new StringPropertyAttribute() { PropertyId = PropertyId, AttributeId = (long)r.GetValue(0), InstanceId = PropertyInstance, Name = r.GetString(1), Value = r.GetString(2), ID = (long)r.GetSqlValue(3) });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to update string property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return arr;
+        }
+        public Boolean validate(String input, out String errorMessage)
+        {
+            DateTime i = new DateTime();
+            errorMessage = String.Format(" the value \"{0}\" is not a base 10 DateTime.", input);
+            return DateTime.TryParse(input, out i);
+        }
+
+        public void Schedule(CalendarProperty cp)
+        {
+            _InstanceId = cp.InstanceId;
+            _PropertyId = cp.PropertyId;
+
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("PropertyDateTimeAttribute_InsertUpdate", connection);
+            try
+            {
+
+                command.Parameters.AddWithValue("InstanceId", (_InstanceId == null) ? DBNull.Value : _InstanceId);
+                command.Parameters.AddWithValue("AttributeId", (_mId == null) ? DBNull.Value : _mId);
+                command.Parameters.AddWithValue("PropertyId", _PropertyId);
+                command.Parameters.AddWithValue("AttributeName", Name);
+                command.Parameters.AddWithValue("DefaultValue", _mData);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to update DateTime property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+        public void Create(CalendarProperty p)
+        {
+            //throw new NotImplementedException();
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("PropertyDateTimeAttribute_CreateUpdate", connection);
+
+            try
+            {
+                command.Parameters.AddWithValue("Id", (_mId == null) ? DBNull.Value : _mId);
+                command.Parameters.AddWithValue("PropertyId", _PropertyId = p.PropertyId);
+                command.Parameters.AddWithValue("AttributeName", Name);
+                command.Parameters.AddWithValue("DefaultValue", _mData);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to create DateTime property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        //by not passing an instance id, the templated property is returned
+        public static ArrayList getAttributes(long propertyId, object instanceId = null)
+        {
+            ArrayList PropertyDateTimeAttributes = new ArrayList();
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("Property_DateTimeAttribute_Select", connection);
+            try
+            {
+                SqlParameter param = command.Parameters.AddWithValue("PropertyInstance", ((instanceId == null) ? DBNull.Value : instanceId));
+                param.IsNullable = true;
+                command.Parameters.AddWithValue("PropertyId", propertyId);
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.HasRows && reader.Read())
+                {
+                    PropertyDateTimeAttributes.Add(new DateTimePropertyAttribute() { AttributeId = (long)reader.GetValue(0), Name = reader.GetString(1), Value = ((DateTime)reader.GetValue(2)).ToString() });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to get all DateTime attributes for a property.", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return PropertyDateTimeAttributes;
+        }
+
+        public void Delete()
+        {
+            if (ID != null)
+            {
+                SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+                SqlCommand command = new SqlCommand("Property_DateTimeAttribute_Delete", connection);
+                try
+                {
+                    SqlParameter param = command.Parameters.AddWithValue("Id", ID);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Unable to delete an DateTime attribute for a property.", ex);
                 }
                 finally
                 {

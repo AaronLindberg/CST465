@@ -10,7 +10,7 @@ namespace Lab5.Account
 {
     public partial class EventViewer : System.Web.UI.Page
     {
-        CalendarEvent CalendarEvent = new CalendarEvent();
+        public CalendarEvent currentCalendarEvent = new CalendarEvent();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,19 +19,20 @@ namespace Lab5.Account
             {
                 uxCommentDataSource.SelectParameters["EventId"].DefaultValue = Request.QueryString[0];
 
-                CalendarEvent.ID = cEventId;
-                CalendarEvent.loadEvent();
-                uxEventName.Text = CalendarEvent.Name;
-                uxUsername.Text = CalendarEvent.OwnerUserName;
-                uxDateScheduled.Text = CalendarEvent.ScheduleDate.ToString("M/d/yyyy h:m:s tt");
-                uxEventDescription.Text = CalendarEvent.Description;
-                AttributeGrid.DataSource = CalendarEvent.Attributes;
+                currentCalendarEvent.ID = cEventId;
+                currentCalendarEvent.loadEvent();
+                uxEventName.Text = currentCalendarEvent.Name;
+                uxUsername.Text = currentCalendarEvent.OwnerUserName;
+                uxDateScheduled.Text = currentCalendarEvent.ScheduleDate.ToString("M/d/yyyy h:m:s tt");
+                uxEventDescription.Text = currentCalendarEvent.Description;
+                AttributeGrid.DataSource = currentCalendarEvent.Attributes;
                 AttributeGrid.DataBind();
-                if (CalendarEvent.Attributes.Count <= 0)
+                if (currentCalendarEvent.Attributes.Count <= 0)
                 {
                     AttributeFieldset.Visible = false;
                 }
-                uxProperties.AssociatedProperties = CalendarEvent.Properties;
+                PropertyFieldset.Visible = currentCalendarEvent.Properties.Count > 0;
+                uxProperties.AssociatedProperties = currentCalendarEvent.Properties;
             }
             else
             {

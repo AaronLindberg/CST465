@@ -45,7 +45,6 @@
                     <asp:Button ID="uxChangeName" Text="Edit Name" EnableViewState="true" runat="server" />
                 </span>
                 <asp:CustomValidator ID="PropertyNameCustomValidator" CssClass="validation" Display="Static" ControlToValidate="uxPropertyName" OnServerValidate="PropertyCustomValidator_ServerValidate" Text="*" ValidationGroup="PropertyName" runat="server"></asp:CustomValidator>
-                <asp:RequiredFieldValidator CssClass="validation" ControlToValidate="uxPropertyName" EnableClientScript="true" Text="*" ErrorMessage="Property Name is required for creating a new property." runat="server"></asp:RequiredFieldValidator>
                 
                 <asp:HiddenField ID="hidden_RowIndex" runat="server" Value="0" />
                 <asp:GridView ID="uxAttribute" DataSource='<%# Boolean.Parse(uxToggleEditCreate.Attributes["IsEditMode"])?CurrentProperty.Attributes:NewProperty.Attributes%>' AutoGenerateColumns="false" EnablePersistedSelection="true" EnableViewState="true" OnRowEditing="uxAttribute_RowEditing" OnRowCancelingEdit="uxAttribute_RowCancelingEdit" OnRowDeleting="uxAttribute_RowDeleting" OnRowUpdating="uxAttribute_RowUpdating" DataKeyNames="Name,Type,Value" runat="server">

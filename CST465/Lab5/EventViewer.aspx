@@ -54,7 +54,8 @@
                     </asp:GridView>
                 </fieldset>
             </asp:Panel>
-            <asp:Panel ID="PropertyFieldset" runat="server">
+
+            <asp:Panel ID="PropertyFieldset" Visible='<%# currentCalendarEvent.Properties.Count > 0 %>' runat="server">
                 <fieldset>
                     <legend>Properties</legend>
                     <uwc:PropertyAssociator ID="uxProperties" AllowFieldEdit="false" Editable="false" EnableViewState="true" runat="server" />
