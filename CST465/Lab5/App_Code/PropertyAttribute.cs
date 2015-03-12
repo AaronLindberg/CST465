@@ -43,11 +43,6 @@ namespace Lab5.App_Code
         public StringPropertyAttribute()
         {
         }
-        
-        void loadTemplate(long PropertyArrtibuteId)
-        {
-            throw new NotImplementedException("PropertyArrtibuteId is not implimented for StringProperty Attribute");
-        }
         public static ArrayList LoadPropertyInstances(long PropertyInstance,long PropertyId)
         {
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
@@ -201,13 +196,6 @@ namespace Lab5.App_Code
             return PropertyStringAttributes;
         }
 
-        
-        void loadInstance()
-        {
-      
-        }
-
-
         public void Delete()
         {
             if (ID != null)
@@ -237,67 +225,97 @@ namespace Lab5.App_Code
     [Serializable]
     public class IntegerPropertyAttribute : IPropertyAttribute
     {
-        const int MAX_LENGTH = 2048;
-        private object _mId = null;
-        public object ID
-        {
-            get
-            {
-                return _mId;
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        private object _mId = null;//valueID
+        public Object ID { get { return _mId; } set { _mId = value; } }
+        public long AttributeId { get { return (_mId == null)?-1:(long)_mId; } set { _mId = value; } }
         private String _Name;
         public String Name { get { return _Name; } set { _Name = value.Trim(); } }
-        private long _EventId = -1;
-        public long EventId { get { return _EventId; } set { _EventId = value; } }
+        private Object _InstanceId = null;
+        public long InstanceId { get { return (_InstanceId == null) ? -1 : (long)_InstanceId; } set { _InstanceId = value; } }
         private long _PropertyId = -1;
         public long PropertyId { get { return _PropertyId; } set { _PropertyId = value; } }
-        private String _mData;
-
-        public IntegerPropertyAttribute()
-        {
-        }
-        public void load(int Id)
-        {
-            
-        }
-        public AttributeType Type { get { return AttributeType.String; } }
-
-        public Boolean validate(String input, out String errorMessage)
-        {
-            bool ret = true;
-            errorMessage = "";
-            if (input.Trim().Length <= 0)
-            {
-                errorMessage = "String Attribute must contain a string.";
-                ret = false;
-            }
-            else if (input.Trim().Length > MAX_LENGTH)
-            {
-                errorMessage = "String Attribute must not contain more than {0} displayable characters.";
-                ret = false;
-            }
-            return ret;
-        }
         public string Value
         {
             get
             {
-                return _mData;
+                return _mData.ToString();
             }
             set
             {
-                _mData = value.Trim();
+                _mData = int.Parse(value);
             }
         }
-
-        public void Schedule(CalendarProperty ce)
+        private int _mData;
+        public AttributeType Type { get { return AttributeType.Integer; } }
+        public IntegerPropertyAttribute()
         {
-           throw new NotImplementedException();
+        }
+        public static ArrayList LoadPropertyInstances(long PropertyInstance,long PropertyId)
+        {
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("Property_IntegerAttribute_Select", connection);
+            ArrayList arr = new ArrayList();
+            try
+            {
+
+                command.Parameters.AddWithValue("PropertyInstance", PropertyInstance);
+                command.Parameters.AddWithValue("PropertyId", PropertyId);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                SqlDataReader r = command.ExecuteReader();
+                while (r.HasRows && r.Read())
+                {
+                    arr.Add(new StringPropertyAttribute() { PropertyId = PropertyId, AttributeId = (long)r.GetValue(0), InstanceId = PropertyInstance, Name = r.GetString(1), Value = r.GetString(2), ID=(long)r.GetSqlValue(3) });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to update string property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return arr;
+        }
+        public Boolean validate(String input, out String errorMessage)
+        {
+            int i = 0;
+            errorMessage = String.Format(" the value \"{0}\" is not a base 10 integer.", input);
+            return int.TryParse(input,out i);
+        }
+
+        public void Schedule(CalendarProperty cp)
+        {
+            _InstanceId = cp.InstanceId;
+            _PropertyId = cp.PropertyId;
+            
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("PropertyIntegerAttribute_InsertUpdate", connection);
+            try
+            {
+
+                command.Parameters.AddWithValue("InstanceId", (_InstanceId == null) ? DBNull.Value : _InstanceId);
+                command.Parameters.AddWithValue("AttributeId", (_mId == null) ? DBNull.Value : _mId);
+                command.Parameters.AddWithValue("PropertyId", _PropertyId);
+                command.Parameters.AddWithValue("AttributeName", Name);
+                command.Parameters.AddWithValue("DefaultValue", _mData);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to update integer property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
 
@@ -305,17 +323,19 @@ namespace Lab5.App_Code
         {
             //throw new NotImplementedException();
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
-            SqlCommand command = new SqlCommand("PropertyStringAttribute_CreateUpdate", connection);
+            SqlCommand command = new SqlCommand("PropertyIntegerAttribute_CreateUpdate", connection);
+
             try
             {
-                command.Parameters.AddWithValue("Id", _mId);
+                command.Parameters.AddWithValue("Id", (_mId == null)?DBNull.Value:_mId);
                 command.Parameters.AddWithValue("PropertyId", _PropertyId = p.PropertyId);
                 command.Parameters.AddWithValue("AttributeName", Name);
-                command.Parameters.AddWithValue("DefaultValue", Value);
+                command.Parameters.AddWithValue("DefaultValue", _mData);
 
                 command.CommandType = CommandType.StoredProcedure;
 
                 connection.Open();
+
                 command.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -328,27 +348,244 @@ namespace Lab5.App_Code
             }
         }
 
-
-        public ArrayList getAttributes(long propertyId, object eventId = null)
+        //by not passing an instance id, the templated property is returned
+        public static ArrayList getAttributes(long propertyId, object instanceId = null)
         {
-            //load(propertyId);
-            return new ArrayList();
-        }
+            ArrayList PropertyStringAttributes = new ArrayList();
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("Property_IntegerAttribute_Select", connection);
+            try
+            {
+                SqlParameter param = command.Parameters.AddWithValue("PropertyInstance", ((instanceId == null) ? DBNull.Value : instanceId));
+                param.IsNullable = true;
+                command.Parameters.AddWithValue("PropertyId", propertyId);
+                command.CommandType = CommandType.StoredProcedure;
 
-
-        public void loadInstance(long InstanceId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void loadTemplate(long PropertyArrtibuteId)
-        {
-            throw new NotImplementedException();
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while(reader.HasRows && reader.Read())
+                {
+                    PropertyStringAttributes.Add(new IntegerPropertyAttribute() { AttributeId = (long)reader.GetValue(0), Name = reader.GetString(1), Value = ((int)reader.GetValue(2)).ToString() });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to get all integer attributes for a property.", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return PropertyStringAttributes;
         }
 
         public void Delete()
         {
-            throw new NotImplementedException();
+            if (ID != null)
+            {
+                SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+                SqlCommand command = new SqlCommand("Property_IntegerAttribute_Delete", connection);
+                try
+                {
+                    SqlParameter param = command.Parameters.AddWithValue("Id", ID);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Unable to delete an integer attribute for a property.", ex);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+    }
+    [Serializable]
+    public class DecimalPropertyAttribute : IPropertyAttribute
+    {
+        private object _mId = null;//valueID
+        public Object ID { get { return _mId; } set { _mId = value; } }
+        public long AttributeId { get { return (_mId == null) ? -1 : (long)_mId; } set { _mId = value; } }
+        private String _Name;
+        public String Name { get { return _Name; } set { _Name = value.Trim(); } }
+        private Object _InstanceId = null;
+        public long InstanceId { get { return (_InstanceId == null) ? -1 : (long)_InstanceId; } set { _InstanceId = value; } }
+        private long _PropertyId = -1;
+        public long PropertyId { get { return _PropertyId; } set { _PropertyId = value; } }
+        public string Value
+        {
+            get
+            {
+                return _mData.ToString();
+            }
+            set
+            {
+                _mData = Double.Parse(value);
+            }
+        }
+        private Double _mData;
+        public AttributeType Type { get { return AttributeType.Decimal; } }
+        public DecimalPropertyAttribute()
+        {
+        }
+        public static ArrayList LoadPropertyInstances(long PropertyInstance, long PropertyId)
+        {
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("Property_DecimalAttribute_Select", connection);
+            ArrayList arr = new ArrayList();
+            try
+            {
+
+                command.Parameters.AddWithValue("PropertyInstance", PropertyInstance);
+                command.Parameters.AddWithValue("PropertyId", PropertyId);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                SqlDataReader r = command.ExecuteReader();
+                while (r.HasRows && r.Read())
+                {
+                    arr.Add(new StringPropertyAttribute() { PropertyId = PropertyId, AttributeId = (long)r.GetValue(0), InstanceId = PropertyInstance, Name = r.GetString(1), Value = r.GetString(2), ID = (long)r.GetSqlValue(3) });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to update string property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return arr;
+        }
+        public Boolean validate(String input, out String errorMessage)
+        {
+            int i = 0;
+            errorMessage = String.Format(" the value \"{0}\" is not a base 10 Decimal.", input);
+            return int.TryParse(input, out i);
+        }
+
+        public void Schedule(CalendarProperty cp)
+        {
+            _InstanceId = cp.InstanceId;
+            _PropertyId = cp.PropertyId;
+
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("PropertyDecimalAttribute_InsertUpdate", connection);
+            try
+            {
+
+                command.Parameters.AddWithValue("InstanceId", (_InstanceId == null) ? DBNull.Value : _InstanceId);
+                command.Parameters.AddWithValue("AttributeId", (_mId == null) ? DBNull.Value : _mId);
+                command.Parameters.AddWithValue("PropertyId", _PropertyId);
+                command.Parameters.AddWithValue("AttributeName", Name);
+                command.Parameters.AddWithValue("DefaultValue", _mData);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to update Decimal property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+        public void Create(CalendarProperty p)
+        {
+            //throw new NotImplementedException();
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("PropertyDecimalAttribute_CreateUpdate", connection);
+
+            try
+            {
+                command.Parameters.AddWithValue("Id", (_mId == null) ? DBNull.Value : _mId);
+                command.Parameters.AddWithValue("PropertyId", _PropertyId = p.PropertyId);
+                command.Parameters.AddWithValue("AttributeName", Name);
+                command.Parameters.AddWithValue("DefaultValue", _mData);
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to access database to create Decimal property attribute");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        //by not passing an instance id, the templated property is returned
+        public static ArrayList getAttributes(long propertyId, object instanceId = null)
+        {
+            ArrayList PropertyDecimalAttributes = new ArrayList();
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+            SqlCommand command = new SqlCommand("Property_DecimalAttribute_Select", connection);
+            try
+            {
+                SqlParameter param = command.Parameters.AddWithValue("PropertyInstance", ((instanceId == null) ? DBNull.Value : instanceId));
+                param.IsNullable = true;
+                command.Parameters.AddWithValue("PropertyId", propertyId);
+                command.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.HasRows && reader.Read())
+                {
+                    PropertyDecimalAttributes.Add(new DecimalPropertyAttribute() { AttributeId = (long)reader.GetValue(0), Name = reader.GetString(1), Value = ((double)reader.GetValue(2)).ToString() });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to get all Decimal attributes for a property.", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return PropertyDecimalAttributes;
+        }
+
+        public void Delete()
+        {
+            if (ID != null)
+            {
+                SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlSecurityDB"].ConnectionString);
+                SqlCommand command = new SqlCommand("Property_DecimalAttribute_Delete", connection);
+                try
+                {
+                    SqlParameter param = command.Parameters.AddWithValue("Id", ID);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Unable to delete an Decimal attribute for a property.", ex);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
         }
     }
 }

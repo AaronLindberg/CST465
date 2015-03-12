@@ -1,4 +1,27 @@
 ﻿
+function attributeDataValidation(source, args, type) {
+    switch (type) {
+        case "String":
+            console.log("String Validation.");
+            stringAttributeValidation(source, args);
+            break;
+        case "Integer":
+            console.log("Integer Validation.");
+            integerAttributeValidation(source, args);
+            break;
+        case "Decimal":
+            console.log("Decimal Validation.");
+            decimalAttributeValidation(source, args);
+            break;
+        case "DateTime":
+            console.log("DateTime Validation.");
+            DateValidation(source, args);
+        default:
+            console.log("unable to validate data.");
+            break;
+    }
+}
+
 var StringAttributeMaxLength = 2048;
 function stringAttributeValidation(source, args) {
     args.IsValid = false;
@@ -11,6 +34,7 @@ function stringAttributeValidation(source, args) {
     } else {
         args.IsValid = true;
     }
+    return args.IsValid;
 }
 
 function integerAttributeValidation(source, args) {
@@ -35,6 +59,7 @@ function attributeNameValidation(source, args) {
     } else {
         args.IsValid = true;
     }
+    return args.IsValid;
 }
 
 var EventNameMaxLength = 50;

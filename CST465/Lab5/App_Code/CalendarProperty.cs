@@ -86,10 +86,10 @@ namespace Lab5.App_Code
                     ret = new StringPropertyAttribute();
                     break;
                 case "Integer":
-                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", Type));
+                    ret = new IntegerPropertyAttribute();     
                 break;
                 case "Decimal":
-                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", Type));
+                ret = new DecimalPropertyAttribute();
                 break;
                 case "DateTime":
                     throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", Type));
@@ -113,10 +113,10 @@ namespace Lab5.App_Code
                     ret = AttributeType.String;
                     break;
                 case "Integer":
-                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", type));
+                    ret = AttributeType.Integer;
                     break;
                 case "Decimal":
-                    throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", type));
+                    ret = AttributeType.Decimal;
                     break;
                 case "DateTime":
                     throw new NotImplementedException(String.Format("Type of \"{0}\" is an unimplimented attribute type for CalendarProperty's GetNewAttr", type));
@@ -168,10 +168,13 @@ namespace Lab5.App_Code
                     Boolean stillExists = false;
                     foreach (IPropertyAttribute current in Attributes)
                     {
-                        if (ipa.Type == current.Type && ipa.ID == current.ID)
+                        if (current.ID != null)
                         {
-                            stillExists = true;
-                            break;
+                            if (ipa.Type == current.Type && (long)ipa.ID == (long)current.ID)
+                            {
+                                stillExists = true;
+                                break;
+                            }
                         }
                     }
                     if (!stillExists)
@@ -256,7 +259,8 @@ namespace Lab5.App_Code
             }
             Attributes.Clear();
             Attributes.AddRange(StringPropertyAttribute.getAttributes(propertyId));
-
+            Attributes.AddRange(IntegerPropertyAttribute.getAttributes(propertyId));
+            Attributes.AddRange(DecimalPropertyAttribute.getAttributes(propertyId));
             //return p;
         }
         public static CalendarProperty loadPropertyInstance(long InstanceId)
@@ -292,7 +296,7 @@ namespace Lab5.App_Code
                 connection.Close();
             }
             p.Attributes.AddRange(StringPropertyAttribute.getAttributes(p.PropertyId, p.InstanceId));
-
+            p.Attributes.AddRange(IntegerPropertyAttribute.getAttributes(p.PropertyId, p.InstanceId));
             return p;
         }
         public static ArrayList GetEventProperties(long EventId)

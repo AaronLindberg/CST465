@@ -93,7 +93,7 @@ namespace Lab5
             base.OnPreRender(e);
         }
         
-        IPropertyAttribute GetNewAttr(String Type, String Name, String Value)
+        /*IPropertyAttribute GetNewAttr(String Type, String Name, String Value)
         {
             IPropertyAttribute ret = null;
             switch (Type)
@@ -110,7 +110,7 @@ namespace Lab5
                 ret.Value = Value;
             }
             return ret;
-        }
+        }*/
 
         protected void uxAttribute_RowEditing(object sender, GridViewEditEventArgs e)
         {
@@ -158,6 +158,11 @@ namespace Lab5
             Property = _property;
             uxProperty.EditIndex = -1;
             DataBind();
+        }
+
+        protected void uxProperty_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
         }
     }
 }

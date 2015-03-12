@@ -8,43 +8,17 @@
     }
 </script>
 <script>
-    function editAttributeDataValidation(source, args) {
-       
-        var type = $(source).closest('tr').find('select')[0].selectedIndex;
+    function editAttributeDataValidation(source, args) {       
+        var type = $(source).closest('tr').find('select')[0].val();
         console.log(type);
-        TypeValidation(type, source, args);
+        attributeDataValidation(source, args, type);
         return args.IsValid;
     }
 
-    function attributeDataValidation (source, args)
+    function clientAttributeDataValidation (source, args)
     {
-        var tmp = $("#<%= uxNewAttrType.ClientID%>")[0].selectedIndex;
-        TypeValidation(type, source, args);
-        return args.IsValid;
-    }
-    function TypeValidation(type, source, args)
-    {
-        switch(type)
-        {
-            case 0:
-                console.log('String Validation.');
-                stringAttributeValidation(source, args);
-                break;
-            case 1:
-                console.log('Integer Validation.');
-                integerAttributeValidation(source, args);
-                break;
-            case 2:
-                console.log('Decimal Validation.');
-                decimalAttributeValidation(source, args);
-                break;
-            case 3:
-                console.log('DateTime Validation.');
-                eventDateValidation(source, args);
-            default:
-                console.log('unable to validate data.');
-                break;
-        }
+        var type = $("#<%= uxNewAttrType.ClientID%>").val();
+        attributeDataValidation(source, args, type);
         return args.IsValid;
     }
 
@@ -86,7 +60,7 @@
                             <EditItemTemplate>
                                 <div>
                                     <asp:Textbox ID="uxEditAttrName" Text='<%# Bind("Name") %>' EnableViewState="true" runat="server"></asp:Textbox>
-                                    <asp:RequiredFieldValidator Text="*" ControlToValidate="uxEditAttrName" ValidationGroup="AddNewPropAttribute" EnableClientScript="true" runat="server">
+                                    <asp:RequiredFieldValidator Text="*" ControlToValidate="uxEditAttrName" ValidationGroup="UpdatePropAttribute" EnableClientScript="true" runat="server">
                                     </asp:RequiredFieldValidator>
                                 </div>
                             </EditItemTemplate>
@@ -99,7 +73,7 @@
                                 <div><%# Eval("Type") %></div>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="uxEditAttrType" ValidationGroup="UpdatePropAttribute" DataTextField='<%# Bind("Type") %>'  DataValueField='<%# Bind("Type") %>' EnableViewState="true" runat="server">
+                                <asp:DropDownList ID="uxEditAttrType" ValidationGroup="UpdatePropAttribute" EnableViewState="true" runat="server">
                                     <asp:ListItem Text="String"     Value="String"></asp:ListItem>
                                     <asp:ListItem Text="Integer"    Value="Integer"></asp:ListItem>
                                     <asp:ListItem Text="Decimal"    Value="Decimal"></asp:ListItem>
@@ -115,18 +89,18 @@
                                 <div><%# Eval("Value") %></div>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <div><asp:Textbox ID="uxEditAttrValue" Text='<%# Bind("Value") %>' runat="server" EnableViewState="true" ></asp:Textbox>
-                                    <asp:CustomValidator ControlToValidate="uxEditAttrValue" ClientValidationFunction="editAttributeDataValidation" ValidateEmptyText="true" EnableClientScript="true" Text="*" ValidationGroup="UpdatePropAttribute" runat ="server"></asp:CustomValidator>
+                                <div><asp:Textbox ID="uxEditAttrValue" Text='<%# Bind("Value") %>' runat="server" ValidationGroup="UpdatePropAttribute" CausesValidation="true" EnableViewState="true" ></asp:Textbox>
+                                    <asp:CustomValidator ControlToValidate="uxEditAttrValue" ClientValidationFunction="clientAttributeDataValidation" ValidateEmptyText="true" EnableClientScript="true" Text="*" ValidationGroup="UpdatePropAttribute" runat ="server"></asp:CustomValidator>
                                 </div>
                             </EditItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField>
                             <ItemTemplate>
-                                <asp:Button CommandName="Edit" Text="Edit" CausesValidation="false" runat="server" />
+                                <asp:Button CommandName="Edit" Text="Edit" CausesValidation="false" UseSubmitBehavior="true" runat="server" />
                                 <asp:Button CommandName="Delete" Text="Remove"  CausesValidation="false" UseSubmitBehavior="true" runat="server" />
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:Button CommandName="Update" Text="Update" CausesValidation="true" ValidationGroup="UpdatePropAttribute" runat="server" />
+                                <asp:Button CommandName="Update" Text="Update" CausesValidation="true" UseSubmitBehavior="true" ValidationGroup="UpdatePropAttribute" runat="server" />
                                 <asp:Button CommandName="Cancel" Text="Cancel" CausesValidation="false" runat="server" />
                                 <asp:Button CommandName="Delete" Text="Remove"  CausesValidation="false" UseSubmitBehavior="true" runat="server" />
                             </EditItemTemplate>
@@ -149,7 +123,7 @@
                     <asp:Label AssociatedControlID="uxNewAttrData" Text="Attribute Data" runat="server"></asp:Label>
                     <asp:TextBox ID="uxNewAttrData" TextMode="MultiLine" ValidationGroup="AddNewPropAttribute" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator Text="*" ControlToValidate="uxNewAttrData" EnableClientScript="true" ValidationGroup="AddNewPropAttribute" runat="server"></asp:RequiredFieldValidator>
-                    <asp:CustomValidator ControlToValidate="uxNewAttrData" ClientValidationFunction="attributeDataValidation" ValidateEmptyText="true" EnableClientScript="true" Text="*" ValidationGroup="AddNewPropAttribute" runat ="server"></asp:CustomValidator>
+                    <asp:CustomValidator ControlToValidate="uxNewAttrData" ClientValidationFunction="clientAttributeDataValidation" ValidateEmptyText="true" EnableClientScript="true" Text="*" ValidationGroup="AddNewPropAttribute" runat ="server"></asp:CustomValidator>
                     <asp:Button ID="uxAddAttribute" Text="Add Attribute" ValidationGroup="AddNewPropAttribute" OnClick="uxAddAttribute_Click" CausesValidation="true" runat="server"/>
                 </fieldset>
                 <asp:Button ID="uxCreateProperty" Text='<%# Boolean.Parse(uxToggleEditCreate.Attributes["IsEditMode"])?"Update":"Create"%>' ValidationGroup="PropertyName" UseSubmitBehavior="true" OnClick="uxCreateProperty_Click" CausesValidation="true" runat="server" />

@@ -152,29 +152,10 @@ namespace Lab5
             }
             UpdateAvailableProperties();
         }
-
-        IPropertyAttribute GetNewAttr(String Type, String Name, String Value)
-        {
-            IPropertyAttribute ret = null;
-            switch (Type)
-            {
-                case "String":
-                    ret = new StringPropertyAttribute();
-                    break;
-                default:
-                    break;
-            }
-            if (ret != null)
-            {
-                ret.Name = Name;
-                ret.Value = Value;
-            }
-            return ret;
-        }
         protected void uxAddAttribute_Click(object sender, EventArgs e)
         {
             IPropertyAttribute tmp = null;
-            if ((tmp = GetNewAttr(uxNewAttrType.SelectedValue, uxNewAttrName.Text, uxNewAttrData.Text)) != null)
+            if ((tmp = CalendarProperty.GetNewAttr(uxNewAttrType.SelectedValue, uxNewAttrName.Text, uxNewAttrData.Text)) != null)
             {
                 if (IsPropertyEditor)
                 {
@@ -224,6 +205,22 @@ namespace Lab5
         {
             uxAttribute.EditIndex = e.NewEditIndex;
             DataBind();//BindAttributeGrid();
+            if (IsPropertyEditor)
+            {
+                GridViewRow row = uxAttribute.Rows[e.NewEditIndex];
+
+                DropDownList type = row.FindControl("uxEditAttrType") as DropDownList;
+                int i = 0;
+                foreach (ListItem li in type.Items)
+                {
+                    if (li.Value == (CurrentProperty.Attributes[e.NewEditIndex] as IPropertyAttribute).Type.ToString())
+                    {
+                        type.SelectedIndex = i;
+                        break;
+                    }
+                    ++i;
+                }
+            }
         }
 
 
@@ -241,24 +238,28 @@ namespace Lab5
 
         protected void uxAttribute_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
+            string NewName = (uxAttribute.Rows[e.RowIndex].FindControl("uxEditAttrName") as TextBox).Text;
+            string NewType = (uxAttribute.Rows[e.RowIndex].FindControl("uxEditAttrType") as DropDownList).SelectedValue;
+            string NewValue = (uxAttribute.Rows[e.RowIndex].FindControl("uxEditAttrValue") as TextBox).Text;
             if (IsPropertyEditor)
             {
-                if ((CurrentProperty.Attributes[e.RowIndex] as IPropertyAttribute).Type.ToString() == (String)e.NewValues["Type"])
+                
+                if ((CurrentProperty.Attributes[e.RowIndex] as IPropertyAttribute).Type.ToString() == NewType)
                 {
-                    (CurrentProperty.Attributes[e.RowIndex] as IPropertyAttribute).Name = (String)e.NewValues["Name"];
-                    (CurrentProperty.Attributes[e.RowIndex] as IPropertyAttribute).Value = (String)e.NewValues["Value"];
+                    (CurrentProperty.Attributes[e.RowIndex] as IPropertyAttribute).Name = NewName;
+                    (CurrentProperty.Attributes[e.RowIndex] as IPropertyAttribute).Value = NewValue;
                 }
                 else
                 {
                     CurrentProperty.Attributes.RemoveAt(e.RowIndex);
-                    _currentProperty.Attributes.Insert(e.RowIndex, GetNewAttr((String)e.NewValues["Type"], (String)e.NewValues["Name"], (String)e.NewValues["Value"]));
+                    _currentProperty.Attributes.Insert(e.RowIndex, CalendarProperty.GetNewAttr(NewType, NewName, NewValue));
                 }
                 ViewState["CurrentProperty"] = _currentProperty;
             }
             else
             {
                 NewProperty.Attributes.RemoveAt(e.RowIndex);
-                _newProperty.Attributes.Insert(e.RowIndex, GetNewAttr((String)e.NewValues["Type"], (String)e.NewValues["Name"], (String)e.NewValues["Value"]));
+                _newProperty.Attributes.Insert(e.RowIndex, CalendarProperty.GetNewAttr(NewType, NewName, NewValue));
                 ViewState["NewProperty"] = _newProperty;
             }
             uxAttribute.EditIndex = -1;
@@ -336,6 +337,24 @@ namespace Lab5
         {
             //CurrentProperty.Delete();
             UpdateAvailableProperties();
+        }
+
+        protected void uxAttribute_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //if (e.Row.RowState == DataControlRowState.Edit)
+            {
+                DropDownList type = e.Row.FindControl("uxEditAttrType") as DropDownList;
+                int i = 0;
+                foreach (ListItem li in type.Items)
+                {
+                    if (li.Value == (e.Row.DataItem as IPropertyAttribute).Type.ToString())
+                    {
+                        type.SelectedIndex = i;
+                        break;
+                    }
+                    ++i;
+                }
+            }
         }
     }
 }

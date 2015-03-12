@@ -36,7 +36,7 @@ namespace Lab5.App_Code
     [Serializable]
     public class StringCalendarAttribute : ICalendarAttribute
     {
-        const int MAX_LENGTH = 2048;
+        public const int MAX_LENGTH = 2048;
         private long _mId = -1;
         private String _Name;
         public String Name { get { return _Name; } set { _Name = value.Trim(); } }

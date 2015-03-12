@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Threading;
 using Lab5.App_Code;
+using System.IO;
 public partial class EventBuilder : System.Web.UI.Page
 {
     CalendarEvent NewEvent;
@@ -121,4 +122,12 @@ public partial class EventBuilder : System.Web.UI.Page
         args.IsValid = i.validate(args.Value,out errmsg );
         (source as CustomValidator).ErrorMessage = errmsg;
     }
+
+    protected void AttributeIdValidator_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        int length = args.Value.Trim().Length;
+        args.IsValid = (length > 0 && length < StringCalendarAttribute.MAX_LENGTH);
+    }
+
+
 }

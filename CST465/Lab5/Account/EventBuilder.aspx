@@ -13,7 +13,12 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="heading" runat="server">
     <h1>Event Builder</h1>
-    <script>
+    <asp:ScriptManagerProxy runat="server">
+        <Scripts>
+            <asp:ScriptReference Path="~/JS/AttributeValidation.js" />
+        </Scripts>
+    </asp:ScriptManagerProxy>
+    <script type="text/javascript">
         $(document).ready(function()
         {
             var prm = Sys.WebForms.PageRequestManager.getInstance();
@@ -26,31 +31,14 @@
 
         }
 
-        function attributeDataValidation (source, args)
+        function attributeDataClientValidation(source, args)
         {
-            var tmp = $("#<%= uxDataType.ClientID %>")[0].selectedIndex;
-            switch(tmp)
-            {
-                case 0:
-                    console.log("String Validation.");
-                    stringAttributeValidation(source, args);
-                    break;
-                case 1:
-                    console.log("Integer Validation.");
-                    integerAttributeValidation(source, args);
-                    break;
-                case 2:
-                    console.log("Decimal Validation.");
-                    decimalAttributeValidation(source, args);
-                    break;
-                case 3:
-                    console.log("DateTime Validation.");
-                    DateValidation(source, args);
-                default:
-                    console.log("unable to validate data.");
-                    break;
-            }
+            var type = $("#<%= uxDataType.ClientID %>").val();
+            $.getScript("../JS/AttributeValidation.js", function () {
+                attributeDataValidation(source, args, type);
+            });
         }
+        
     </script>
 </asp:Content>
     
@@ -69,20 +57,12 @@
                     </div>
                 </ProgressTemplate>
             </asp:UpdateProgress>
-            <asp:ScriptManagerProxy runat="server">
-                <Scripts>
-                    <asp:ScriptReference Path="~/JS/jquery-2.1.1.min.js" />
-                    <asp:ScriptReference Path="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" />
-                    <asp:ScriptReference Path="//code.jquery.com/ui/1.10.4/jquery-ui.js" />
-                    <asp:ScriptReference Path="~/JS/Calendar.js" />
-                </Scripts>
-            </asp:ScriptManagerProxy>
             <div id="divEventBuilder">
                 
                 <asp:Label ID="lblEventName" AssociatedControlID="uxEventName" Text="Event Name" runat="server"></asp:Label>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Text="*" EnableClientScript="true" ControlToValidate="uxEventName" CssClass="dateValidation" ValidationGroup="EventScheduling" ErrorMessage="The Event is Required to have a unique name for the time scheduled." runat="server"></asp:RequiredFieldValidator>
                 <asp:CustomValidator ID="CustomEventNameValidator" CssClass="dateValidation" Display="Dynamic" OnServerValidate="ExistingEvent_ServerValidate"
-                            ClientValidationFunction="eventNameValidation" ValidationGroup="EventScheduling" ControlToValidate="uxEventName" 
+                            ClientValidationFunction="EventNameValidation" ValidationGroup="EventScheduling" ControlToValidate="uxEventName" 
                             Text="*" EnableClientScript="true" runat="server"></asp:CustomValidator>
                 <asp:TextBox ID="uxEventName" CausesValidation="true" TextMode="SingleLine" runat="server"></asp:TextBox>
                 <asp:Label ID="lblScheduleDate" AssociatedControlID="uxScheduleDate" Text="Schedule Date" runat="server"></asp:Label>
@@ -132,7 +112,7 @@
                         </asp:GridView>
                         <div class="attributeComp">
                             <asp:Label ID="lblAttributeId" Text="Attribute Alias" AssociatedControlID="uxAttributeId" runat="server"></asp:Label>
-                            <asp:CustomValidator CssClass="dateValidation" Display="Dynamic" ValidateEmptyText="true" OnServerValidate="ExistingEvent_ServerValidate"
+                            <asp:CustomValidator ID="AttributeIdValidator" CssClass="dateValidation" Display="Dynamic" ValidateEmptyText="true" OnServerValidate="AttributeIdValidator_ServerValidate"
                                 ClientValidationFunction="attributeNameValidation" ValidationGroup="AttributeData" ControlToValidate="uxAttributeId" 
                                 Text="*" EnableClientScript="true" runat="server"></asp:CustomValidator>
                             <br />
@@ -151,7 +131,7 @@
                         <div class="attributeComp">
                             <asp:Label ID="lblData" AssociatedControlID="uxData" Text="Attribute Data" runat="server"></asp:Label>
                             <asp:CustomValidator ID="uxData_CustomValidator" CssClass="dateValidation" Display="Dynamic"  ValidateEmptyText="true" OnServerValidate="uxData_CustomValidator_ServerValidate"
-                                ClientValidationFunction="attributeDataValidation" ValidationGroup="AttributeData" ControlToValidate="uxData" 
+                                ClientValidationFunction="attributeDataClientValidation" ValidationGroup="AttributeData" ControlToValidate="uxData" 
                                 Text="*" EnableClientScript="true" ErrorMessage="Error Message" runat="server"></asp:CustomValidator>
                         
                             <br />
