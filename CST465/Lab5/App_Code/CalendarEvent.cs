@@ -165,7 +165,7 @@ public class CalendarEvent
         try
         {
             command.Parameters.AddWithValue("EventId", (ID < 0)?DBNull.Value:(Object)ID);
-            command.Parameters.AddWithValue("UserId", _UserId);
+            command.Parameters.AddWithValue("UserId", (Guid)_UserId);
             command.Parameters.AddWithValue("DateScheduled", _ScheduleDate.ToString("yyyy-MM-ddTHH:mm:ss"));
             command.Parameters["DateScheduled"].DbType = DbType.DateTime;
             command.Parameters.AddWithValue("EventDescription", _Desc);
@@ -184,7 +184,7 @@ public class CalendarEvent
         }
         catch (Exception e)
         {
-
+            throw e;
         }
         finally
         {

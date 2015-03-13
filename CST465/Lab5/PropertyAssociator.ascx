@@ -8,42 +8,6 @@
         (source as CustomValidator).ErrorMessage = msgOut;
     }
 </script>
-<script>
-    function editAttributeDataValidation(source, args) {
-        var selector = $(source).closest('tr').find('select')[0]
-        if (selector !== undefined) {
-            var type = selector.selectedIndex;
-            console.log(type);
-            TypeValidation(type, source, args);
-        }
-        return args.IsValid;
-    }
-    function TypeValidation(type, source, args)
-    {
-        switch(type)
-        {
-            case 0:
-                console.log('String Validation.');
-                stringAttributeValidation(source, args);
-                break;
-            case 1:
-                console.log('Integer Validation.');
-                integerAttributeValidation(source, args);
-                break;
-            case 2:
-                console.log('Decimal Validation.');
-                decimalAttributeValidation(source, args);
-                break;
-            case 3:
-                console.log('DateTime Validation.');
-                eventDateValidation(source, args);
-            default:
-                console.log('unable to validate data.');
-                break;
-        }
-        return args.IsValid;
-    }
-</script>
 <div>
     <asp:ScriptManagerProxy runat="server"></asp:ScriptManagerProxy>
     <asp:UpdatePanel ID="AttributesUpdatePanel" EnableViewState="true" runat="server">

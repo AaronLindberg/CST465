@@ -15,13 +15,14 @@ function attributeDataValidation(source, args, type) {
             break;
         case "DateTime":
             console.log("DateTime Validation.");
-            DateValidation(source, args);
+            dateValidation(source, args);
+            break;
         default:
-            console.log("unable to validate data.");
+            console.log("unable to validate data \"" + args.Value + "\"." + type);
             args.IsValid = false;
             break;
     }
-    console.log(args.IsValid?"Passed":"Fail")
+    return args.IsValid;
 }
 
 var StringAttributeMaxLength = 2048;
@@ -96,7 +97,7 @@ function isNumber(i) {
     return !isNaN(tmp) && tmp == i;
 }
 
-function DateValidation(source, args) {
+function dateValidation(source, args) {
     args.IsValid = true;
     var regex = new RegExp(/^\d{1,2}\/\d{1,2}\/\d{4} \d{1,2}:\d{1,2}:\d{1,2} [aApP]{1}[mM]{1}$/);
     var input = args.Value.trim();
@@ -104,7 +105,7 @@ function DateValidation(source, args) {
         args.IsValid = false;
         source.errormessage = 'The date is incorrectly formatted, required to be in "M/d/yyyy h:m:s tt" format.';
     } else {
-        console.log("Datetime validation regex pass")
+        //console.log("Datetime validation regex pass")
         var tmp;
         var timeParts;
         var dateParts = input.split('/');
@@ -158,6 +159,7 @@ function DateValidation(source, args) {
                             }
                         }
                     }//validate Time Component
+                    console.log("Date Time Parse " +args.IsValid);
                     var timeErrorMsg = 'The time component is to have ';
                     if (!args.IsValid) {
                         source.errormessage = dateErrorMsg + '. ';
@@ -222,7 +224,6 @@ function DateValidation(source, args) {
                     }
                     if (timeErrorOccurred) {
                         args.IsValid = false;
-
                         source.errormessage += timeErrorMsg + '.';
 
                     }
@@ -231,4 +232,5 @@ function DateValidation(source, args) {
 
         }
     }
+    return args.IsValid;
 }

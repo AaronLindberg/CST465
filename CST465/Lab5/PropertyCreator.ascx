@@ -9,7 +9,7 @@
 </script>
 <script>
     function editAttributeDataValidation(source, args) {       
-        var type = $(source).closest('tr').find('select')[0].val();
+        var type = $(source).closest('tr').find('select').val();
         console.log(type);
         attributeDataValidation(source, args, type);
         return args.IsValid;
@@ -72,12 +72,14 @@
                                 <div><%# Eval("Type") %></div>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList ID="uxEditAttrType" ValidationGroup="UpdatePropAttribute" EnableViewState="true" runat="server">
-                                    <asp:ListItem Text="String"     Value="String"></asp:ListItem>
-                                    <asp:ListItem Text="Integer"    Value="Integer"></asp:ListItem>
-                                    <asp:ListItem Text="Decimal"    Value="Decimal"></asp:ListItem>
-                                    <asp:ListItem Text="DateTime"   Value="DateTime"></asp:ListItem>
-                                </asp:DropDownList>
+                                <div>
+                                    <asp:DropDownList ID="uxEditAttrType" ValidationGroup="UpdatePropAttribute" EnableViewState="true" runat="server">
+                                        <asp:ListItem Text="String"     Value="String"></asp:ListItem>
+                                        <asp:ListItem Text="Integer"    Value="Integer"></asp:ListItem>
+                                        <asp:ListItem Text="Decimal"    Value="Decimal"></asp:ListItem>
+                                        <asp:ListItem Text="DateTime"   Value="DateTime"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
                             </EditItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField>
@@ -89,7 +91,8 @@
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <div><asp:Textbox ID="uxEditAttrValue" Text='<%# Bind("Value") %>' runat="server" ValidationGroup="UpdatePropAttribute" CausesValidation="true" EnableViewState="true" ></asp:Textbox>
-                                    <asp:CustomValidator ControlToValidate="uxEditAttrValue" ClientValidationFunction="clientAttributeDataValidation" ValidateEmptyText="true" EnableClientScript="true" Text="*" ValidationGroup="UpdatePropAttribute" runat ="server"></asp:CustomValidator>
+                                    <asp:CustomValidator ControlToValidate="uxEditAttrValue" ClientValidationFunction="editAttributeDataValidation" ValidateEmptyText="true"  EnableClientScript="true" EnableViewState="true" Text="*" ValidationGroup="UpdatePropAttribute" runat ="server"></asp:CustomValidator>
+                                    <asp:ValidationSummary ValidationGroup="UpdatePropAttribute" HeaderText="Fix errors before updating by" runat="server" />
                                 </div>
                             </EditItemTemplate>
                         </asp:TemplateField>
@@ -123,8 +126,9 @@
                     <asp:TextBox ID="uxNewAttrData" TextMode="MultiLine" ValidationGroup="AddNewPropAttribute" runat="server"></asp:TextBox>
                     <asp:CustomValidator ControlToValidate="uxNewAttrData" ClientValidationFunction="clientAttributeDataValidation" ValidateEmptyText="true" EnableClientScript="true" Text="*" ValidationGroup="AddNewPropAttribute" runat ="server"></asp:CustomValidator>
                     <asp:Button ID="uxAddAttribute" Text="Add Attribute" ValidationGroup="AddNewPropAttribute" OnClick="uxAddAttribute_Click" CausesValidation="true" UseSubmitBehavior="true" runat="server"/>
+                    <asp:ValidationSummary ID="ValidationSummary1" ValidationGroup="AddNewPropAttribute" HeaderText="Errors need fixed before Inserting an item" EnableClientScript="true" EnableViewState="true" runat="server" />
                 </fieldset>
-                <asp:Button ID="uxCreateProperty" Text='<%# Boolean.Parse(uxToggleEditCreate.Attributes["IsEditMode"])?"Update":"Create"%>' ValidationGroup="PropertyName" UseSubmitBehavior="true" OnClick="uxCreateProperty_Click" CausesValidation="true" runat="server" />
+                <asp:Button ID="uxCreateProperty" Text='<%# IsPropertyEditor?"Update":"Create"%>' ValidationGroup="PropertyName" UseSubmitBehavior="true" OnClick="uxCreateProperty_Click" CausesValidation="true" runat="server" />
                 <asp:Button ID="uxDeleteProperty" Text="Delete" Visible="<%# IsPropertyEditor %>" CausesValidation="false" UseSubmitBehavior="true" OnClick="uxDeleteProperty_Click" runat="server" />
             </fieldset>
         </ContentTemplate>

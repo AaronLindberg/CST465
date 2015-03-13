@@ -30,6 +30,12 @@
         {
 
         }
+        function eventNameClientValidation(source, args)
+        {
+            $.getScript("../JS/AttributeValidation.js", function () {
+                eventNameValidation(source, args);
+            });
+        }
 
         function attributeDataClientValidation(source, args)
         {
@@ -62,7 +68,7 @@
                 <asp:Label ID="lblEventName" AssociatedControlID="uxEventName" Text="Event Name" runat="server"></asp:Label>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Text="*" EnableClientScript="true" ControlToValidate="uxEventName" CssClass="dateValidation" ValidationGroup="EventScheduling" ErrorMessage="The Event is Required to have a unique name for the time scheduled." runat="server"></asp:RequiredFieldValidator>
                 <asp:CustomValidator ID="CustomEventNameValidator" CssClass="dateValidation" Display="Dynamic" OnServerValidate="ExistingEvent_ServerValidate"
-                            ClientValidationFunction="EventNameValidation" ValidationGroup="EventScheduling" ControlToValidate="uxEventName" 
+                            ClientValidationFunction="eventNameClientValidation" ValidationGroup="EventScheduling" ControlToValidate="uxEventName" 
                             Text="*" EnableClientScript="true" runat="server"></asp:CustomValidator>
                 <asp:TextBox ID="uxEventName" CausesValidation="true" TextMode="SingleLine" runat="server"></asp:TextBox>
                 <asp:Label ID="lblScheduleDate" AssociatedControlID="uxScheduleDate" Text="Schedule Date" runat="server"></asp:Label>

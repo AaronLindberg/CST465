@@ -154,13 +154,7 @@ namespace Lab5.App_Code
                 {
                     connection.Close();
                 }
-                //need to remove attributes that no longer exist
                 
-                //?Yeah?
-                
-                //Do that ^^
-                //get old Attributes
-                //foreach exsisting attribute check if it still exsists
                 CalendarProperty old =  new CalendarProperty();
                 old.loadProperty(PropertyId);
                 foreach (IPropertyAttribute ipa in old.Attributes)

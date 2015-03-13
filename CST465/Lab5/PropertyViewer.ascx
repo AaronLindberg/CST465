@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="~/PropertyViewer.ascx.cs" Inherits="Lab5.PropertyViewer" %>
 <script>
-    function editAttributeDataValidation(source, args) {
+    function viewAttributeDataValidation(source, args) {
         //look for select
         var type;
         var divider = $(source).closest('tr').find('span').find('div');
@@ -22,7 +22,9 @@
 </script>
 <div>
     <asp:ScriptManagerProxy runat="server">
-
+        <Scripts>
+            <asp:ScriptReference Path="~/JS/AttributeValidation.js" />
+        </Scripts>
     </asp:ScriptManagerProxy>
     <fieldset>
         
@@ -81,7 +83,7 @@
                     </ItemTemplate>
                     <EditItemTemplate>
                         <div id="attributeValueType"><asp:Textbox ID="uxEditAttrValue" Text='<%# Bind("Value") %>' runat="server" ValidationGroup="PropAttribute" CausesValidation="true" EnableViewState="true" ></asp:Textbox>
-                            <asp:CustomValidator ControlToValidate="uxEditAttrValue" ClientValidationFunction="editAttributeDataValidation" ValidateEmptyText="true" EnableClientScript="true" Text="*" ValidationGroup="PropAttribute" runat ="server"></asp:CustomValidator>
+                            <asp:CustomValidator ControlToValidate="uxEditAttrValue" ClientValidationFunction="viewAttributeDataValidation" ValidateEmptyText="true" EnableClientScript="true" Text="*" ValidationGroup="PropAttribute" runat ="server"></asp:CustomValidator>
                         </div>
                     </EditItemTemplate>
                 </asp:TemplateField>
