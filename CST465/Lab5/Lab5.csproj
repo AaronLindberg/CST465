@@ -70,9 +70,7 @@
     <Content Include="Admin\ManageUsers.aspx" />
     <Content Include="App_Data\load.gif" />
     <CodeAnalysisDictionary Include="JS\Calendar.js" />
-    <None Include="JS\AttributeValidation.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="JS\AttributeValidation.js" />
     <CodeAnalysisDictionary Include="JS\jquery-2.1.1.min.js" />
     <Content Include="MasterPage.master" />
     <None Include="Web.Debug.config">

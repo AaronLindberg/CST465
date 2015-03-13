@@ -18,8 +18,10 @@ function attributeDataValidation(source, args, type) {
             DateValidation(source, args);
         default:
             console.log("unable to validate data.");
+            args.IsValid = false;
             break;
     }
+    console.log(args.IsValid?"Passed":"Fail")
 }
 
 var StringAttributeMaxLength = 2048;

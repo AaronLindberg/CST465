@@ -33,7 +33,7 @@
     <asp:UpdatePanel ID="AttributesUpdatePanel" runat="server">
         <ContentTemplate>
             <fieldset>
-                <legend>Property Manager <asp:Button ID="uxToggleEditCreate" OnInit="uxToggleEditCreate_Init" CausesValidation="false" OnClick="uxToggleEditCreate_Click" Text='<%# Boolean.Parse(uxToggleEditCreate.Attributes["IsEditMode"])? "Add New":"Edit Existing" %>' runat="server"/></legend>
+                <legend>Property Manager <asp:Button ID="uxToggleEditCreate" OnInit="uxToggleEditCreate_Init" CausesValidation="false" OnClick="uxToggleEditCreate_Click" EnableViewState="true" Text='<%# IsPropertyEditor? "Add New":"Edit Existing" %>' runat="server"/></legend>
                 <span id="creatorPropertyName" visible='<%# !Boolean.Parse(uxToggleEditCreate.Attributes["IsEditMode"])%>' runat="server">
                     <asp:Label Text="Property Name" AssociatedControlID="uxPropertyName" runat="server"></asp:Label>
                     <asp:TextBox Text="" ID="uxPropertyName" ValidationGroup="PropertyName" runat="server"></asp:TextBox>
@@ -47,7 +47,7 @@
                 <asp:CustomValidator ID="PropertyNameCustomValidator" CssClass="validation" Display="Static" ControlToValidate="uxPropertyName" OnServerValidate="PropertyCustomValidator_ServerValidate" Text="*" ValidationGroup="PropertyName" runat="server"></asp:CustomValidator>
                 
                 <asp:HiddenField ID="hidden_RowIndex" runat="server" Value="0" />
-                <asp:GridView ID="uxAttribute" DataSource='<%# Boolean.Parse(uxToggleEditCreate.Attributes["IsEditMode"])?CurrentProperty.Attributes:NewProperty.Attributes%>' AutoGenerateColumns="false" EnablePersistedSelection="true" EnableViewState="true" OnRowEditing="uxAttribute_RowEditing" OnRowCancelingEdit="uxAttribute_RowCancelingEdit" OnRowDeleting="uxAttribute_RowDeleting" OnRowUpdating="uxAttribute_RowUpdating" DataKeyNames="Name,Type,Value" runat="server">
+                <asp:GridView ID="uxAttribute"  AutoGenerateColumns="false" DataSource='<%# IsPropertyEditor?CurrentProperty.Attributes:NewProperty.Attributes %>' EnablePersistedSelection="true" EnableViewState="true" OnRowEditing="uxAttribute_RowEditing" OnRowCancelingEdit="uxAttribute_RowCancelingEdit" OnRowDeleting="uxAttribute_RowDeleting" OnRowUpdating="uxAttribute_RowUpdating" DataKeyNames="Name,Type,Value" runat="server">
                     <Columns>
                         <asp:TemplateField>
                             <HeaderTemplate>
@@ -121,12 +121,11 @@
                     </asp:DropDownList>
                     <asp:Label AssociatedControlID="uxNewAttrData" Text="Attribute Data" runat="server"></asp:Label>
                     <asp:TextBox ID="uxNewAttrData" TextMode="MultiLine" ValidationGroup="AddNewPropAttribute" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator Text="*" ControlToValidate="uxNewAttrData" EnableClientScript="true" ValidationGroup="AddNewPropAttribute" runat="server"></asp:RequiredFieldValidator>
                     <asp:CustomValidator ControlToValidate="uxNewAttrData" ClientValidationFunction="clientAttributeDataValidation" ValidateEmptyText="true" EnableClientScript="true" Text="*" ValidationGroup="AddNewPropAttribute" runat ="server"></asp:CustomValidator>
-                    <asp:Button ID="uxAddAttribute" Text="Add Attribute" ValidationGroup="AddNewPropAttribute" OnClick="uxAddAttribute_Click" CausesValidation="true" runat="server"/>
+                    <asp:Button ID="uxAddAttribute" Text="Add Attribute" ValidationGroup="AddNewPropAttribute" OnClick="uxAddAttribute_Click" CausesValidation="true" UseSubmitBehavior="true" runat="server"/>
                 </fieldset>
                 <asp:Button ID="uxCreateProperty" Text='<%# Boolean.Parse(uxToggleEditCreate.Attributes["IsEditMode"])?"Update":"Create"%>' ValidationGroup="PropertyName" UseSubmitBehavior="true" OnClick="uxCreateProperty_Click" CausesValidation="true" runat="server" />
-                <asp:Button ID="uxDeleteProperty" Text="Delete" Visible='<%# Boolean.Parse(uxToggleEditCreate.Attributes["IsEditMode"])%>' CausesValidation="false" UseSubmitBehavior="true" OnClick="uxDeleteProperty_Click" runat="server" />
+                <asp:Button ID="uxDeleteProperty" Text="Delete" Visible="<%# IsPropertyEditor %>" CausesValidation="false" UseSubmitBehavior="true" OnClick="uxDeleteProperty_Click" runat="server" />
             </fieldset>
         </ContentTemplate>
     </asp:UpdatePanel>

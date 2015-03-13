@@ -107,9 +107,21 @@ namespace Lab5
         ArrayList _availableProperties = null;
         public override void DataBind()
         {
-            int i = uxExistingPropertyName.SelectedIndex;
-            base.DataBind();
-            uxExistingPropertyName.SelectedIndex = i >= 0 ? (i < uxExistingPropertyName.Items.Count ? i : uxExistingPropertyName.Items.Count - 1) : 0;
+            if (AvailableProperties.Count > 0)
+            {
+                uxExistingPropertyName.DataSource = AvailableProperties;
+                uxExistingPropertyName.DataBind();
+                uxToggleEditCreate.Enabled = true;
+                int i = uxExistingPropertyName.SelectedIndex;
+                base.DataBind();
+                uxExistingPropertyName.SelectedIndex = i >= 0 ? (i < uxExistingPropertyName.Items.Count ? i : uxExistingPropertyName.Items.Count - 1) : 0;
+            }
+            else
+            {
+                uxToggleEditCreate.Attributes["IsEditMode"] = false.ToString();
+                uxToggleEditCreate.Enabled = false;
+                base.DataBind();
+            }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -118,6 +130,13 @@ namespace Lab5
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
+            
+            EnableViewState = true;
+
+        }
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
             if (Page.IsPostBack)
             {
 
@@ -132,12 +151,6 @@ namespace Lab5
                 DataBind();
 
             }
-            EnableViewState = true;
-
-        }
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
         }
         protected void uxCreateProperty_Click(object sender, EventArgs e)
         {
@@ -151,6 +164,7 @@ namespace Lab5
                 _newProperty.CreateProperty();
             }
             UpdateAvailableProperties();
+            DataBind();
         }
         protected void uxAddAttribute_Click(object sender, EventArgs e)
         {
@@ -285,8 +299,11 @@ namespace Lab5
 
         protected void uxToggleEditCreate_Click(object sender, EventArgs e)
         {
-            IsPropertyEditor = !IsPropertyEditor;
-            LoadSelectedExistingProperty();
+            if (AvailableProperties.Count > 0)
+            {
+                IsPropertyEditor = !IsPropertyEditor;
+                LoadSelectedExistingProperty();
+            }
         }
 
         protected void uxToggleEditCreate_Init(object sender, EventArgs e)
@@ -312,24 +329,20 @@ namespace Lab5
         }
         void LoadSelectedExistingProperty()
         {
-            if (AvailableProperties.Count > 0 && uxExistingPropertyName.SelectedIndex < _availableProperties.Count && uxExistingPropertyName.SelectedIndex >= 0)
-            {
-                if (CurrentUser != null)
-                {
-                    CurrentProperty = (CalendarProperty)AvailableProperties[uxExistingPropertyName.SelectedIndex];
-                }
-                if (AvailableProperties.Count == 0)
-                {
-                    IsPropertyEditor = false;
-                    uxToggleEditCreate.Enabled = false;
-                }
-                else
-                {
-                    uxToggleEditCreate.Enabled = true;
-                    _currentProperty.loadProperty(_currentProperty.PropertyId);
-                    CurrentProperty = _currentProperty;
-                }
+            int index = uxExistingPropertyName.SelectedIndex;
 
+            if (CurrentUser != null && AvailableProperties.Count > 0)
+            {
+                uxExistingPropertyName.DataSource = AvailableProperties;
+                uxExistingPropertyName.DataBind();
+                CurrentProperty = (CalendarProperty)AvailableProperties[uxExistingPropertyName.SelectedIndex];
+                uxToggleEditCreate.Enabled = true;
+                _currentProperty.loadProperty(_currentProperty.PropertyId);
+                CurrentProperty = _currentProperty;
+            }else
+            {
+                IsPropertyEditor = false;
+                uxToggleEditCreate.Enabled = false;
             }
             DataBind();
         }
